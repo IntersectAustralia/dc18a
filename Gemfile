@@ -53,6 +53,7 @@ group :test do
 end
 
 gem "pg"
+gem "colorize"
 gem "haml"
 gem "haml-rails"
 gem "bootstrap-sass"

@@ -1,7 +1,7 @@
 # Your HTTP server, Apache/etc
-role :web, 'staging-server'
+role :web, 'dc18a-staging'
 # This may be the same as your Web server
-role :app, 'staging-server'
+role :app, 'dc18a-staging'
 # This is where Rails migrations will run
-role :db,  'staging-server', :primary => true
+role :db,  'dc18a-staging', :primary => true
 
