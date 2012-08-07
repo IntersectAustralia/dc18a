@@ -18,6 +18,10 @@ module ApplicationHelper
     render_field_content(label, content)
   end
 
+  def administration_dropdown_menu
+    "Administration<b class=\"caret\"></b>".html_safe
+  end
+
   def user_dropdown_menu
     "#{h current_user.full_name}<b class=\"caret\"></b>".html_safe
   end  
