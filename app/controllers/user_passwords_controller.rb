@@ -6,7 +6,7 @@ class UserPasswordsController < Devise::PasswordsController
     self.resource = resource_class.send_reset_password_instructions(params[resource_name])
 
     # the only error we show is the empty email one
-    if params[resource_name][:email].empty?
+    if params[resource_name][:user_id].empty?
       respond_with resource
     else
       set_flash_message(:notice, :send_paranoid_instructions) if is_navigational_format?

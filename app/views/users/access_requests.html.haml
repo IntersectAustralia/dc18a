@@ -1,12 +1,14 @@
 - title 'Access Requests'
 %table#access_requests.table.table-bordered.table-striped.table-condensed
   %tr
-    %th First name
-    %th Last name
+    %th Staff/Student ID
+    %th First Name
+    %th Last Name
     %th Email
     %th Actions
   - @users.each do |user|
     %tr{:class => cycle('field_bg', 'field_nobg')}
+      %td= user.user_id
       %td= user.first_name
       %td= user.last_name
       %td= user.email

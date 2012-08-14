@@ -28,10 +28,10 @@ module NavigationHelpers
       edit_user_registration_path
 
     when /^the user details page for (.*)$/
-      user_path(User.where(:email => $1).first)
+      user_path(User.where(:user_id => $1).first)
 
     when /^the edit role page for (.*)$/
-      edit_role_user_path(User.where(:email => $1).first)
+      edit_role_user_path(User.where(:user_id => $1).first)
 
     when /^the reset password page$/
       edit_user_password_path

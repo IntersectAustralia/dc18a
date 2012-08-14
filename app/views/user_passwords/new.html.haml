@@ -2,6 +2,6 @@
 
 = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post}) do |f|
   = render "shared/error_messages", :target => @user
-  = f.input :email
+  = f.input :user_id, :label => "Staff/Student ID"
   .form-actions
     = f.submit "Send me reset password instructions", :class => "btn btn-primary"

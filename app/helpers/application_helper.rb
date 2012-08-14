@@ -29,7 +29,7 @@ module ApplicationHelper
   private
   def render_field_content(label, content)
     div_class = cycle("field_bg","field_nobg")
-    div_id = label.tr(" ,", "_").downcase
+    div_id = label.tr(" ,/", "_").downcase
     html = "<div class='#{div_class} inlineblock' id='display_#{div_id}'>"
     html << '<span class="label_view">'
     html << (h label)

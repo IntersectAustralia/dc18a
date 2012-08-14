@@ -7,39 +7,39 @@ describe User do
 
   describe "Named Scopes" do
     describe "Users Pending Approval Scope" do
-      it "should return users that are unapproved ordered by email address" do
-        u1 = FactoryGirl.create(:user, :status => 'U', :email => "fasdf1@intersect.org.au")
+      it "should return users that are unapproved ordered by staff/student id" do
+        u1 = FactoryGirl.create(:user, :user_id => "userid4fasdfl", :status => 'U')
         u2 = FactoryGirl.create(:user, :status => 'A')
-        u3 = FactoryGirl.create(:user, :status => 'U', :email => "asdf1@intersect.org.au")
+        u3 = FactoryGirl.create(:user, :user_id => "userid4asdfl", :status => 'U')
         u2 = FactoryGirl.create(:user, :status => 'R')
         User.pending_approval.should eq([u3,u1])
       end
     end
     describe "Approved Users Scope" do
-      it "should return users that are approved ordered by email address" do
-        u1 = FactoryGirl.create(:user, :status => 'A', :email => "fasdf1@intersect.org.au")
+      it "should return users that are approved ordered by staff/student id" do
+        u1 = FactoryGirl.create(:user, :user_id => "userid4fasdfl", :status => 'A')
         u2 = FactoryGirl.create(:user, :status => 'U')
-        u3 = FactoryGirl.create(:user, :status => 'A', :email => "asdf1@intersect.org.au")
+        u3 = FactoryGirl.create(:user, :user_id => "userid4asdfl", :status => 'A')
         u4 = FactoryGirl.create(:user, :status => 'R')
         u5 = FactoryGirl.create(:user, :status => 'D')
         User.approved.should eq([u3,u1])
       end
     end
     describe "Deactivated or Approved Users Scope" do
-      it "should return users that are approved ordered by email address" do
-        u1 = FactoryGirl.create(:user, :status => 'A', :email => "fasdf1@intersect.org.au")
+      it "should return users that are approved ordered by staff/student id" do
+        u1 = FactoryGirl.create(:user, :user_id => "userid4fasdfl", :status => 'A')
         u2 = FactoryGirl.create(:user, :status => 'U')
-        u3 = FactoryGirl.create(:user, :status => 'A', :email => "asdf1@intersect.org.au")
+        u3 = FactoryGirl.create(:user, :user_id => "userid4asdfl", :status => 'A')
         u4 = FactoryGirl.create(:user, :status => 'R')
-        u5 = FactoryGirl.create(:user, :status => 'D', :email => "zz@inter.org")
-        User.deactivated_or_approved.should eq([u3,u1, u5])
+        u5 = FactoryGirl.create(:user, :user_id => "userid4zz", :status => 'D')
+        User.deactivated_or_approved.should eq([u3,u1,u5])
       end
     end
     describe "Approved Administrators Scope" do
-      it "should return users that are approved ordered by email address" do
+      it "should return users that are approved ordered by staff/student id" do
         super_role = FactoryGirl.create(:role, :name => "Administrator")
         other_role = FactoryGirl.create(:role, :name => "Other")
-        u1 = FactoryGirl.create(:user, :status => 'A', :role => super_role, :email => "fasdf1@intersect.org.au")
+        u1 = FactoryGirl.create(:user, :user_id => "userid4fasdfl", :status => 'A', :role => super_role)
         u2 = FactoryGirl.create(:user, :status => 'A', :role => other_role)
         u3 = FactoryGirl.create(:user, :status => 'U', :role => super_role)
         u4 = FactoryGirl.create(:user, :status => 'R', :role => super_role)
@@ -192,6 +192,7 @@ describe User do
   end
 
   describe "Validations" do
+    it { should validate_presence_of :user_id }
     it { should validate_presence_of :first_name }
     it { should validate_presence_of :last_name }
     it { should validate_presence_of :email }
@@ -262,6 +263,10 @@ describe User do
       supers = User.get_superuser_emails
       supers.should eq(["a@intersect.org.au", "c@intersect.org.au"])
     end
+  end
+
+  describe "Should have user_id" do
+    it { should respond_to(:user_id) }
   end
   
 end

@@ -5,7 +5,7 @@ end
 
 Then /^I should see field "([^"]*)" with value "([^"]*)"$/ do |field, value|
   # this assumes you're using the helper to render the field which sets the div id based on the field name
-  div_id = field.tr(" ,", "_").downcase
+  div_id = field.tr(" ,/", "_").downcase
   # use a quoted selector so it doesn't pass through the selectors.rb logic
   div_scope = "\"div#display_#{div_id}\""
   with_scope(div_scope) do

@@ -35,12 +35,12 @@ class UsersController < ApplicationController
   def reject
     @user.reject_access_request
     @user.destroy
-    redirect_to(access_requests_users_path, :notice => "The access request for #{@user.email} was rejected.")
+    redirect_to(access_requests_users_path, :notice => "The access request for #{@user.user_id} was rejected.")
   end
 
   def reject_as_spam
     @user.reject_access_request
-    redirect_to(access_requests_users_path, :notice => "The access request for #{@user.email} was rejected and this email address will be permanently blocked.")
+    redirect_to(access_requests_users_path, :notice => "The access request for #{@user.user_id} was rejected and this staff/student id will be permanently blocked.")
   end
 
   def edit_role
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       if !@user.check_number_of_superusers(params[:id], current_user.id)
         redirect_to(edit_role_user_path(@user), :alert => "Only one superuser exists. You cannot change this role.")
       elsif @user.save
-        redirect_to(@user, :notice => "The role for #{@user.email} was successfully updated.")
+        redirect_to(@user, :notice => "The role for #{@user.user_id} was successfully updated.")
       end
     end
   end
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
       @user.save
       @user.approve_access_request
 
-      redirect_to(access_requests_users_path, :notice => "The access request for #{@user.email} was approved.")
+      redirect_to(access_requests_users_path, :notice => "The access request for #{@user.user_id} was approved.")
     else
       redirect_to(edit_approval_user_path(@user), :alert => "Please select a role for the user.")
     end

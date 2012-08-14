@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name
+  attr_accessible :user_id, :email, :password, :password_confirmation, :first_name, :last_name
 
+  validates_presence_of :user_id
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
@@ -22,9 +23,9 @@ class User < ActiveRecord::Base
 
   before_validation :initialize_status
 
-  scope :pending_approval, where(:status => 'U').order(:email)
-  scope :approved, where(:status => 'A').order(:email)
-  scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:email)
+  scope :pending_approval, where(:status => 'U').order(:user_id)
+  scope :approved, where(:status => 'A').order(:user_id)
+  scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:user_id)
   scope :approved_superusers, joins(:role).merge(User.approved).merge(Role.superuser_roles)
 
   # Override Devise active for authentication method so that users must be approved before being allowed to log in

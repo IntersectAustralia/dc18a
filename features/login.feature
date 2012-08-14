@@ -5,20 +5,20 @@ Feature: Logging In
 
   Background:
     Given I have roles
-      | name       |
-      | Administrator  |
-      | Researcher |
+      | name            |
+      | Administrator   |
+      | Researcher      |
     And I have permissions
-      | entity | action          | roles     |
-      | User   | read            | Administrator |
-      | User   | admin           | Administrator |
-      | User   | access_requests | Administrator |
-    And I have a user "georgina@intersect.org.au"
-    And "georgina@intersect.org.au" has role "Administrator"
+      | entity | action          | roles          |
+      | User   | read            | Administrator  |
+      | User   | admin           | Administrator  |
+      | User   | access_requests | Administrator  |
+    And I have a user "userid4seanlin"
+    And "userid4seanlin" has role "Administrator"
 
   Scenario: Successful login
     Given I am on the login page
-    When I fill in "Email" with "georgina@intersect.org.au"
+    When I fill in "Staff/Student ID" with "userid4seanlin"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"
     Then I should see "Logged in successfully."
@@ -26,7 +26,7 @@ Feature: Logging In
 
   Scenario: Successful login from home page
     Given I am on the home page
-    When I fill in "Email" with "georgina@intersect.org.au"
+    When I fill in "Staff/Student ID" with "userid4seanlin"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"
     Then I should see "Logged in successfully."
@@ -39,7 +39,7 @@ Feature: Logging In
 
   Scenario: Should be redirected to requested page after logging in following a redirect from a secure page
     Given I am on the list users page
-    When I fill in "Email" with "georgina@intersect.org.au"
+    When I fill in "Staff/Student ID" with "userid4seanlin"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"
     Then I should see "Logged in successfully."
@@ -47,46 +47,46 @@ Feature: Logging In
 
   Scenario Outline: Failed logins due to missing/invalid details
     Given I am on the login page
-    When I fill in "Email" with "<email>"
+    When I fill in "Staff/Student ID" with "<user_id>"
     And I fill in "Password" with "<password>"
     And I press "Log in"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid staff/student id or password."
     And I should be on the login page
   Examples:
-    | email                     | password         | explanation    |
-    |                           |                  | nothing        |
-    |                           | Pas$w0rd         | missing email  |
-    | georgina@intersect.org.au |                  | missing password |
-    | fred@intersect.org.au     | Pas$w0rd         | invalid email  |
-    | georgina@intersect.org.au | blah             | wrong password |
+    | user_id                   | password         | explanation                |
+    |                           |                  | nothing                    |
+    |                           | Pas$w0rd         | missing Staff/Student ID   |
+    | userid4seanlin            |                  | missing password           |
+    | invaliduserid             | Pas$w0rd         | invalid Staff/Student ID   |
+    | userid4seanlin            | wrong            | wrong password             |
 
   Scenario Outline: Logging in as a deactivated / pending approval / rejected as spam with correct password
-    Given I have a deactivated user "deact@intersect.org.au"
-    And I have a rejected as spam user "spammer@intersect.org.au"
-    And I have a pending approval user "pending@intersect.org.au"
+    Given I have a deactivated user "userid4deact"
+    And I have a rejected as spam user "userid4spammer"
+    And I have a pending approval user "userid4pending"
     And I am on the login page
-    When I fill in "Email" with "<email>"
-    And I fill in "Password" with "<password>"
+    When I fill in "Staff/Student ID" with "<Staff/Student ID>"
+    And I fill in "Password" with "<Password>"
     And I press "Log in"
     Then I should see "Your account is not active."
   Examples:
-    | email                    | password |
-    | deact@intersect.org.au   | Pas$w0rd |
-    | spammer@intersect.org.au | Pas$w0rd |
-    | pending@intersect.org.au | Pas$w0rd |
+    | Staff/Student ID                    | Password |
+    | userid4deact                        | Pas$w0rd |
+    | userid4spammer                      | Pas$w0rd |
+    | userid4pending                      | Pas$w0rd |
 
   Scenario Outline: Logging in as a deactivated / pending approval / rejected as spam / with incorrect password should not reveal if user exists
-    Given I have a deactivated user "deact@intersect.org.au"
-    And I have a rejected as spam user "spammer@intersect.org.au"
-    And I have a pending approval user "pending@intersect.org.au"
+    Given I have a deactivated user "userid4deact"
+    And I have a rejected as spam user "userid4spammer"
+    And I have a pending approval user "userid4pending"
     And I am on the login page
-    When I fill in "Email" with "<email>"
-    And I fill in "Password" with "<password>"
+    When I fill in "Staff/Student ID" with "<Staff/Student ID>"
+    And I fill in "Password" with "<Password>"
     And I press "Log in"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid staff/student id or password."
     And I should not see "Your account is not active."
   Examples:
-    | email                    | password |
-    | deact@intersect.org.au   | pa       |
-    | spammer@intersect.org.au | pa       |
-    | pending@intersect.org.au | pa       |
+    | Staff/Student ID                    | Password |
+    | userid4deact                        | pa       |
+    | userid4spammer                      | pa       |
+    | userid4pending                      | pa       |

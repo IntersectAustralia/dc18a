@@ -43,50 +43,50 @@ def create_permission(entity, action, roles)
   end
 end
 
-Given /^"([^"]*)" has role "([^"]*)"$/ do |email, role|
-  user = User.where(:email => email).first 
+Given /^"([^"]*)" has role "([^"]*)"$/ do |user_id, role|
+  user = User.where(:user_id => user_id).first
   role = Role.where(:name => role).first
   user.role = role
   user.save!(:validate => false)
 end
 
-When /^I follow "Approve" for "([^"]*)"$/ do |email|
-  user = User.where(:email => email).first
+When /^I follow "Approve" for "([^"]*)"$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   click_link("approve_#{user.id}")
 end
 
-When /^I follow "Reject" for "([^"]*)"$/ do |email|
-  user = User.where(:email => email).first
+When /^I follow "Reject" for "([^"]*)"$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   click_link("reject_#{user.id}")
 end
 
-When /^I follow "Reject as Spam" for "([^"]*)"$/ do |email|
-  user = User.where(:email => email).first
+When /^I follow "Reject as Spam" for "([^"]*)"$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   click_link("reject_as_spam_#{user.id}")
 end
 
-When /^I follow "View Details" for "([^"]*)"$/ do |email|
-  user = User.where(:email => email).first
+When /^I follow "View Details" for "([^"]*)"$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   click_link("view_#{user.id}")
 end
 
-When /^I follow "Edit role" for "([^"]*)"$/ do |email|
-  user = User.where(:email => email).first
+When /^I follow "Edit role" for "([^"]*)"$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   click_link("edit_role_#{user.id}")
 end
 
-Given /^"([^"]*)" is deactivated$/ do |email|
-  user = User.where(:email => email).first
+Given /^"([^"]*)" is deactivated$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   user.deactivate
 end
 
-Given /^"([^"]*)" is pending approval$/ do |email|
-  user = User.where(:email => email).first
+Given /^"([^"]*)" is pending approval$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   user.status = "U"
   user.save!
 end
 
-Given /^"([^"]*)" is rejected as spam$/ do |email|
-  user = User.where(:email => email).first
+Given /^"([^"]*)" is rejected as spam$/ do |user_id|
+  user = User.where(:user_id => user_id).first
   user.reject_access_request
 end
