@@ -7,16 +7,16 @@ def populate_data
 end
 
 def create_test_users
-  create_user(:user_id => "userid4sean", :email => "sean@intersect.org.au", :first_name => "Sean", :last_name => "McCarthy")
-  create_user(:user_id => "userid4georgina", :email => "georgina@intersect.org.au", :first_name => "Georgina", :last_name => "Edwards")
-  create_user(:user_id => "userid4veronica", :email => "veronica@intersect.org.au", :first_name => "Veronica", :last_name => "Luke")
-  create_user(:user_id => "userid4marc", :email => "marc@intersect.org.au", :first_name => "Marc", :last_name => "Ziani de F")
-  create_user(:user_id => "userid4diego", :email => "diego@intersect.org.au", :first_name => "Diego", :last_name => "Alonso de Marcos")
-  create_user(:user_id => "userid4shuqian", :email => "shuqian@intersect.org.au", :first_name => "Shuqian", :last_name => "Hon")
-  create_user(:user_id => "userid4seanl", :email => "seanl@intersect.org.au", :first_name => "Sean", :last_name => "Lin")
+  create_user(:user_id => "userid4sean", :email => "sean@intersect.org.au", :first_name => "Sean", :last_name => "McCarthy", :department => "DA")
+  create_user(:user_id => "userid4georgina", :email => "georgina@intersect.org.au", :first_name => "Georgina", :last_name => "Edwards", :department => "DA")
+  create_user(:user_id => "userid4veronica", :email => "veronica@intersect.org.au", :first_name => "Veronica", :last_name => "Luke", :department => "DA")
+  create_user(:user_id => "userid4marc", :email => "marc@intersect.org.au", :first_name => "Marc", :last_name => "Ziani de F", :department => "DA")
+  create_user(:user_id => "userid4diego", :email => "diego@intersect.org.au", :first_name => "Diego", :last_name => "Alonso de Marcos", :department => "DA")
+  create_user(:user_id => "userid4shuqian", :email => "shuqian@intersect.org.au", :first_name => "Shuqian", :last_name => "Hon", :department => "DA")
+  create_user(:user_id => "userid4seanl", :email => "seanl@intersect.org.au", :first_name => "Sean", :last_name => "Lin", :department => "DA")
 
-  create_unapproved_user(:user_id => "userid4unapproved1", :email => "unapproved1@intersect.org.au", :first_name => "Unapproved", :last_name => "One")
-  create_unapproved_user(:user_id => "userid4unapproved2", :email => "unapproved2@intersect.org.au", :first_name => "Unapproved", :last_name => "Two")
+  create_unapproved_user(:user_id => "userid4unapproved1", :email => "unapproved1@intersect.org.au", :first_name => "Unapproved", :last_name => "One", :department => "DA")
+  create_unapproved_user(:user_id => "userid4unapproved2", :email => "unapproved2@intersect.org.au", :first_name => "Unapproved", :last_name => "Two", :department => "DA")
   set_role("sean@intersect.org.au", "Administrator")
   set_role("georgina@intersect.org.au", "Administrator")
   set_role("veronica@intersect.org.au", "Administrator")
