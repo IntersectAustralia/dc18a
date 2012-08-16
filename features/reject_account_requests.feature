@@ -18,7 +18,7 @@ Feature: Reject access requests
     When I follow "Reject" for "userid4diego"
     Then I should see "The access request for userid4diego was rejected."
     And I should see "access_requests" table with
-      |Staff/Student ID | First Name | Last Name | Email                 |
+      |Staff/Student ID | Given Name | Surname | Email                 |
       |userid4ryan      | Ryan       | Braganza  | ryan@intersect.org.au |
     And "diego@intersect.org.au" should receive an email with subject "DC18A - Your access request has been rejected"
     When I open the email
@@ -30,7 +30,7 @@ Feature: Reject access requests
     When I follow "Reject as Spam" for "userid4diego"
     Then I should see "The access request for userid4diego was rejected and this staff/student id will be permanently blocked."
     And I should see "access_requests" table with
-      |Staff/Student ID | First Name | Last Name | Email                 |
+      |Staff/Student ID | Given Name | Surname | Email                 |
       |userid4ryan      | Ryan       | Braganza  | ryan@intersect.org.au |
     And "diego@intersect.org.au" should receive an email with subject "DC18A - Your access request has been rejected"
     When they open the email
@@ -43,7 +43,7 @@ Feature: Reject access requests
     And I follow "Reject"
     Then I should see "The access request for userid4diego was rejected."
     And I should see "access_requests" table with
-      |Staff/Student ID | First Name | Last Name | Email                 |
+      |Staff/Student ID | Given Name | Surname | Email                 |
       |userid4ryan      | Ryan       | Braganza  | ryan@intersect.org.au |
 
   Scenario: Reject an access request as spam from the view details page
@@ -52,7 +52,7 @@ Feature: Reject access requests
     And I follow "Reject as Spam"
     Then I should see "The access request for userid4diego was rejected and this staff/student id will be permanently blocked."
     And I should see "access_requests" table with
-      |Staff/Student ID | First Name | Last Name | Email                 |
+      |Staff/Student ID | Given Name | Surname | Email                 |
       |userid4ryan      | Ryan       | Braganza  | ryan@intersect.org.au |
 
   Scenario: Rejected user should not be able to log in
@@ -90,8 +90,9 @@ Feature: Reject access requests
       | Email                 | diego@intersect.org.au |
       | Password              | Pas$w0rd               |
       | Confirm Password      | Pas$w0rd               |
-      | First Name            | Fred                   |
-      | Last Name             | Bloggs                 |
+      | Surname               | Fred                   |
+      | Given Name            | Bloggs                 |
+      | Department/Institute  | Microbial              |
     And I press "Submit Request"
     Then I should see "Thanks for requesting an account. You will receive an email when your request has been approved."
 
@@ -106,8 +107,9 @@ Feature: Reject access requests
       | Email                 | diego@intersect.org.au |
       | Password              | Pas$w0rd               |
       | Confirm Password      | Pas$w0rd               |
-      | First Name            | Fred                   |
-      | Last Name             | Bloggs                 |
+      | Surname               | Fred                   |
+      | Given Name            | Bloggs                 |
+      | Department/Institute  | Microbial              |
     And I press "Submit Request"
     Then I should see "has already been taken"
 

@@ -10,22 +10,22 @@ Feature: Edit my details
   Scenario: Edit my information
     Given I am on the home page
     When I follow "Edit My Details"
-    And I fill in "First Name" with "Fred"
-    And I fill in "Last Name" with "Bloggs"
+    And I fill in "Surname" with "Fred"
+    And I fill in "Given Name" with "Bloggs"
     And I press "Update"
     Then I should see "Your account details have been successfully updated."
     And I should be on the home page
     And I follow "Edit My Details"
-    And the "First Name" field should contain "Fred"
-    And the "Last Name" field should contain "Bloggs"
+    And the "Surname" field should contain "Fred"
+    And the "Given Name" field should contain "Bloggs"
 
   Scenario: Validation error
     Given I am on the home page
     When I follow "Edit My Details"
-    And I fill in "First Name" with ""
-    And I fill in "Last Name" with "Bloggs"
+    And I fill in "Surname" with ""
+    And I fill in "Given Name" with "Bloggs"
     And I press "Update"
-    Then I should see "First name can't be blank"
+    Then the "Surname" field should have the error "can't be blank"
 
   Scenario: Cancel editing my information
     Given I am on the home page

@@ -19,9 +19,12 @@ end
 Given /^I have the usual roles and permissions$/ do
   
   super_role = "Administrator"
+  supervisor_role = "Supervisor"
+  researcher_role = "Researcher"
   # TODO: adjust roles and permissions here
   Role.create!(:name => super_role)
-  Role.create!(:name => "Researcher")
+  Role.create!(:name => supervisor_role)
+  Role.create!(:name => researcher_role)
 
   create_permission("User", "read", [super_role])
   create_permission("User", "update_role", [super_role])

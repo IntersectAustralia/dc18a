@@ -9,6 +9,7 @@ class Role < ActiveRecord::Base
 
   scope :by_name, order('name')
   scope :superuser_roles, where(:name => 'Administrator')
+  scope :supervisor_roles, where("name = 'Administrator' OR name = 'Supervisor'")
 
   def has_permission(entity, action)
     permissions.each do |perm|

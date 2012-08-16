@@ -6,7 +6,14 @@ Feature: Request an account
   Background:
     Given I have no users
     Given I have the usual roles and permissions
-    And I have a user "userid4seanlin" with role "Administrator" with email "seanl@intersect.org.au"
+    And I have users
+      | user_id                   | email                           | first_name | last_name |
+      | userid4seanlin            | seanl@intersect.org.au          | Sean       | Lin       |
+      | userid4supervisor1        | supervisor1@intersect.org.au    | Supervisor | 1         |
+      | userid4supervisor2        | supervisor2@intersect.org.au    | Supervisor | 2         |
+    And "userid4seanlin" has role "Administrator"
+    And "userid4supervisor1" has role "Supervisor"
+    And "userid4supervisor2" has role "Supervisor"
 
   Scenario: Request account
     Given I am on the request account page
@@ -15,8 +22,11 @@ Feature: Request an account
       | Email            | georgina@intersect.org.au |
       | Password         | paS$w0rd                  |
       | Confirm Password | paS$w0rd                  |
-      | First Name       | Fred                      |
-      | Last Name        | Bloggs                    |
+      | Given Name       | Fred                      |
+      | Surname          | Bloggs                    |
+      | Department/Institute | Microbial             |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     Then I should see "Thanks for requesting an account. You will receive an email when your request has been approved."
     And I should not see "Your account is not active"
@@ -30,16 +40,19 @@ Feature: Request an account
       | Email            | georgina@intersect.org.au |
       | Password         | paS$w0rd                  |
       | Confirm Password | paS$w0rd                  |
-      | First Name       | Fred                      |
-      | Last Name        | Bloggs                    |
+      | Given Name       | Fred                      |
+      | Surname          | Bloggs                    |
+      | Department/Institute | Microbial             |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     Then "seanl@intersect.org.au" should receive an email with subject "DC18A - There has been a new access request"
     When they open the email
     Then they should see "An access request has been made with the following details:" in the email body
     And they should see "Staff/Student ID: userid4georgina" in the email body
     And they should see "Email: georgina@intersect.org.au" in the email body
-    And they should see "First name: Fred" in the email body
-    And they should see "Last name: Bloggs" in the email body
+    And they should see "Given Name: Fred" in the email body
+    And they should see "Surname: Bloggs" in the email body
     And they should see "You can view unapproved access requests here" in the email body
     When they click the first link in the email
     Then I should be on the login page
@@ -48,7 +61,7 @@ Feature: Request an account
     And I press "Log in"
     Then I should be on the access requests page
     And I should see "access_requests" table with
-      |Staff/Student ID | First Name | Last Name | Email                     |
+      |Staff/Student ID | Given Name | Surname   | Email                     |
       |userid4georgina  | Fred       | Bloggs    | georgina@intersect.org.au |
 
   Scenario: Requesting an account with mismatched password confirmation should be rejected
@@ -57,14 +70,19 @@ Feature: Request an account
       | Staff/Student ID | userid4georgina           |
       | Email            | georgina@intersect.org.au |
       | Password         | paS$w0rd                  |
-      | Confirm Password | pa                        |
-      | First Name       | Fred                      |
-      | Last Name        | Bloggs                    |
+      | Confirm Password | dr0w$Sap                  |
+      | Given Name       | Fred                      |
+      | Surname          | Bloggs                    |
+      | Department/Institute | Microbial             |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     And the "Password" field should have the error "doesn't match confirmation"
-    And the "First Name" field should have no errors
-    And the "Last Name" field should have no errors
+    And the "Given Name" field should have no errors
+    And the "Surname" field should have no errors
     And the "Email" field should have no errors
+    And the "Department/Institute" field should have no errors
+    And the "Supervisors" field should have no errors
 
   Scenario: Password fields should be cleared out on validation error
     Given I am on the request account page
@@ -74,8 +92,8 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
     And I press "Submit Request"
     And the "Staff/Student ID" field should have the error "can't be blank"
-    And the "First Name" field should have the error "can't be blank"
-    And the "Last Name" field should have the error "can't be blank"
+    And the "Given Name" field should have the error "can't be blank"
+    And the "Surname" field should have the error "can't be blank"
     And the "Password" field should contain ""
     And the "Confirm Password" field should contain ""
 
@@ -86,8 +104,11 @@ Feature: Request an account
       | Email            | georgina@intersect.org.au |
       | Password         | paS$w0rd                  |
       | Confirm Password | paS$w0rd                  |
-      | First Name       | Fred                      |
-      | Last Name        | Bloggs                    |
+      | Given Name       | Fred                      |
+      | Surname          | Bloggs                    |
+      | Department/Institute | Microbial             |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     And I am on the login page
     When I fill in "Staff/Student ID" with "userid4georgina"
@@ -105,8 +126,26 @@ Feature: Request an account
       | Email            | georgina@intersect.org.au |
       | Password         | paS$w0rd                  |
       | Confirm Password | paS$w0rd                  |
-      | First Name       | Fred                      |
-      | Last Name        | Bloggs                    |
+      | Given Name       | Fred                      |
+      | Surname          | Bloggs                    |
+      | Department/Institute | Microbial             |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     Then "seanl@intersect.org.au" should receive an email with subject "DC18A - There has been a new access request"
     Then "fred@intersect.org.au" should receive no emails
+
+  Scenario: Requesting an account with existed Staff/Student ID should be rejected
+    Given I am on the request account page
+    When I fill in the following:
+      | Staff/Student ID | userid4seanlin            |
+      | Email            | seanl@intersect.org.au    |
+      | Password         | paS$w0rd                  |
+      | Confirm Password | paS$w0rd                  |
+      | Given Name       | Sean                      |
+      | Surname          | Lin                       |
+      | Department/Institute | Microbial             |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
+    And I press "Submit Request"
+    And the "Staff/Student ID" field should have the error "has already been taken"

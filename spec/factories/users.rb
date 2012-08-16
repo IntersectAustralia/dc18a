@@ -5,5 +5,6 @@ FactoryGirl.define do
     f.last_name "Bloggs"
     f.password "Pas$w0rd"
     f.sequence(:email) { |n| "#{n}@intersect.org.au" }
+    f.department "da"
   end
 end

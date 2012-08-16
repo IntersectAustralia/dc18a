@@ -39,8 +39,8 @@
 #userdetails
   = render_field "Staff/Student ID", @user.user_id
   = render_field "Email", @user.email
-  = render_field "First Name", @user.first_name
-  = render_field "Last Name", @user.last_name
+  = render_field "Given Name", @user.first_name
+  = render_field "Surname", @user.last_name
   - if !@user.pending_approval?
     = render_field_with_block "Last Logged In" do
       - if @user.last_sign_in_at.nil?

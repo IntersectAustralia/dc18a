@@ -3,19 +3,23 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
 
   belongs_to :role
+  has_and_belongs_to_many :supervisors, :class_name => "User", :association_foreign_key => "supervisor_id", :join_table => 'supervisors_users'
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
-  attr_accessible :user_id, :email, :password, :password_confirmation, :first_name, :last_name
+  attr_accessible :user_id, :email, :password, :password_confirmation, :first_name, :last_name, :department, :supervisor_ids
 
   validates_presence_of :user_id
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
   validates_presence_of :status
+  validates_presence_of :department
 
   validates_length_of :first_name, :maximum => 255
   validates_length_of :last_name, :maximum => 255
   validates_length_of :email, :maximum => 255
+
+  validates_uniqueness_of :user_id
 
   with_options :if => :password_required? do |v|
     v.validates :password, :password_format => true
@@ -27,6 +31,7 @@ class User < ActiveRecord::Base
   scope :approved, where(:status => 'A').order(:user_id)
   scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:user_id)
   scope :approved_superusers, joins(:role).merge(User.approved).merge(Role.superuser_roles)
+  scope :can_supervise, joins(:role).merge(Role.supervisor_roles)
 
   # Override Devise active for authentication method so that users must be approved before being allowed to log in
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-admin-to-activate-account-before-sign_in
@@ -137,6 +142,22 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}".strip
+  end
+
+  def administrator?
+    self.role == Role.find_by_name('Administrator')
+  end
+
+  def supervisor?
+    self.role == Role.find_by_name('Supervisor')
+  end
+
+  def researcher?
+    self.role == Role.find_by_name('Researcher')
+  end
+
+  def add_supervisor(user)
+    self.supervisors << user if user.administrator? or user.supervisor?
   end
 
   private

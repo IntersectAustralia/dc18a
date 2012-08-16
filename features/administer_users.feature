@@ -16,7 +16,7 @@ Feature: Administer users
     Given "userid4raul" is deactivated
     When I am on the list users page
     Then I should see "users" table with
-      |Staff/Student ID | First Name | Last Name | Email                     | Role          | Status       |
+      |Staff/Student ID | Given Name | Surname | Email                     | Role          | Status       |
       |userid4raul      | Raul       | Carrizo   | raul@intersect.org.au     |               | Deactivated  |
       |userid4seanlin   | Sean       | Lin       | seanl@intersect.org.au    | Administrator | Active       |
 
@@ -26,8 +26,8 @@ Feature: Administer users
     When I follow "View Details" for "userid4raul"
     Then I should see field "Staff/Student ID" with value "userid4raul"
     And I should see field "Email" with value "raul@intersect.org.au"
-    And I should see field "First Name" with value "Raul"
-    And I should see field "Last Name" with value "Carrizo"
+    And I should see field "Given Name" with value "Raul"
+    And I should see field "Surname" with value "Carrizo"
     And I should see field "Role" with value "Researcher"
     And I should see field "Status" with value "Active"
 
