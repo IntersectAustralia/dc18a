@@ -14,10 +14,13 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_presence_of :status
   validates_presence_of :department
+  validates_presence_of :supervisor_ids, :unless => Proc.new {|user| user.administrator? || user.supervisor?}
 
-  validates_length_of :first_name, :maximum => 255
-  validates_length_of :last_name, :maximum => 255
+  validates_length_of :user_id, :maximum => 32
+  validates_length_of :first_name, :maximum => 32
+  validates_length_of :last_name, :maximum => 32
   validates_length_of :email, :maximum => 255
+  validates_length_of :department, :maximum => 255
 
   validates_uniqueness_of :user_id
 

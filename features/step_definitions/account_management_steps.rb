@@ -1,12 +1,36 @@
 Given /^I have access requests$/ do |table|
+  supervisor_role = Role.find_by_name("Supervisor")
+  supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
   table.hashes.each do |hash|
-    FactoryGirl.create(:user, hash.merge(:status => 'U'))
+    FactoryGirl.create(:user, hash.merge(:status => 'U', :supervisors => [supervisor_1]))
   end
 end
 
 Given /^I have users$/ do |table|
   table.hashes.each do |hash|
     FactoryGirl.create(:user, hash.merge(:status => 'A'))
+  end
+end
+
+Given /^I have administrators$/ do |table|
+  administrator_role = Role.find_by_name("Administrator")
+  table.hashes.each do |hash|
+    FactoryGirl.create(:user, hash.merge(:status => 'A', :role => administrator_role))
+  end
+end
+
+Given /^I have supervisors$/ do |table|
+  supervisor_role = Role.find_by_name("Supervisor")
+  table.hashes.each do |hash|
+    FactoryGirl.create(:user, hash.merge(:status => 'A', :role => supervisor_role))
+  end
+end
+
+Given /^I have researchers$/ do |table|
+  supervisor_role = Role.find_by_name("Supervisor")
+  supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
+  table.hashes.each do |hash|
+    FactoryGirl.create(:user, hash.merge(:status => 'A', :supervisors => [supervisor_1]))
   end
 end
 

@@ -40,7 +40,7 @@ describe User do
         super_role = FactoryGirl.create(:role, :name => "Administrator")
         other_role = FactoryGirl.create(:role, :name => "Other")
         u1 = FactoryGirl.create(:user, :user_id => "userid4fasdfl", :status => 'A', :role => super_role)
-        u2 = FactoryGirl.create(:user, :status => 'A', :role => other_role)
+        u2 = FactoryGirl.create(:user, :status => 'A', :role => other_role, :supervisors => [u1])
         u3 = FactoryGirl.create(:user, :status => 'U', :role => super_role)
         u4 = FactoryGirl.create(:user, :status => 'R', :role => super_role)
         u5 = FactoryGirl.create(:user, :status => 'D', :role => super_role)
@@ -186,7 +186,7 @@ describe User do
       super_role = FactoryGirl.create(:role, :name => 'Administrator')
       research_role = FactoryGirl.create(:role, :name => 'Researcher')
       user_1 = FactoryGirl.create(:user, :role => super_role, :status => 'A', :email => 'user1@intersect.org.au')
-      user_2 = FactoryGirl.create(:user, :role => research_role, :status => 'A', :email => 'user2@intersect.org.au')
+      user_2 = FactoryGirl.create(:user, :role => research_role, :status => 'A', :email => 'user2@intersect.org.au', :supervisors => [user_1])
       user_1.check_number_of_superusers(1, 2).should eq(true)
     end
   end
@@ -258,7 +258,7 @@ describe User do
       super_3 = FactoryGirl.create(:user, :role => super_role, :status => "A", :email => "c@intersect.org.au")
       super_4 = FactoryGirl.create(:user, :role => super_role, :status => "D", :email => "d@intersect.org.au")
       super_5 = FactoryGirl.create(:user, :role => super_role, :status => "R", :email => "e@intersect.org.au")
-      admin = FactoryGirl.create(:user, :role => admin_role, :status => "A", :email => "f@intersect.org.au")
+      admin = FactoryGirl.create(:user, :role => admin_role, :status => "A", :email => "f@intersect.org.au", :supervisors => [super_1])
 
       supers = User.get_superuser_emails
       supers.should eq(["a@intersect.org.au", "c@intersect.org.au"])
@@ -273,19 +273,21 @@ describe User do
     it { should respond_to(:add_supervisor) }
 
     it "should not accept researcher as its supervisor" do
+      supervisor_role = FactoryGirl.create(:role, name: "Supervisor")
       researcher_role = FactoryGirl.create(:role, name: "Researcher")
-      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A")
-      researcher_2 = FactoryGirl.create(:user, :role => researcher_role, :status => "A")
+      supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
+      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1])
+      researcher_2 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1])
+      researcher_1.should have(1).supervisors
       researcher_1.add_supervisor(researcher_2)
-      researcher_1.should have(0).supervisors
+      researcher_1.should have(1).supervisors
     end
 
     it "should accept supervisor as supervisor" do
       supervisor_role = FactoryGirl.create(:role, name: "Supervisor")
       researcher_role = FactoryGirl.create(:role, name: "Researcher")
       supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
-      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A")
-      researcher_1.add_supervisor(supervisor_1)
+      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1])
       researcher_1.should have(1).supervisors
     end
 
@@ -293,8 +295,7 @@ describe User do
       administrator_role = FactoryGirl.create(:role, name: "Administrator")
       researcher_role = FactoryGirl.create(:role, name: "Researcher")
       administrator_1 = FactoryGirl.create(:user, role: administrator_role, :status => "A")
-      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A")
-      researcher_1.add_supervisor(administrator_1)
+      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [administrator_1])
       researcher_1.should have(1).supervisors
     end
 
@@ -303,9 +304,7 @@ describe User do
       researcher_role = FactoryGirl.create(:role, name: "Researcher")
       supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
       supervisor_2 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
-      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A")
-      researcher_1.add_supervisor(supervisor_1)
-      researcher_1.add_supervisor(supervisor_2)
+      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1, supervisor_2])
       researcher_1.should have(2).supervisors
     end
   end

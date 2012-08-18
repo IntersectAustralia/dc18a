@@ -1,5 +1,7 @@
 Given /^I have a user "([^"]*)"$/ do |user_id|
-  FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'A')
+  supervisor_role = Role.find_by_name("Supervisor")
+  supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
+  FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'A', :supervisors => [supervisor_1])
 end
 
 Given /^I have a user "([^"]*)" with email "([^"]*)"$/ do |user_id, email|
@@ -7,7 +9,9 @@ Given /^I have a user "([^"]*)" with email "([^"]*)"$/ do |user_id, email|
 end
 
 Given /^I have a locked user "([^"]*)" with email "([^"]*)"$/ do |user_id, email|
-  FactoryGirl.create(:user, :user_id => user_id, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 30.minute, :failed_attempts => 3)
+  supervisor_role = Role.find_by_name("Supervisor")
+  supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
+  FactoryGirl.create(:user, :user_id => user_id, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 30.minute, :failed_attempts => 3, :supervisors => [supervisor_1])
 end
 
 Given /^I have a deactivated user "([^"]*)"$/ do |user_id|
@@ -19,7 +23,9 @@ Given /^I have a deactivated user "([^"]*)" with email "([^"]*)"$/ do |user_id, 
 end
 
 Given /^I have a rejected as spam user "([^"]*)"$/ do |user_id|
-  FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'R')
+  supervisor_role = Role.find_by_name("Supervisor")
+  supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
+  FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'R', :supervisors => [supervisor_1])
 end
 
 Given /^I have a rejected as spam user "([^"]*)" with email "([^"]*)"$/ do |user_id, email|
@@ -35,13 +41,14 @@ Given /^I have a pending approval user "([^"]*)" with email "([^"]*)"$/ do |user
 end
 
 Given /^I have a user "([^"]*)" with an expired lock$/ do |user_id|
-  FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3)
+  supervisor_role = Role.find_by_name("Supervisor")
+  supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
+  FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3, :supervisors => [supervisor_1])
 end
 
 Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |user_id, role|
-  user            = FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'A')
   role         = Role.where(:name => role).first
-  user.role_id = role.id
+  user         = FactoryGirl.create(:user, :user_id => user_id, :password => "Pas$w0rd", :status => 'A', :role => role)
   user.save!
 end
 

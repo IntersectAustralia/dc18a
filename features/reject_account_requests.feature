@@ -7,6 +7,10 @@ Feature: Reject access requests
     Given I have the usual roles and permissions
     And I have a user "userid4seanlin"
     And "userid4seanlin" has role "Administrator"
+    And I have supervisors
+      | user_id                   | email                           | first_name | last_name |
+      | userid4supervisor1        | supervisor1@intersect.org.au    | Supervisor | 1         |
+      | userid4supervisor2        | supervisor2@intersect.org.au    | Supervisor | 2         |
     And I have access requests
       |user_id | email                  | first_name | last_name        |
       |userid4ryan      | ryan@intersect.org.au  | Ryan       | Braganza         |
@@ -93,6 +97,8 @@ Feature: Reject access requests
       | Surname               | Fred                   |
       | Given Name            | Bloggs                 |
       | Department/Institute  | Microbial              |
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     Then I should see "Thanks for requesting an account. You will receive an email when your request has been approved."
 

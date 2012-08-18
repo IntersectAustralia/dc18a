@@ -31,11 +31,6 @@ ActiveRecord::Schema.define(:version => 20120815054500) do
     t.integer "permission_id"
   end
 
-  create_table "supervisors_researchers", :id => false, :force => true do |t|
-    t.integer "supervisor_id"
-    t.integer "user_id"
-  end
-
   create_table "supervisors_users", :id => false, :force => true do |t|
     t.integer "supervisor_id"
     t.integer "user_id"

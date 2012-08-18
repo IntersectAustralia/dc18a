@@ -1,4 +1,4 @@
-= f.input :first_name , :label => "Given Name:"
-= f.input :last_name  , :label => "Surname:"
-= f.input :department, :label => "Department/Institute"
-= f.association :supervisors, :required => true, :label => "Supervisors", :collection => User.can_supervise, :label_method => lambda{ |supervisor| "#{supervisor.full_name}"}
+= f.input :first_name
+= f.input :last_name
+= f.input :department
+= f.association :supervisors, :collection => User.can_supervise, :label_method => lambda{ |supervisor| "#{supervisor.full_name}"}

@@ -6,14 +6,13 @@ Feature: Request an account
   Background:
     Given I have no users
     Given I have the usual roles and permissions
-    And I have users
+    And I have administrators
       | user_id                   | email                           | first_name | last_name |
       | userid4seanlin            | seanl@intersect.org.au          | Sean       | Lin       |
+    And I have supervisors
+      | user_id                   | email                           | first_name | last_name |
       | userid4supervisor1        | supervisor1@intersect.org.au    | Supervisor | 1         |
       | userid4supervisor2        | supervisor2@intersect.org.au    | Supervisor | 2         |
-    And "userid4seanlin" has role "Administrator"
-    And "userid4supervisor1" has role "Supervisor"
-    And "userid4supervisor2" has role "Supervisor"
 
   Scenario: Request account
     Given I am on the request account page
@@ -118,7 +117,9 @@ Feature: Request an account
     And I should be on the login page
 
   Scenario: Deactivated supers shouldn't get the email
-    Given I have a user "userid4fred" with role "Administrator" with email "fred@intersect.org.au"
+    Given I have administrators
+      | user_id     | email                 |
+      | userid4fred | fred@intersect.org.au |
     And "userid4fred" is deactivated
     And I am on the request account page
     When I fill in the following:
@@ -149,3 +150,16 @@ Feature: Request an account
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     And the "Staff/Student ID" field should have the error "has already been taken"
+
+  Scenario: Requesting an account without select supervisor should be rejected
+    Given I am on the request account page
+    When I fill in the following:
+      | Staff/Student ID | userid4seanlin            |
+      | Email            | seanl@intersect.org.au    |
+      | Password         | paS$w0rd                  |
+      | Confirm Password | paS$w0rd                  |
+      | Given Name       | Sean                      |
+      | Surname          | Lin                       |
+      | Department/Institute | Microbial             |
+    And I press "Submit Request"
+    And the "Supervisors" field should have the error "can't be blank"
