@@ -30,6 +30,9 @@ Feature: Administer users
     And I should see field "Surname" with value "Carrizo"
     And I should see field "Role" with value "Researcher"
     And I should see field "Status" with value "Active"
+    And I should see "Last Logged In"
+    And I should see "Date Account Requested"
+    And I should see field "Supervisors" with value "N/A"
 
   Scenario: Go back from user details
     Given I am on the list users page

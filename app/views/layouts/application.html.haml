@@ -30,7 +30,8 @@
       %h1= yield :title
 
       - flash.each do |name, msg|
-        %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
-          %a.close{"data-dismiss" => "alert"} ×
-          = msg
+        - if not (name == :timedout)
+          %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+            %a.close{"data-dismiss" => "alert"} ×
+            = msg
       = yield

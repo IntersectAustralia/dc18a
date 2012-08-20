@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815054500) do
+ActiveRecord::Schema.define(:version => 20120820235404) do
 
   create_table "permissions", :force => true do |t|
     t.string   "entity"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120815054500) do
     t.datetime "updated_at",                             :null => false
     t.string   "user_id",                :default => "", :null => false
     t.string   "department"
+    t.datetime "approved_on"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
