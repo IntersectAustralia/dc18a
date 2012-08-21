@@ -41,6 +41,7 @@
   = render_field "Email", @user.email
   = render_field "Given Name", @user.first_name
   = render_field "Surname", @user.last_name
+  = render_field "Department", @user.department
   = render_field "Supervisors", @user.supervisors_list
   - if !@user.pending_approval?
     = render_field_with_block "Last Logged In" do
