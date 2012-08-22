@@ -118,6 +118,7 @@ class User < ActiveRecord::Base
 
   def approve_access_request
     self.status = 'A'
+    self.approved_on = Time.new
     save!(:validate => false)
 
     # send an email to the user
@@ -146,6 +147,14 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}".strip
+  end
+
+  def supervisors_list
+    list = supervisors.collect { |u| u.full_name }
+    if list.empty?
+      return "N/A"
+    end
+    list.to_sentence
   end
 
   def administrator?

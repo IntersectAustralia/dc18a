@@ -9,7 +9,7 @@ end
 def create_test_users
   s1 = create_supervisor(:user_id => "userid4sean", :email => "sean@intersect.org.au", :first_name => "Sean", :last_name => "McCarthy", :department => "Engineering")
   s2 = create_supervisor(:user_id => "userid4georgina", :email => "georgina@intersect.org.au", :first_name => "Georgina", :last_name => "Edwards", :department => "Engineering")
-  s3 = create_supervisor(:user_id => "userid4veronica", :email => "veronica@intersect.org.au", :first_name => "Veronica", :last_name => "Luke", :department => "Engineering")
+  s3 = create_administrator(:user_id => "userid4veronica", :email => "veronica@intersect.org.au", :first_name => "Veronica", :last_name => "Luke", :department => "Engineering")
   s4 = create_supervisor(:user_id => "userid4marc", :email => "marc@intersect.org.au", :first_name => "Marc", :last_name => "Ziani de F", :department => "Engineering")
   s5 = create_supervisor(:user_id => "userid4diego", :email => "diego@intersect.org.au", :first_name => "Diego", :last_name => "Alonso de Marcos", :department => "Engineering")
   s6 = create_supervisor(:user_id => "userid4shuqian", :email => "shuqian@intersect.org.au", :first_name => "Shuqian", :last_name => "Hon", :department => "Engineering")

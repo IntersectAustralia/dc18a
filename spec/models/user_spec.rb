@@ -50,10 +50,11 @@ describe User do
   end
 
   describe "Approve Access Request" do
-    it "should set the status flag to A" do
+    it "should set the status flag to A and add approved_on timestamp" do
       user = FactoryGirl.create(:user, :status => 'U')
       user.approve_access_request
       user.status.should eq("A")
+      user.approved_on.should_not be_nil
     end
   end
 
@@ -62,6 +63,7 @@ describe User do
       user = FactoryGirl.create(:user, :status => 'U')
       user.reject_access_request
       user.status.should eq("R")
+      user.approved_on.should be_nil
     end
   end
 
@@ -81,10 +83,12 @@ describe User do
       it "should not be active" do
         user = FactoryGirl.create(:user, :status => 'U')
         user.approved?.should be_false
+        user.approved_on.should be_nil
       end
       it "should be pending approval" do
         user = FactoryGirl.create(:user, :status => 'U')
         user.pending_approval?.should be_true
+        user.approved_on.should be_nil
       end
     end
 
@@ -271,6 +275,7 @@ describe User do
 
   describe "Supervisor" do
     it { should respond_to(:add_supervisor) }
+    it { should respond_to(:supervisors_list)}
 
     it "should not accept researcher as its supervisor" do
       supervisor_role = FactoryGirl.create(:role, name: "Supervisor")
@@ -306,6 +311,23 @@ describe User do
       supervisor_2 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
       researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1, supervisor_2])
       researcher_1.should have(2).supervisors
+    end
+
+    it "should be able to return all names of supervisors in a sentence format" do
+      supervisor_role = FactoryGirl.create(:role, name: "Supervisor")
+      researcher_role = FactoryGirl.create(:role, name: "Researcher")
+      supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A", :first_name => "Tom", :last_name => "Jones")
+      supervisor_2 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A", :first_name => "Dick", :last_name => "Smith")
+      supervisor_3 = FactoryGirl.create(:user, :role => supervisor_role, :status => "S", :first_name => "Harry", :last_name => "Lee")
+
+      researcher_1 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1, supervisor_2, supervisor_3])
+      researcher_1.supervisors_list.should eq(supervisor_1.full_name + ", " + supervisor_2.full_name + ", and " + supervisor_3.full_name)
+
+      researcher_2 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_1, supervisor_2])
+      researcher_2.supervisors_list.should eq(supervisor_1.full_name + " and " + supervisor_2.full_name)
+
+      researcher_3 = FactoryGirl.create(:user, :role => researcher_role, :status => "A", :supervisors => [supervisor_2])
+      researcher_3.supervisors_list.should eq(supervisor_2.full_name)
     end
   end
 end
