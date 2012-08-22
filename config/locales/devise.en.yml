@@ -72,3 +72,10 @@ en:
         department: "Department/Institute"
         password_confirmation: "Confirm Password"
         supervisor_ids: "Supervisors"
+      project:
+        name: "Project Name"
+        description: "Project Description"
+        funded_by_agency: "Funded by Agency"
+        agency: "If yes please specify"
+        other_agency: "If Other please specify"
+        supervisor_id: "Supervisor"

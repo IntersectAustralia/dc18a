@@ -6,4 +6,20 @@
     = link_to "Sign Up", new_user_registration_path, :class => "button"
     = link_to "Forgot your password?", new_user_password_path, :class => "button"
   - else
-    %p TODO: you are logged in: put your own home page content here
+    = link_to "Create Project", new_project_path, :class => "button"
+    %table#projects.table.table-bordered.table-striped.table-condensed
+      %tr
+        %th ID
+        %th Project Name
+        %th Owner
+        %th Date Created
+        %th Supervisor
+        %th Actions
+      - @projects.each do |project|
+        %tr{:class => cycle('field_bg', 'field_nobg')}
+          %td= project.id
+          %td= project.name
+          %td= project.user.full_name
+          %td= localize project.created_at, :format => :short
+          %td= project.supervisor.full_name
+          %td= link_to "View Details", project, :id => "view_#{project.id}"

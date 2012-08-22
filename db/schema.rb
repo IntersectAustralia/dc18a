@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815054500) do
+ActiveRecord::Schema.define(:version => 20120820010526) do
 
   create_table "permissions", :force => true do |t|
     t.string   "entity"
@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(:version => 20120815054500) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "funded_by_agency"
+    t.string   "agency"
+    t.string   "other_agency"
+    t.integer  "user_id"
+    t.integer  "supervisor_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true
 
   create_table "roles", :force => true do |t|
     t.string   "name"

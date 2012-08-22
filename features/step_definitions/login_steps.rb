@@ -99,3 +99,9 @@ And /^I request a reset for "([^"]*)"$/ do |user_id|
   click_button "Send me reset password instructions"
 end
 
+And /^"([^"]*)" has supervisor "([^"]*)"$/ do |user_id, supervisor_user_id|
+  user = User.find_by_user_id(user_id)
+  supervisor = User.find_by_user_id(supervisor_user_id)
+  user.add_supervisor(supervisor)
+end
+

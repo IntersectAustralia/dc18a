@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   belongs_to :role
   has_and_belongs_to_many :supervisors, :class_name => "User", :association_foreign_key => "supervisor_id", :join_table => 'supervisors_users'
+  has_many :projects
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
   attr_accessible :user_id, :email, :password, :password_confirmation, :first_name, :last_name, :department, :supervisor_ids

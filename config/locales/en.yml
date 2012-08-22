@@ -7,3 +7,6 @@ en:
     attributes:
       user:
         user_id: "Staff/Student ID"
+  time:
+    formats:
+      short: '%d/%m/%Y'
