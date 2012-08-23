@@ -24,6 +24,9 @@ module NavigationHelpers
     when /the request account page/
       new_user_registration_path
 
+    when /the reject reason page/
+      reject_reason_user_path
+
     when /the edit my details page/
       edit_user_registration_path
 

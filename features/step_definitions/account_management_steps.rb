@@ -81,7 +81,7 @@ end
 
 When /^I follow "Reject" for "([^"]*)"$/ do |user_id|
   user = User.where(:user_id => user_id).first
-  click_link("reject_#{user.id}")
+  click_link("reject_reason_#{user.id}")
 end
 
 When /^I follow "Reject as Spam" for "([^"]*)"$/ do |user_id|

@@ -10,7 +10,7 @@ class Notifier < ActionMailer::Base
           :subject => PREFIX + "Your access request has been approved")
   end
 
-  def notify_user_of_rejected_request(recipient)
+  def notify_user_of_rejected_request(recipient, reason)
     @user = recipient
     mail( :to => @user.email, 
           :from => APP_CONFIG['account_request_user_status_email_sender'], 

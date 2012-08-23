@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   validates_length_of :last_name, :maximum => 32
   validates_length_of :email, :maximum => 255
   validates_length_of :department, :maximum => 255
+  validates_length_of :rejected_reason, :maximum => 512
 
   validates_uniqueness_of :user_id
 
@@ -125,12 +126,13 @@ class User < ActiveRecord::Base
     Notifier.notify_user_of_approved_request(self).deliver
   end
 
-  def reject_access_request
+  def reject_access_request(reason)
+    self.rejected_reason = reason
     self.status = 'R'
     save!(:validate => false)
 
     # send an email to the user
-    Notifier.notify_user_of_rejected_request(self).deliver
+    Notifier.notify_user_of_rejected_request(self, reason).deliver
   end
 
   def notify_admin_by_email

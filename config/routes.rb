@@ -16,6 +16,7 @@ end
 
     member do
       put :reject
+      get :reject_reason
       put :reject_as_spam
       put :deactivate
       put :activate

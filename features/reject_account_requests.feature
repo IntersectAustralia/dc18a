@@ -20,19 +20,25 @@ Feature: Reject access requests
   Scenario: Reject an access request from the list page
     Given I am on the access requests page
     When I follow "Reject" for "userid4diego"
+    And I fill in "Rejected reason" with "Unidentified User"
+    And I press "Reject"
     Then I should see "The access request for userid4diego was rejected."
     And I should see "access_requests" table with
       |Staff/Student ID | Given Name | Surname | Email                 |
       |userid4ryan      | Ryan       | Braganza  | ryan@intersect.org.au |
     And "diego@intersect.org.au" should receive an email with subject "DC18A - Your access request has been rejected"
     When I open the email
-    Then I should see "You made a request for access to the DC18A System. Your request has been rejected. Please contact the DC18A team for further information." in the email body
-    And I should see "Hello Diego Alonso de Marcos," in the email body
+    Then I should see "Hello Diego Alonso de Marcos," in the email body
+    And I should see "You made a request for access to the DC18A System. Your request has been rejected for the following reason:" in the email body
+    And I should see "Unidentified User" in the email body
+    And I should see "Please contact your System Administrator for further information." in the email body
 
   Scenario: Reject an access request from the view details page
     Given I am on the access requests page
     When I follow "View Details" for "userid4diego"
     And I follow "Reject"
+    And I fill in "Rejected reason" with "Unidentified User"
+    And I press "Reject"
     Then I should see "The access request for userid4diego was rejected."
     And I should see "access_requests" table with
       |Staff/Student ID | Given Name | Surname | Email                 |
@@ -41,6 +47,8 @@ Feature: Reject access requests
   Scenario: Rejected user should not be able to log in
     Given I am on the access requests page
     When I follow "Reject" for "userid4diego"
+    And I fill in "Rejected reason" with "Unidentified User"
+    And I press "Reject"
     And I am on the home page
     And I follow "Logout"
     And I am on the login page
@@ -50,10 +58,11 @@ Feature: Reject access requests
     Then I should see "Invalid staff/student id or password."
     And I should be on the login page
 
-
   Scenario: Rejected user should be able to apply again
     Given I am on the access requests page
     When I follow "Reject" for "userid4diego"
+    And I fill in "Rejected reason" with "Unidentified User"
+    And I press "Reject"
     And I am on the home page
     And I follow "Logout"
     And I am on the request account page
@@ -69,5 +78,4 @@ Feature: Reject access requests
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
     Then I should see "Thanks for requesting an account. You will receive an email when your request has been approved."
-
 

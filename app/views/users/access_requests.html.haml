@@ -16,5 +16,5 @@
         - if can?(:approve, user) then
           = link_to "Approve", edit_approval_user_path(user), :id => "approve_#{user.id}"
         - if can?(:reject, user) then
-          = link_to "Reject", reject_user_path(user), :method => :put, :id => "reject_#{user.id}"
+          = link_to "Reject", reject_reason_user_path(user), :id => "reject_reason_#{user.id}"
         = link_to "View Details", user, :id => "view_#{user.id}"

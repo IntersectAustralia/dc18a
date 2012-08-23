@@ -32,10 +32,18 @@ class UsersController < ApplicationController
     redirect_to(@user, :notice => "The user has been activated.")
   end
 
+  def reject_reason
+  end
+
   def reject
-    @user.reject_access_request
-    @user.destroy
-    redirect_to(access_requests_users_path, :notice => "The access request for #{@user.user_id} was rejected.")
+    reason = params[:user][:rejected_reason]
+    if reason.blank?
+      redirect_to(reject_reason_user_path(@user), :alert => "You must specify a rejected reason.")
+    else
+      @user.reject_access_request(reason)
+      @user.destroy
+      redirect_to(access_requests_users_path, :notice => "The access request for #{@user.user_id} was rejected.")
+    end
   end
 
   def reject_as_spam

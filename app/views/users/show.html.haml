@@ -6,7 +6,7 @@
         = link_to "Approve", edit_approval_user_path(@user), :method => :get
         &nbsp;
       - if can?(:reject, @user) then
-        = link_to "Reject", reject_user_path(@user), :method => :put
+        = link_to "Reject", reject_reason_user_path(@user), :method => :get
         &nbsp;
       = link_to 'Back', access_requests_users_path
 
@@ -39,7 +39,6 @@
   = render_field "Email", @user.email
   = render_field "Given Name", @user.first_name
   = render_field "Surname", @user.last_name
-  = render_field "Department/Institute", @user.department
   = render_field "Supervisors", @user.supervisors_list
   - if !@user.pending_approval?
     = render_field_with_block "Last Logged In" do

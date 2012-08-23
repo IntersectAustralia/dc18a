@@ -1,0 +1,8 @@
+- title "Rejected Reason For #{@user.email}"
+
+= simple_form_for(@user, :url => reject_user_path(@user)) do |f|
+  = render "shared/error_messages", :target => @user
+  = f.input :rejected_reason, :input_html => {:style => 'width: 687px; height: 235px;'}
+  .form-actions
+    = f.submit "Reject", :class => "btn btn-primary"
+    = link_to 'Back', @user, :class => "btn"
