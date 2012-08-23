@@ -33,7 +33,7 @@ Feature: Administer users
     And I should see "Last Logged In"
     And I should see "Date Account Requested"
     And I should see field "Supervisors" with value "N/A"
-    And I should see "Department"
+    And I should see "Department/Institute"
 
   Scenario: Go back from user details
     Given I am on the list users page
