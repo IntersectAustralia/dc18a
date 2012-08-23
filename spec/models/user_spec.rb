@@ -330,4 +330,22 @@ describe User do
       researcher_3.supervisors_list.should eq(supervisor_2.full_name)
     end
   end
+
+  describe "Projects" do
+    it { should respond_to(:projects) }
+
+    it "should see only own projects" do
+      supervisor_role = FactoryGirl.create(:role, :name => "Supervisor")
+      researcher_role = FactoryGirl.create(:role, :name => "Researcher")
+
+      s1 = FactoryGirl.create(:user, :user_id => "userid4supervisor", :status => 'A', :role => supervisor_role)
+      r1 = FactoryGirl.create(:user, :user_id => "userid4r1", :status => 'A', :role => researcher_role, :supervisors => [s1])
+      r2 = FactoryGirl.create(:user, :user_id => "userid4r2", :status => 'A', :role => researcher_role, :supervisors => [s1])
+      p1 = FactoryGirl.create(:project, :name => "p1", :user => r1, :supervisor => s1)
+      p2 = FactoryGirl.create(:project, :name => "p2", :user => r2, :supervisor => s1)
+      r1.projects.should eq([p1])
+      r2.projects.should eq([p2])
+    end
+  end
+
 end

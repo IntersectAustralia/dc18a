@@ -173,6 +173,11 @@ class User < ActiveRecord::Base
     self.supervisors << user if user.administrator? or user.supervisor?
   end
 
+  alias_method :original_projects, :projects
+  def projects
+    self.administrator? ? Project.scoped : self.original_projects
+  end
+
   private
 
   def initialize_status
