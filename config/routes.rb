@@ -37,6 +37,10 @@ end
     get :cancel, :on => :collection
   end
 
+  resources :experiments do
+    get :cancel, :on => :collection
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
