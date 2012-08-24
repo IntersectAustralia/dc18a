@@ -1,0 +1,19 @@
+%h2 Create New Experiment
+
+%h3 Project Details
+%p
+%p Select a project or <a href="/projects/new">Create New Project</a>
+
+%h3 Experiment Details
+
+%p
+= simple_form_for(@experiment) do |f|
+  = f.input :name
+  = f.input :type
+  = f.input :lab_book_no
+  = f.input :page_no
+  = f.input :cell_type_or_tissue
+  .form-actions
+    = f.submit "Create Experiment", :class => "btn btn-primary"
+    = link_to 'Cancel', cancel_experiments_path, :class => "btn"
+

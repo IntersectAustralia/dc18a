@@ -2,6 +2,8 @@ class Project < ActiveRecord::Base
   belongs_to :user
   belongs_to :supervisor, :class_name => "User", :foreign_key => "supervisor_id"
 
+  has_many :experiments
+
   attr_accessible :agency, :description, :funded_by_agency, :name, :other_agency, :supervisor_id
 
   validates_length_of :name, :maximum => 255
