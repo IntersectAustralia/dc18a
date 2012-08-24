@@ -61,8 +61,9 @@ describe User do
   describe "Reject Access Request" do
     it "should set the status flag to R" do
       user = FactoryGirl.create(:user, :status => 'U')
-      user.reject_access_request
+      user.reject_access_request("Some Rejected Reason")
       user.status.should eq("R")
+      user.rejected_reason.should eq("Some Rejected Reason")
       user.approved_on.should be_nil
     end
   end
