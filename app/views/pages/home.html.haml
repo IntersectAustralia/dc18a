@@ -8,13 +8,13 @@
   - else
     = link_to "Create Project", new_project_path, :class => "button"
     = will_paginate(@projects)
-    %table#projects.table.table-bordered.table-striped.table-condensed
+    %table#projects.table.table-bordered.table-striped.table-condensed.pretty
       %tr
-        %th ID
-        %th Project Name
-        %th Owner
-        %th Date Created
-        %th Supervisor
+        %th= sortable "id", "ID"
+        %th= sortable "name", "Project Name"
+        %th= sortable "user_id", "Owner"
+        %th= sortable "created_at", "Date Created"
+        %th= sortable "supervisor_id", "Supervisor"
         %th Actions
       - @projects.each do |project|
         %tr{:class => cycle('field_bg', 'field_nobg')}

@@ -1,13 +1,14 @@
 - title 'Listing Users'
-%table#users.table.table-bordered.table-striped.table-condensed
+= will_paginate(@projects)
+%table#users.table.table-bordered.table-striped.table-condensed.pretty
   %tr
-    %th Staff/Student ID
-    %th Given Name
-    %th Surname
-    %th Email
-    %th Role
-    %th Status
-    %th Last signed in
+    %th= sortable "user_id", "Staff/Student ID"
+    %th= sortable "first_name", "Given Name"
+    %th= sortable "last_name", "Surname"
+    %th= sortable "email", "Email"
+    %th= sortable "role", "Role"
+    %th= sortable "status", "Status"
+    %th= sortable "last_signed_in_at", "Last signed in"
     %th Actions
   - @users.each do |user|
     %tr{:class => cycle('field_bg', 'field_nobg')}
@@ -30,3 +31,4 @@
         = link_to "View Details", user, :id => "view_#{user.id}"
         - if can?(:update_role, User)
           = link_to "Edit role", edit_role_user_path(user), :id => "edit_role_#{user.id}"
+= will_paginate(@projects)

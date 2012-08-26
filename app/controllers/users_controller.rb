@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = User.deactivated_or_approved
+    @users = User.deactivated_or_approved.reorder(sort_column + " " + sort_direction).paginate(page: params[:page])
   end
 
   def show
@@ -80,4 +80,14 @@ class UsersController < ApplicationController
       redirect_to(edit_approval_user_path(@user), :alert => "Please select a role for the user.")
     end
   end
+end
+
+private
+
+def sort_column
+  User.column_names.include?(params[:sort]) ? params[:sort] : "user_id"
+end
+
+def sort_direction
+  %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
 end

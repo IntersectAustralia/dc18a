@@ -59,3 +59,16 @@ Feature: List projects
     Then I should see "projects" table with
       | Project Name    | Owner         |
       | p5              | Fred Fleggss  |
+
+  Scenario: List projects should be sortable
+    Given I am logged in as "userid4raul"
+    And I am on the home page
+    Then I should see "projects" table with
+      | Project Name    | Owner         |
+      | p1              | Raul Carrizo  |
+      | p2              | Raul Carrizo  |
+    When I follow "Project Name"
+    Then I should see "projects" table with
+      | Project Name    | Owner         |
+      | p3              | Raul Carrizo  |
+      | p2              | Raul Carrizo  |
