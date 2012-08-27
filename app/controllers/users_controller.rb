@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = User.deactivated_or_approved.reorder(sort_column + " " + sort_direction).paginate(page: params[:page])
+    if sort_column == 'role_id'
+      @users = User.deactivated_or_approved.joins(:role).reorder("roles.name" + " " + sort_direction).paginate(page: params[:page])
+    else
+      @users = User.deactivated_or_approved.reorder(sort_column + " " + sort_direction).paginate(page: params[:page])
+    end
   end
 
   def show

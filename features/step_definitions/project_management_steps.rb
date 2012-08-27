@@ -8,10 +8,11 @@ end
 
 Given /^"([^"]*)" has projects$/ do |user_id, table|
   user = User.find_by_user_id(user_id)
-  supervisor = user.supervisors.first
+  default_supervisor = user.supervisors.first
 
   table.hashes.each do |hash|
-    FactoryGirl.create(:project, hash.merge(:user => user, :supervisor => supervisor))
+    supervisor = hash[:supervisor].nil? ? default_supervisor : User.find_by_user_id(hash[:supervisor])
+    FactoryGirl.create(:project, :user => user, :supervisor => supervisor, :name => hash[:name])
   end
 end
 
