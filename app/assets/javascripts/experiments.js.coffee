@@ -14,6 +14,6 @@ jQuery ->
          <br/><span>Project Name: ' + project_name + '</span><br/>
          <br/>'
        )
-      #TODO: Include other project details - this may require querying the server..?
 
-    e.preventDefault()
+      $("#experiment_project_id").val(project_id)
+      #TODO: Include other project details - this may require querying the server..?
