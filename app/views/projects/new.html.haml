@@ -4,12 +4,13 @@
     var controller = document.getElementById(controller_id);
     var controllee1 = document.getElementById(controllee1_id);
     var controllee2 = document.getElementById(controllee2_id);
+
     if (controller.options[controller.selectedIndex].value == 1) {
       controllee1.disabled = false;
     }
     else {
       controllee1.disabled = true;
-      controllee1.disabled = true;
+      controllee2.disabled = true;
     }
   }
 

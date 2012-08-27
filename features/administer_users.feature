@@ -19,6 +19,11 @@ Feature: Administer users
       |Staff/Student ID | Given Name | Surname | Email                     | Role          | Status       |
       |userid4raul      | Raul       | Carrizo   | raul@intersect.org.au     |               | Deactivated  |
       |userid4seanlin   | Sean       | Lin       | seanl@intersect.org.au    | Administrator | Active       |
+    When I follow "Staff/Student ID"
+    Then I should see "users" table with
+      |Staff/Student ID | Given Name | Surname | Email                     | Role          | Status       |
+      |userid4seanlin   | Sean       | Lin       | seanl@intersect.org.au    | Administrator | Active       |
+      |userid4raul      | Raul       | Carrizo   | raul@intersect.org.au     |               | Deactivated  |
 
   Scenario: View user details
     Given "userid4raul" has role "Researcher"

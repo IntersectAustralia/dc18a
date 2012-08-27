@@ -65,3 +65,6 @@ gem "capistrano-ext"
 gem "capistrano"
 gem "capistrano_colors"
 gem "rvm-capistrano"
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+

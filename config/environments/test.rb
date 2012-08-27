@@ -38,4 +38,6 @@ Dc18a::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  WillPaginate.per_page = 2
 end

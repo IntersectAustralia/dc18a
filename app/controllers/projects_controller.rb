@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   end
 
   def cancel
-    flash[:alert] = "Project canceled."
+    flash[:alert] = "Project was not created."
     redirect_to root_path
   end
 end
