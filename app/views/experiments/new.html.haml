@@ -2,7 +2,13 @@
 
 %h3 Project Details
 %p
-%p Select a project or <a href="/projects/new">Create New Project</a>
+.somecontainer
+  Select a project
+  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name), :prompt => "----"
+  or
+  = link_to "Create New Project", new_project_path
+
+.project_display
 
 %h3 Experiment Details
 
