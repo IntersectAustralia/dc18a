@@ -10,4 +10,6 @@ class Project < ActiveRecord::Base
   validates_presence_of :name, :supervisor_id
   validates_presence_of :agency, :if => Proc.new { |project| project.funded_by_agency? }
   validates_presence_of :other_agency, :if => Proc.new { |project| project.funded_by_agency? && project.agency == "Other" }
+
+  scope :supervised_by, lambda { |supervisor| joins(:supervisor).where(:users => {:user_id => supervisor.user_id}) }
 end

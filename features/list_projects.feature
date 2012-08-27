@@ -19,15 +19,16 @@ Feature: List projects
       | userid4fred               | fred@intersect.org.au     | Fred       | Fleggss   |
     And "userid4raul" has supervisor "userid4w"
     And "userid4raul" has supervisor "userid4t"
+    And "userid4fred" has supervisor "userid4w"
     And "userid4raul" has projects
       | name | supervisor         |
       | p1   | userid4w |
       | p2   | userid4t |
       | p3   | userid4z |
     And "userid4fred" has projects
-      | name |
-      | p4   |
-      | p5   |
+      | name | supervisor |
+      | p4   | userid4w   |
+      | p5   | userid4w   |
 
   Scenario: List projects should be paginated
     Given I am logged in as "userid4raul"
@@ -90,3 +91,15 @@ Feature: List projects
       | Project Name    | Owner         |
       | p3              | Raul Carrizo  |
       | p1              | Raul Carrizo  |
+
+  Scenario: Supervisor should list all projects he is assigned as supervisor
+    Given I am logged in as "userid4w"
+    And I am on the home page
+    Then I should see "projects" table with
+      | Project Name    | Owner         |
+      | p1              | Raul Carrizo  |
+      | p4              | Fred Fleggss  |
+    When I follow "Next"
+    Then I should see "projects" table with
+      | Project Name    | Owner         |
+      | p5              | Fred Fleggss  |

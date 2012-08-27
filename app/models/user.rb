@@ -176,7 +176,13 @@ class User < ActiveRecord::Base
 
   alias_method :original_projects, :projects
   def projects
-    self.administrator? ? Project.scoped : self.original_projects
+    if self.administrator?
+      Project.scoped
+    elsif self.supervisor?
+      Project.supervised_by(self)
+    else
+      self.original_projects
+    end
   end
 
   private
