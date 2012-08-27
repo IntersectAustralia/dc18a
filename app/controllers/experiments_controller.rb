@@ -1,6 +1,7 @@
 class ExperimentsController < ApplicationController
 
   def new
+    @projects = current_user.projects
     @experiment = current_user.experiments.new
   end
 
