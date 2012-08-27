@@ -10,7 +10,7 @@ class ExperimentsController < ApplicationController
 
     if @experiment.save
       flash[:notice] = "Experiment created"
-      redirect_to experiments_path
+      redirect_to root_path
     else
       flash[:alert] = "Please fill in all mandatory fields"
       render 'new'
