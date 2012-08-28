@@ -6,6 +6,9 @@ Feature: Create project
   Background:
     Given I have no users
     Given I have the usual roles and permissions
+    And I have administrators
+      | user_id                   | email                           | first_name | last_name |
+      | userid4admin              | admin@intersect.org.au          | Administrator       | Super       |
     And I have supervisors
       | user_id                   | email                           | first_name | last_name |
       | userid4seanlin            | seanl@intersect.org.au    | Sean       | Lin       |
@@ -13,6 +16,7 @@ Feature: Create project
       | user_id                   | email                     | first_name | last_name        |
       | userid4raul               | raul@intersect.org.au     | Raul       | Carrizo          |
     And "userid4raul" has supervisor "userid4seanlin"
+    And "userid4admin" has supervisor "userid4admin"
     And I am logged in as "userid4raul"
 
   @javascript

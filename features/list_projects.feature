@@ -29,6 +29,10 @@ Feature: List projects
       | name | supervisor |
       | p4   | userid4w   |
       | p5   | userid4w   |
+    And "userid4w" has projects
+      | name | supervisor       |
+      | p6   | userid4seanlin   |
+      | p7   | userid4seanlin   |
 
   Scenario: List projects should be paginated
     Given I am logged in as "userid4raul"
@@ -63,6 +67,11 @@ Feature: List projects
     Then I should see "projects" table with
       | Project Name    | Owner         |
       | p5              | Fred Fleggss  |
+      | p6              | Supervisor 1  |
+    When I follow "Next"
+    Then I should see "projects" table with
+      | Project Name    | Owner         |
+      | p7              | Supervisor 1  |
 
   Scenario: List projects should be sortable
     Given I am logged in as "userid4raul"
@@ -103,3 +112,8 @@ Feature: List projects
     Then I should see "projects" table with
       | Project Name    | Owner         |
       | p5              | Fred Fleggss  |
+      | p6              | Supervisor 1  |
+    When I follow "Next"
+    Then I should see "projects" table with
+      | Project Name    | Owner         |
+      | p7              | Supervisor 1  |

@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController
   def new
-    @project = current_user.projects.new
+    @project = Project.new
   end
 
   def create
-    @project = current_user.projects.build(params[:project])
+    @project = Project.create(params[:project].merge(:user_id => current_user.id))
 
     if @project.save
       flash[:notice] = "Project created."

@@ -23,6 +23,7 @@ def create_administrator(attrs)
   admin = User.new(attrs.merge(:password => @password))
   admin.role = Role.where(:name => 'Administrator').first
   admin.activate
+  admin.add_supervisor(admin)
   admin.save! ? admin : nil
 end
 
@@ -30,6 +31,7 @@ def create_supervisor(attrs)
   supervisor = User.new(attrs.merge(:password => @password))
   supervisor.role = Role.where(:name => 'Supervisor').first
   supervisor.activate
+  supervisor.add_supervisor(supervisor)
   supervisor.save! ? supervisor : nil
 end
 

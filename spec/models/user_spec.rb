@@ -347,6 +347,18 @@ describe User do
       r1.projects.should eq([p1])
       r2.projects.should eq([p2])
     end
+
+    it "should be able to create project" do
+      administrator_role = FactoryGirl.create(:role, :name => "Administrator")
+
+      a1 = FactoryGirl.create(:user, :user_id => "userid4admin", :status => 'A', :role => administrator_role)
+      a1.add_supervisor(a1)
+      a1.save!
+      p1 = FactoryGirl.create(:project, :name => "p1", :user => a1, :supervisor => a1)
+      p1.save!
+      a1.projects.should eq([p1])
+    end
+
   end
 
 end
