@@ -1,0 +1,26 @@
+%h2 Create New Experiment
+
+%h3 Project Details
+%p
+.somecontainer
+  Select a project
+  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name), :prompt => "----"
+  or
+  = link_to "Create New Project", new_project_path
+
+.project_display
+
+%h3 Experiment Details
+
+%p
+= simple_form_for(@experiment) do |f|
+  = f.input :project_id, :as => :hidden, :input_html => { :value => @project_id }
+  = f.input :expt_name, :label => "Experiment Name"
+  = f.input :lab_book_no, :label => "Lab Book No."
+  = f.input :page_no, :label => "Page No."
+  = f.input :cell_type_or_tissue, :label => "Cell Type or Tissue"
+  = f.input :expt_type, :label => "Experiment Type", :collection => ["Fixed", "Live"]
+  .form-actions
+    = f.submit "Create Experiment", :class => "btn btn-primary"
+    = link_to 'Cancel', cancel_experiments_path, :class => "btn"
+

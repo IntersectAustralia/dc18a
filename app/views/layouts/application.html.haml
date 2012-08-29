@@ -19,10 +19,9 @@
             %span.icon-bar
           %a.brand{:href => root_path } MIF Data Capture
           .nav-collapse
-            %ul.nav
-              %li= link_to "LINK1"
-              %li= link_to "LINK2"
-              %li= link_to "LINK3"
+            - if user_signed_in?
+              %ul.nav
+                %li= link_to "Experiment", new_experiment_path
           = render 'layouts/user_menu'
           = render 'layouts/admin_menu'
 
