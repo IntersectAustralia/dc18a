@@ -7,6 +7,16 @@ class UserRegistersController < Devise::RegistrationsController
 
   end
 
+  # Override the new method in the RegistrationsController to add the notification hook
+  def new
+    if params[:not_exist]
+      set_flash_message :alert, :not_exist
+    end
+
+    resource = build_resource({})
+    respond_with resource
+  end
+
   # Override the create method in the RegistrationsController to add the notification hook
   def create
     build_resource

@@ -10,3 +10,7 @@ en:
   time:
     formats:
       short: '%d/%m/%Y'
+  devise:
+    user_registers:
+      user:
+        not_exist: 'You have not registered a user account Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed to gain access until your account has been approved by the administrator. '

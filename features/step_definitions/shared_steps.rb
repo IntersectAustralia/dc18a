@@ -101,3 +101,7 @@ Then /^pause$/ do
   puts "Press Enter to continue"
   STDIN.getc
 end
+
+Given /^I visit "([^\"]*)"$/ do |page_url|
+  visit page_url
+end
