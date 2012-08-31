@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120824053852) do
+ActiveRecord::Schema.define(:version => 20120830022501) do
 
   create_table "experiments", :force => true do |t|
     t.integer  "expt_id"
@@ -22,8 +22,19 @@ ActiveRecord::Schema.define(:version => 20120824053852) do
     t.string   "cell_type_or_tissue"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.boolean  "slides"
+    t.boolean  "dishes"
+    t.boolean  "multiwell_chambers"
+    t.boolean  "other"
+    t.string   "other_text"
+    t.boolean  "reporter_protein"
+    t.string   "reporter_protein_text"
+    t.boolean  "specific_dyes"
+    t.string   "specific_dyes_text"
+    t.boolean  "immunofluorescence"
+    t.datetime "created_date"
   end
 
   create_table "permissions", :force => true do |t|

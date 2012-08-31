@@ -19,4 +19,9 @@ class ProjectsController < ApplicationController
     flash[:alert] = "Project was not created."
     redirect_to root_path
   end
+
+  def project_data
+     project = Project.find_by_id(params[:id])
+     render :json => project.to_json_data
+  end
 end

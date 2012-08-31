@@ -13,4 +13,12 @@ class Project < ActiveRecord::Base
   validates_presence_of :other_agency, :if => Proc.new { |project| project.funded_by_agency? && project.agency == "Other" }
 
   scope :supervised_by, lambda { |supervisor| joins(:supervisor).where("projects.user_id = '#{supervisor.id}' or users.user_id = '#{supervisor.user_id}'") }
+
+  def to_json_data
+    { "project_id" => self.id,
+      "description" => self.description,
+      "date_created" => self.created_at.localtime.strftime("%d/%m/%Y"),
+      "supervisor" => User.find_by_id(self.supervisor_id).full_name,
+      "funded_by" => self.agency }.to_json
+  end
 end
