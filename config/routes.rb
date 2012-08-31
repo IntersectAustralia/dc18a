@@ -35,6 +35,9 @@ end
 
   resources :projects do
     get :cancel, :on => :collection
+    member do
+      get :project_data
+    end
   end
 
   resources :experiments do
