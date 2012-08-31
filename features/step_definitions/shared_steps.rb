@@ -105,3 +105,7 @@ end
 Given /^I visit "([^\"]*)"$/ do |page_url|
   visit page_url
 end
+
+Then /^I should see "([^"]*)" in "([^"]*)" field$/ do |value, field|
+  find_field(field).value.should eq value
+end

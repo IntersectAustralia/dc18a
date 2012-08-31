@@ -235,8 +235,8 @@ config.timeout_in = 30.minutes
   #
   config.warden do |manager|
     # manager.intercept_401 = false
-    manager.default_strategies(:scope => :user).unshift :by_ip_and_windows_login
-    #manager.failure_app = CustomFailure
+    manager.default_strategies(:scope => :user).unshift :authenticate_windows_user
+    manager.failure_app = CustomFailure
   end
 
   # ==> Mountable engine configurations

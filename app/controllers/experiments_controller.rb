@@ -1,6 +1,16 @@
 class ExperimentsController < ApplicationController
+  before_filter :authenticate_user!
 
   def new
+    # Custom authentication strategy need custom flash message
+    if params[:login_id] && params[:ip]
+      if current_user.nil?
+        flash[:alert] = request.env['warden'].message
+      else
+        flash[:notice] = request.env['warden'].message
+      end
+    end
+
     @projects = current_user.projects
     @experiment = current_user.experiments.new
   end

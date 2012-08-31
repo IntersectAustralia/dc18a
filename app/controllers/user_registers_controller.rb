@@ -9,11 +9,12 @@ class UserRegistersController < Devise::RegistrationsController
 
   # Override the new method in the RegistrationsController to add the notification hook
   def new
-    if params[:not_exist]
-      set_flash_message :alert, :not_exist
+    if params[:login_id]
+      resource = build_resource({:user_id => params[:login_id]})
+    else
+      resource = build_resource({})
     end
 
-    resource = build_resource({})
     respond_with resource
   end
 
