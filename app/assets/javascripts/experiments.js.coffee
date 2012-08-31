@@ -28,7 +28,6 @@ jQuery ->
       $('#funded_by').text("Funded By: ")
       $('#supervisor').text("Supervisor: ")
 
-
   # Check 'Other (Specify)' textfield enable/disable
   $('#experiment_other_text').prop('disabled', true)
   if $('#experiment_other:checked').val()
