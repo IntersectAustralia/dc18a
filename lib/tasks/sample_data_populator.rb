@@ -4,6 +4,24 @@ def populate_data
   User.delete_all
 
   create_test_users
+  create_test_projects
+end
+
+def create_test_projects
+  uid1 = User.find_by_user_id('userid4veronica').id
+  uid2 = User.find_by_user_id('userid4seanl').id
+  uid3 = User.find_by_user_id('userid4marc').id
+  p1 = create_project(uid1, "Project A", uid1)
+  p2 = create_project(uid1, "Project B", uid1)
+  p3 = create_project(uid2, "Project 1", uid2)
+  p4 = create_project(uid2, "Project 2", uid2)
+  p5 = create_project(uid3, "Project X", uid1)
+  p6 = create_project(uid3, "Project Y", uid2)
+end
+
+def create_project(uid, name, sid)
+  project = Project.new(:user_id => uid, :description => "Description for #{name}", :name => name, :supervisor_id => sid)
+  project.save!
 end
 
 def create_test_users

@@ -1,0 +1,32 @@
+%h2 Project View
+
+= link_to "Edit", edit_project_path
+.container
+  = render_field "Project ID", @project.id
+  = render_field "Project Name", @project.name
+  = render_field "Description", @project.description
+  = render_field "Creator", @project.user.full_name
+  = render_field "Supervisor", @project.supervisor.full_name
+  = render_field "Funded By", @project.agency
+  = render_field "Date Created", @project.created_date
+
+<br/>
+.experiment_list
+  = will_paginate(@experiments)
+  %table#experiments.table.table-bordered.table-striped.table-condensed.pretty
+    %tr
+      %th= sortable "id", "ID"
+      %th= sortable "expt_name", "Experiment Name"
+      %th= sortable "user_id", "Owner"
+      %th= sortable "created_at", "Date Created"
+      %th= sortable "lab_book_no", "Lab Book No."
+      %th Actions
+    - @experiments.each do |experiment|
+      %tr{:class => cycle('field_bg', 'field_nobg')}
+        %td= experiment.id
+        %td= experiment.expt_name
+        %td= experiment.user.full_name
+        %td= experiment.created_date
+        %td= experiment.lab_book_no
+        %td= link_to 'View Details', experiment, :class => "view", :id => "view_#{experiment.id}"
+  = will_paginate(@experiments)

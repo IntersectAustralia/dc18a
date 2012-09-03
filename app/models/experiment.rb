@@ -21,6 +21,10 @@ class Experiment < ActiveRecord::Base
 
   before_save :assign_experiment_id
 
+  def created_date
+    self.created_at.localtime.strftime("%d/%m/%Y")
+  end
+
   private
 
   def assign_experiment_id

@@ -1,6 +1,8 @@
 class ExperimentsController < ApplicationController
   before_filter :authenticate_user!
 
+  load_resource
+
   def new
     # Custom authentication strategy need custom flash message
     if params[:login_id] && params[:ip]
@@ -24,7 +26,8 @@ class ExperimentsController < ApplicationController
       redirect_to root_path
     else
       flash[:alert] = "Please fill in all mandatory fields"
-      render 'new'
+      @projects = current_user.projects
+      render action: "new"
     end
   end
 
