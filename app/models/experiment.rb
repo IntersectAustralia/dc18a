@@ -11,12 +11,13 @@ class Experiment < ActiveRecord::Base
   validates_length_of :lab_book_no, :maximum => 255
   validates_length_of :page_no, :maximum => 255
   validates_length_of :cell_type_or_tissue, :maximum => 255
-  validates_length_of :reporter_protein, :maximum => 255
-  validates_length_of :specific_dyes, :maximum => 255
+  validates_length_of :other_text, :maximum => 255
+  validates_length_of :reporter_protein_text, :maximum => 255
+  validates_length_of :specific_dyes_text, :maximum => 255
   validates_presence_of :expt_type
-  validates_presence_of :other_text, :if => Proc.new { |expt| expt.other?}
-  validates_presence_of :reporter_protein_text, :if => Proc.new { |expt| expt.reporter_protein? }
-  validates_presence_of :specific_dyes_text, :if => Proc.new { |expt| expt.specific_dyes? }
+  validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
+  validates_presence_of :reporter_protein_text, :if => :reporter_protein?, :message => '"Reporter Protein (Specify)" cannot be empty if "Reporter Protein" is checked'
+  validates_presence_of :specific_dyes_text, :if => :specific_dyes?, :message => '"Specific Dyes (Specify)" cannot be empty if "Specific Dyes" is checked'
 
   before_save :assign_experiment_id
 
