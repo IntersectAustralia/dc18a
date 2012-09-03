@@ -28,6 +28,17 @@ jQuery ->
       $('#funded_by').text("Funded By: ")
       $('#supervisor').text("Supervisor: ")
 
+  enable_submit_button = (project_id) ->
+    if project_id
+      $('#experiment_submit').prop('disabled', false)
+    else
+      $('#experiment_submit').prop('disabled', true)
+
+  # Check project selected to enable/disable submit button
+  $('#experiment_submit').prop('disabled', true)
+  if $("#project_select").val()
+    $('#experiment_submit').prop('disabled', false)
+
   # Check 'Other (Specify)' textfield enable/disable
   $('#experiment_other_text').prop('disabled', true)
   if $('#experiment_other:checked').val()
@@ -43,7 +54,7 @@ jQuery ->
 
   $('#project_select').change () ->
     project_id = $("#project_select").val()
-    #$('.project_display').empty()
+    enable_submit_button(project_id)
     project_details_display(project_id)
     $("#experiment_project_id").val(project_id)
 
