@@ -49,6 +49,11 @@ jQuery ->
   if $('#experiment_reporter_protein:checked').val()
     $('#experiment_reporter_protein_text').prop('disabled', false)
 
+  # Check 'Reporter Protein (Specify)' textfield enable/disable
+  $('#experiment_specific_dyes_text').prop('disabled', true)
+  if $('#experiment_specific_dyes:checked').val()
+    $('#experiment_specific_dyes_text').prop('disabled', false)
+
   # Check if any project has already been selected
   project_details_display($("#project_select").val())
 
@@ -63,11 +68,21 @@ jQuery ->
     if is_checked
       $('#experiment_other_text').prop('disabled', false)
     else
+      $('#experiment_other_text').val('')
       $('#experiment_other_text').prop('disabled', true)
 
-  $('#experiment_other').click () ->
-    is_checked = $('#experiment_other:checked').val()
+  $('#experiment_reporter_protein').click () ->
+    is_checked = $('#experiment_reporter_protein:checked').val()
     if is_checked
       $('#experiment_reporter_protein_text').prop('disabled', false)
     else
+      $('#experiment_reporter_protein_text').val('')
       $('#experiment_reporter_protein_text').prop('disabled', true)
+
+  $('#experiment_specific_dyes').click () ->
+    is_checked = $('#experiment_specific_dyes:checked').val()
+    if is_checked
+      $('#experiment_specific_dyes_text').prop('disabled', false)
+    else
+      $('#experiment_specific_dyes_text').val('')
+      $('#experiment_specific_dyes_text').prop('disabled', true)
