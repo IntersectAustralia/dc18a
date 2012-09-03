@@ -1,5 +1,14 @@
 class ProjectsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_filter :authenticate_user!
+
+  load_resource
+
+  def show
+    @project = Project.find_by_id(params[:id])
+    @experiments =  @project.experiments.order(sort_column + " " + sort_direction).paginate(page: params[:page]) unless @project.nil?
+  end
 
   def new
     @project = Project.new
@@ -25,5 +34,15 @@ class ProjectsController < ApplicationController
   def project_data
      project = Project.find_by_id(params[:id])
      render :json => project.to_json_data
+  end
+
+  private
+
+  def sort_column
+    Experiment.column_names.include?(params[:sort]) ? params[:sort] : "expt_name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

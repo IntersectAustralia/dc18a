@@ -21,4 +21,8 @@ class Project < ActiveRecord::Base
       "supervisor" => User.find_by_id(self.supervisor_id).full_name,
       "funded_by" => self.agency }.to_json
   end
+
+  def created_date
+    self.created_at.localtime.strftime("%d/%m/%Y")
+  end
 end
