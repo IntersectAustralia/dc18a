@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120903034014) do
     t.integer  "project_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.string   "instrument"
     t.boolean  "slides"
     t.boolean  "dishes"
     t.boolean  "multiwell_chambers"
@@ -34,7 +35,6 @@ ActiveRecord::Schema.define(:version => 20120903034014) do
     t.boolean  "specific_dyes"
     t.string   "specific_dyes_text"
     t.boolean  "immunofluorescence"
-    t.string   "instrument"
   end
 
   create_table "permissions", :force => true do |t|
