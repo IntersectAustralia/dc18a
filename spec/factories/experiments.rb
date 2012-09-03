@@ -2,10 +2,9 @@
 
 FactoryGirl.define do
   factory :experiment do
-    name "MyString"
-    type ""
-    lab_book_no "MyString"
-    page_no "MyString"
-    cell_type_or_tissue "MyString"
+    expt_name "My Experiment"
+    expt_type "Fixed"
+    association :user, :factory => :user
+    association :project, :factory => :project
   end
 end
