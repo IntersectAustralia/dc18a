@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Experiment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should respond_to(:instrument) }
 end

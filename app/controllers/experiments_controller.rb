@@ -8,6 +8,7 @@ class ExperimentsController < ApplicationController
         flash[:alert] = request.env['warden'].message
       else
         flash[:notice] = request.env['warden'].message
+        @instrument = INSTRUMENTS[params[:ip]]
       end
     end
 

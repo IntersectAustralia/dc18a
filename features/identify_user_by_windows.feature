@@ -14,9 +14,15 @@ Feature: Identify user by windows
     Given I visit "/experiments/new?login_id=windowsuserid&ip=172.16.4.78"
     Then I should be on the cerate experiment page
     And I should see "Welcome Sean Lin."
+    And I should see "Instrument: Nikon Ti inverted epifluorescent microscope"
 
   Scenario: Login with windows id which is not existed in system
     Given I visit "/experiments/new?login_id=windowsuseridnotinthesystem&ip=172.16.4.78"
     Then I should be on the request account page
-    And I should see "You have not registered a user account Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed to gain access until your account has been approved by the administrator. "
+    And I should see "You have not registered a user account with the Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed access until your account has been approved by the administrator. "
     And I should see "windowsuseridnotinthesystem" in "Staff/Student ID" field
+
+  Scenario: Login with windows id which is existed in system, but not in the lab
+    Given I visit "/experiments/new?login_id=windowsuseridnotinthesystem&ip=172.16.4.80"
+    And I should be on the login page
+    Then I should see "Failed to Login"

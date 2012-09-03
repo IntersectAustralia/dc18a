@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120824053852) do
+ActiveRecord::Schema.define(:version => 20120903034014) do
 
   create_table "experiments", :force => true do |t|
     t.integer  "expt_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120824053852) do
     t.integer  "project_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "instrument"
   end
 
   create_table "permissions", :force => true do |t|

@@ -11,10 +11,12 @@
 .project_display
 
 %h3 Experiment Details
+%h4 Instrument: #{@instrument}
 
 %p
 = simple_form_for(@experiment) do |f|
   = f.input :project_id, :as => :hidden, :input_html => { :value => @project_id }
+  = f.input :instrument, :as => :hidden, :input_html => { :value => @instrument }
   = f.input :expt_name, :label => "Experiment Name"
   = f.input :lab_book_no, :label => "Lab Book No."
   = f.input :page_no, :label => "Page No."

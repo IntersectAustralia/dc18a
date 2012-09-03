@@ -1,4 +1,5 @@
 require 'devise/strategies/authenticatable'
+require 'yaml'
 
 module Devise
   module Strategies
@@ -14,16 +15,23 @@ module Devise
         login_id = params[:login_id]
         user = User.find_by_user_id(login_id)
 
-        # TODO which way to store the ip - instrument map?
-        if user && ip == "172.16.4.78"
-          # if successful, call
-          message = "Welcome #{user.full_name}."
-          success!(user, message) # where resource is the whatever you've authenticated, e.g. user;
+        # Read ip from ip instruments mapping configuration file, see config/initializers/0_load_dc18a_config.rb
+        ip_addresses = INSTRUMENTS.keys
+
+        if ip_addresses.include?(ip)
+          if user
+            # user in system and login from within lab
+            message = "Welcome #{user.full_name}."
+            success!(user, message) # where resource is the whatever you've authenticated, e.g. user;
+          else
+            # login from within lab but user not in system
+            message = "You have not registered a user account with the Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed access until your account has been approved by the administrator."
+            fail!(message) # where message is the failure message
+          end
         else
-          # if fail, call
-          message = "You have not registered a user account Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed to gain access until your account has been approved by the administrator."
-          fail!(message) # where message is the failure message
-          throw :warden
+          # try to login from outside of lab
+          params[:not_in_lab] = true
+          fail!
         end
       end
     end
