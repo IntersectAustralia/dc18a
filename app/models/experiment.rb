@@ -18,4 +18,12 @@ class Experiment < ActiveRecord::Base
   validates_presence_of :reporter_protein_text, :if => Proc.new { |expt| expt.reporter_protein? }
   validates_presence_of :specific_dyes_text, :if => Proc.new { |expt| expt.specific_dyes? }
 
+  before_save :assign_experiment_id
+
+  private
+
+  def assign_experiment_id
+    self.expt_id = self.project.experiments.count + 1
+  end
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830022501) do
+ActiveRecord::Schema.define(:version => 20120903024228) do
 
   create_table "experiments", :force => true do |t|
     t.integer  "expt_id"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20120830022501) do
     t.boolean  "specific_dyes"
     t.string   "specific_dyes_text"
     t.boolean  "immunofluorescence"
-    t.datetime "created_date"
   end
 
   create_table "permissions", :force => true do |t|
