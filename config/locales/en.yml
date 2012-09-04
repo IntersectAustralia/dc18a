@@ -10,6 +10,7 @@ en:
   time:
     formats:
       short: '%d/%m/%Y'
+      yyyymmdd: '%Y%m%d'
   devise:
     user_registers:
       user:

@@ -28,5 +28,7 @@
         %td= experiment.user.full_name
         %td= experiment.created_date
         %td= experiment.lab_book_no
-        %td= link_to 'View Details', experiment, :class => "view", :id => "view_#{experiment.id}"
+        %td
+          = link_to 'View Details', experiment, :class => "view", :id => "view_#{experiment.id}"
+          = link_to 'Save and Download Metadata', download_experiment_path(experiment), :class => "view", :id => "download_#{experiment.id}"
   = will_paginate(@experiments)

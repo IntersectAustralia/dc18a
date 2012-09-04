@@ -42,6 +42,7 @@ end
 
   resources :experiments do
     get :cancel, :on => :collection
+    get :download, :on => :member
   end
 
   # The priority is based upon order of creation:

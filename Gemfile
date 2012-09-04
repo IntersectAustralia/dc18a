@@ -67,4 +67,5 @@ gem "capistrano_colors"
 gem "rvm-capistrano"
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'zipruby'
 
