@@ -49,6 +49,7 @@ Feature: Create experiment
     And I fill in "Cell Type or Tissue" with "Tissue A"
     And I select "Fixed" from "Experiment Type"
     And I check "Slides"
+    And I check "Multiwell Chambers"
     And I check "Immunofluorescence"
     And I press "Create Experiment"
     Then I should be on the view project page for "Project A"
