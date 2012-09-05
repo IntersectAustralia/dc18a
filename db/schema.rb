@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20120904035741) do
     t.boolean  "specific_dyes"
     t.string   "specific_dyes_text"
     t.boolean  "immunofluorescence"
+    t.string   "instrument"
   end
 
   add_index "experiments", ["expt_name"], :name => "index_experiments_on_expt_name"

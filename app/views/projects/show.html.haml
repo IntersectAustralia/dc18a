@@ -23,7 +23,7 @@
       %th Actions
     - @experiments.each do |experiment|
       %tr{:class => cycle('field_bg', 'field_nobg')}
-        %td= experiment.id
+        %td= experiment.expt_id
         %td= experiment.expt_name
         %td= experiment.user.full_name
         %td= experiment.created_date
