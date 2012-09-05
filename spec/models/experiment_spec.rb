@@ -9,6 +9,10 @@ describe Experiment do
   end
 
   describe "Validations" do
+    it { should validate_presence_of(:expt_name) }
+    it { should validate_presence_of(:lab_book_no) }
+    it { should validate_presence_of(:page_no) }
+    it { should validate_presence_of(:cell_type_or_tissue) }
     it { should validate_presence_of(:expt_type) }
     it { should ensure_length_of(:expt_name).is_at_most(255) }
     it { should ensure_length_of(:lab_book_no).is_at_most(255) }

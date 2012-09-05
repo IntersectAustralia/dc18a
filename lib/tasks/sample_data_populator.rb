@@ -2,6 +2,7 @@ def populate_data
   load_password
 
   User.delete_all
+  Project.delete_all
 
   create_test_users
   create_test_projects
@@ -20,7 +21,7 @@ def create_test_projects
 end
 
 def create_project(uid, name, sid)
-  project = Project.new(:user_id => uid, :description => "Description for #{name}", :name => name, :supervisor_id => sid)
+  project = Project.new(:user_id => uid, :description => "Description for #{name}", :name => name, :supervisor_id => sid, :funded_by_agency => false)
   project.save!
 end
 

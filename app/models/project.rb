@@ -15,11 +15,15 @@ class Project < ActiveRecord::Base
   scope :supervised_by, lambda { |supervisor| joins(:supervisor).where("projects.user_id = '#{supervisor.id}' or users.user_id = '#{supervisor.user_id}'") }
 
   def to_json_data
+    funded_by = 'N/A'
+    if self.agency
+      funded_by = self.agency
+    end
     { "project_id" => self.id,
       "description" => self.description,
       "date_created" => self.created_at.localtime.strftime("%d/%m/%Y"),
       "supervisor" => User.find_by_id(self.supervisor_id).full_name,
-      "funded_by" => self.agency }.to_json
+      "funded_by" => funded_by }.to_json
   end
 
   def created_date

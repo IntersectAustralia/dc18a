@@ -4,6 +4,7 @@
 %p
 .somecontainer
   Select a project
+  <abbr title="required">*</abbr>
   = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name), :prompt => "----"
   = link_to "Create New Project", new_project_path
 

@@ -14,6 +14,10 @@ class Experiment < ActiveRecord::Base
   validates_length_of :other_text, :maximum => 255
   validates_length_of :reporter_protein_text, :maximum => 255
   validates_length_of :specific_dyes_text, :maximum => 255
+  validates_presence_of :expt_name
+  validates_presence_of :lab_book_no
+  validates_presence_of :page_no
+  validates_presence_of :cell_type_or_tissue
   validates_presence_of :expt_type
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
   validates_presence_of :reporter_protein_text, :if => :reporter_protein?, :message => '"Reporter Protein (Specify)" cannot be empty if "Reporter Protein" is checked'
