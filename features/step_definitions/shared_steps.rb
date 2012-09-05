@@ -109,3 +109,7 @@ end
 Then /^I should see "([^"]*)" in "([^"]*)" field$/ do |value, field|
   find_field(field).value.should eq value
 end
+
+Given /^The request ip address is "([^"]*)"$/ do |ip|
+  ENV['RAILS_TEST_IP_ADDRESS'] = ip
+end

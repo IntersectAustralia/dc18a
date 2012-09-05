@@ -6,12 +6,12 @@ module Devise
     class AuthenticateWindowsUser < Authenticatable
       def valid?
         # code here to check whether to try and authenticate using this strategy;
-        params[:ip] && params[:login_id]
+        params[:login_id]
       end
 
       def authenticate!
         # code here for doing authentication;
-        ip = params[:ip]
+        ip = request.remote_ip
         login_id = params[:login_id]
         user = User.find_by_user_id(login_id)
 

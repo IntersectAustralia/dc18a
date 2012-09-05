@@ -7,12 +7,12 @@ class ExperimentsController < ApplicationController
 
   def new
     # Custom authentication strategy need custom flash message
-    if params[:login_id] && params[:ip]
+    if params[:login_id]
       if current_user.nil?
         flash[:alert] = request.env['warden'].message
       else
         flash[:notice] = request.env['warden'].message
-        @instrument = INSTRUMENTS[params[:ip]]
+        @instrument = INSTRUMENTS[request.remote_ip]
       end
     end
 
