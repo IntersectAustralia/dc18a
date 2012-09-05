@@ -29,6 +29,6 @@ Feature: Download metadata
     Then I should see "experiments" table with
       | Experiment Name |
       | e1              |
-    And I should see link "Save and Download Metadata"
+    And I should see link "Download Metadata"
     Then I follow "Save and Download Metadata" for experiment "e1"
     Then I should get a download "YYYYMMDD_P<p_id>_E<e_id>_<instrument>.zip" for "e1"
