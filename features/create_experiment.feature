@@ -26,15 +26,30 @@ Feature: Create experiment
     And I am logged in as "userid4raul"
 
   @javascript
+  Scenario: Experiment Validation
+    Given I am on the home page
+    When I follow "New Experiment"
+    And I select "Project A" from "project_select"
+    And I press "Create Experiment"
+    Then I should see "Please fill in all mandatory fields"
+
+  @javascript
   Scenario: Create an experiment
     Given I am on the home page
     When I follow "New Experiment"
     And I select "Project A" from "project_select"
-    #Then I should see blah blah
+    Then I should see "Project ID:"
+    Then I should see "Description: Some desc A"
+    Then I should see "Date Created"
+    Then I should see "Funded By:"
+    Then I should see "Supervisor: Sean Lin"
     And I fill in "Experiment Name" with "Experiment 1"
+    And I fill in "Lab Book No." with "111"
+    And I fill in "Page No." with "22"
+    And I fill in "Cell Type or Tissue" with "Tissue A"
     And I select "Fixed" from "Experiment Type"
-    # More fills
-
+    And I check "Slides"
+    And I check "Immunofluorescence"
     And I press "Create Experiment"
     Then I should be on the home page
     And I should see "Experiment created"

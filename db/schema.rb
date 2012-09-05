@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120903024228) do
     t.boolean  "specific_dyes"
     t.string   "specific_dyes_text"
     t.boolean  "immunofluorescence"
+    t.string   "instrument"
   end
 
   create_table "permissions", :force => true do |t|

@@ -46,8 +46,11 @@ module NavigationHelpers
     when /the list users page/
       users_path
 
-    when /the cerate experiment page/
+    when /the create experiment page/
       new_experiment_path
+
+    when /the view project page for "(.*)"$/
+      project_path(Project.where(:name => $1).first)
 
 # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
