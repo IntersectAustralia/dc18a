@@ -19,7 +19,7 @@ describe Experiment do
     it { should ensure_length_of(:specific_dyes_text).is_at_most(255) }
 
     it 'ensures an other_text, but only if other is true' do
-      experiment = Factory(:experiment)
+      experiment = FactoryGirl.create(:experiment)
       experiment.should be_valid
 
       experiment.other = true
@@ -32,7 +32,7 @@ describe Experiment do
     end
 
     it 'ensures an reporter_protein_text, but only if other is true' do
-      experiment = Factory(:experiment)
+      experiment = FactoryGirl.create(:experiment)
       experiment.should be_valid
 
       experiment.reporter_protein = true
@@ -45,7 +45,7 @@ describe Experiment do
     end
 
     it 'ensures an specific_dyes_text, but only if other is true' do
-      experiment = Factory(:experiment)
+      experiment = FactoryGirl.create(:experiment)
       experiment.should be_valid
 
       experiment.specific_dyes = true
@@ -60,13 +60,13 @@ describe Experiment do
 
   describe "Experiment ID assignment" do
     it 'assigns experiment ID according to the number of experiments in the Project' do
-      project1 = Factory(:project)
-      project2 = Factory(:project)
-      experiment1 = Factory(:experiment, :project => project1)
-      experiment2 = Factory(:experiment, :project => project1)
-      experiment3 = Factory(:experiment)
-      experiment4 = Factory(:experiment, :project => project1)
-      experiment5 = Factory(:experiment, :project => project2)
+      project1 = FactoryGirl.create(:project)
+      project2 = FactoryGirl.create(:project)
+      experiment1 = FactoryGirl.create(:experiment, :project => project1)
+      experiment2 = FactoryGirl.create(:experiment, :project => project1)
+      experiment3 = FactoryGirl.create(:experiment)
+      experiment4 = FactoryGirl.create(:experiment, :project => project1)
+      experiment5 = FactoryGirl.create(:experiment, :project => project2)
 
       experiment1.expt_id.should eq 1
       experiment2.expt_id.should eq 2

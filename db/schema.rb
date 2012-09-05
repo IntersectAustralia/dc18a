@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20120904035741) do
     t.integer  "project_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
-    t.string   "instrument"
     t.boolean  "slides"
     t.boolean  "dishes"
     t.boolean  "multiwell_chambers"

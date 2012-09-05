@@ -13,7 +13,7 @@ Feature: Identify user by windows
   Scenario: Login with windows id which is existed in system
     Given The request ip address is "172.16.4.78"
     And I visit "/experiments/new?login_id=windowsuserid"
-    Then I should be on the cerate experiment page
+    Then I should be on the create experiment page
     And I should see "Welcome Sean Lin."
     And I should see "Instrument: Nikon Ti inverted epifluorescent microscope"
 
