@@ -1,0 +1,27 @@
+%h2 Experiment View
+
+.container
+  = render_field "Experiment Database ID", @experiment.id
+  = render_field "Experiment ID", @experiment.expt_id
+  = render_field "Experiment Name", @experiment.expt_name
+  = render_field "Created Date", @experiment.created_date
+  = render_field "Belongs to Project", @experiment.project.name
+  = render_field "Owner", @experiment.user.full_name
+  = render_field "Lab Book No.", @experiment.lab_book_no
+  = render_field "Page No.", @experiment.page_no
+  = render_field "Cell Type Or Tissue", @experiment.cell_type_or_tissue
+  = render_field "Experiment Type", @experiment.expt_type
+  = render_field "Slides", @experiment.slides
+  = render_field "Dishes", @experiment.dishes
+  = render_field "Other", @experiment.other
+  = render_field "Other (Specify)", @experiment.other_text
+  = render_field "Reporter Protein", @experiment.reporter_protein
+  = render_field "Reporter Protein (Specify)", @experiment.reporter_protein_text
+  = render_field "Specific Dyes", @experiment.specific_dyes
+  = render_field "Specific Dyes (Specify)", @experiment.specific_dyes_text
+  = render_field "Immunofluorescence", @experiment.immunofluorescence
+
+
+= link_to 'Back', project_path(@experiment.project), :id => "back_to_project_page"
+
+

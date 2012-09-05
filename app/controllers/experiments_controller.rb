@@ -25,7 +25,7 @@ class ExperimentsController < ApplicationController
 
     if @experiment.save
       flash[:notice] = "Experiment created"
-      redirect_to root_path
+      redirect_to project_path @experiment.project
     else
       flash[:alert] = "Please fill in all mandatory fields"
       @projects = current_user.projects

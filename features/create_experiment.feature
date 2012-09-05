@@ -51,5 +51,5 @@ Feature: Create experiment
     And I check "Slides"
     And I check "Immunofluorescence"
     And I press "Create Experiment"
-    Then I should be on the home page
+    Then I should be on the view project page for "Project A"
     And I should see "Experiment created"
