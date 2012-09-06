@@ -18,9 +18,9 @@
 <hr/>
 %h3 Experiment Details
 - if @instrument
-  = label_tag "Instrument: #{@instrument}"
+  = label_tag "Instrument", "Instrument: #{@instrument}"
 - else
-  = label_tag "Instrument: Unknown"
+  = label_tag "Instrument", "Instrument: Unknown"
 
 :css
   .control-group.boolean label, .control-group.boolean>div.controls {
