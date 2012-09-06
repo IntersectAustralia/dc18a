@@ -5,6 +5,7 @@
   = render_field "Experiment ID", @experiment.expt_id
   = render_field "Experiment Name", @experiment.expt_name
   = render_field "Created Date", @experiment.created_date
+  = render_field "Instrument Name", @experiment.instrument
   = render_field "Belongs to Project", @experiment.project.name
   = render_field "Owner", @experiment.user.full_name
   = render_field "Lab Book No.", @experiment.lab_book_no
