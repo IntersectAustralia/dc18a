@@ -43,7 +43,7 @@ class ExperimentsController < ApplicationController
     project = experiment.project
     researcher = project.user
     supervisor = project.supervisor
-    folder_name = localize(experiment.created_at, :format => :yyyymmdd) + "_P" + project.id.to_s + "_E" + experiment.id.to_s + "_" + experiment.instrument
+    folder_name = localize(experiment.created_at, :format => :yyyymmdd) + "_P" + project.id.to_s + "_E" + experiment.expt_id.to_s + "_" + experiment.instrument
 
     # generate the metadata file
     csv = Tempfile.new("metadata.csv")
