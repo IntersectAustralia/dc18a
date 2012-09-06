@@ -89,7 +89,7 @@ class ExperimentsController < ApplicationController
                project.funded_by_agency? ? "Yes" : "No",
                project.agency || "",
                project.other_agency || "",
-               experiment.id,
+               experiment.expt_id,
                experiment.expt_name || "",
                localize(experiment.created_at, :format => :short),
                experiment.lab_book_no || "",
