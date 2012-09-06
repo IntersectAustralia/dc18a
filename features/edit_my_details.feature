@@ -12,6 +12,7 @@ Feature: Edit my details
     When I follow "Edit My Details"
     And I fill in "Surname" with "Fred"
     And I fill in "Given Name" with "Bloggs"
+    And I fill in "Email" with "sean@email.com"
     And I press "Update"
     Then I should see "Your account details have been successfully updated."
     And I should be on the home page
@@ -31,4 +32,4 @@ Feature: Edit my details
     Given I am on the home page
     When I follow "Edit My Details"
     And I follow "Cancel"
-    Then I should be on the user profile page
+    Then I should be on the home page
