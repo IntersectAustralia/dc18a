@@ -15,8 +15,20 @@
   = label_tag "funded_by", "Funded By: ", { :id=>"funded_by" }
   = label_tag "supervisor", "Supervisor: " , { :id=>"supervisor" }
 
+<hr/>
 %h3 Experiment Details
-%h4 Instrument: #{@instrument}
+- if @instrument
+  = label_tag "Instrument: #{@instrument}"
+- else
+  = label_tag "Instrument: Unknown"
+
+:css
+  .control-group.boolean label, .control-group.boolean>div.controls {
+    display: inline;
+  }
+  .control-group.boolean input {
+    margin-left: 0;
+  }
 
 %p
 = simple_form_for(@experiment) do |f|
@@ -27,11 +39,15 @@
   = f.input :page_no, :label => "Page No."
   = f.input :cell_type_or_tissue, :label => "Cell Type or Tissue"
   = f.input :expt_type, :label => "Experiment Type", :collection => ["Fixed", "Live"]
+  <hr/>
+  %h4 Apparatus
+  <br/>
   = f.input :slides
   = f.input :dishes
   = f.input :multiwell_chambers, :label => "Multiwell Chambers"
   = f.input :other
   = f.input :other_text, :label => "Other (Specify)"
+  <hr/>
   = f.input :reporter_protein
   = f.input :reporter_protein_text, :label => "Reporter Protein (Specify)", :collection => ["GFP","YFP","CFP","RFP","Other"]
   = f.input :specific_dyes
