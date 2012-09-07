@@ -49,6 +49,7 @@ Feature: Locking out users after multiple failed password attempts
     Then I should see "Logged in successfully."
     And the failed attempt count for "userid4shuqian" should be "0"
 
+  @wip
   Scenario: User can reset password while locked out and this resets the lock and failure count
     Given I have a locked user "userid4shuqian" with email "shuqian@intersect.org.au"
     When I attempt to login with "userid4shuqian" and "Pas$w0rd"
