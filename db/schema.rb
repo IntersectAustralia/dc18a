@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904035741) do
+ActiveRecord::Schema.define(:version => 20120912024243) do
+
+  create_table "experiment_feedbacks", :force => true do |t|
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.boolean  "experiment_failed"
+    t.boolean  "instrument_failed"
+    t.string   "instrument_failed_reason"
+    t.string   "other_comments"
+    t.integer  "experiment_id"
+  end
 
   create_table "experiments", :force => true do |t|
     t.integer  "expt_id"

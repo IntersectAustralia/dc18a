@@ -43,9 +43,14 @@ end
   resources :experiments do
     get :cancel, :on => :collection
     get :download, :on => :member
+
+    resources :experiment_feedback, :only => [:new, :create]
   end
 
-  # The priority is based upon order of creation:
+
+
+
+    # The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:
