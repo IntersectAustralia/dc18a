@@ -36,4 +36,15 @@ class Notifier < ActionMailer::Base
           :subject => PREFIX + "Reset password instructions")
   end
 
+  def notify_admins_of_instrument_failure(experiment_feedback)
+    superusers_emails = User.get_superuser_emails
+    @user = experiment_feedback.experiment.user
+    @experiment = experiment_feedback.experiment
+    @experiment_feedback = experiment_feedback
+    mail( :to => superusers_emails,
+          :from => APP_CONFIG['instrument_failure_admin_notification_sender'],
+          :reply_to => APP_CONFIG['instrument_failure_admin_notification_sender'],
+          :subject => PREFIX + "Instrument Failure for Experiment '#{experiment_feedback.experiment.expt_name}'")
+  end
+
 end
