@@ -44,7 +44,7 @@ end
     get :cancel, :on => :collection
     get :download, :on => :member
 
-    resources :experiment_feedback, :only => [:new, :create]
+    resources :experiment_feedbacks, :only => [:new, :create, :show]
   end
 
 

@@ -1,0 +1,10 @@
+%h2 Experiment Feedback
+
+.container
+  = render_field "Experiment Failed", @experiment_feedback.experiment_failed? ? "Yes" : "No"
+  = render_field "Instrument Failed", @experiment_feedback.instrument_failed? ? "Yes" : "No"
+  = render_field "Instrument Failed Reason", @experiment_feedback.instrument_failed_reason
+  = render_field "Other Comments", @experiment_feedback.other_comments
+
+%p
+= link_to 'Close', root_path, :class => "btn", :id => "experiment_feedback_close"
