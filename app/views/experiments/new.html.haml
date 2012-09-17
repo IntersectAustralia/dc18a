@@ -35,7 +35,7 @@
   = f.input :project_id, :as => :hidden, :input_html => { :value => @project_id }
   = f.input :instrument, :as => :hidden, :input_html => { :value => @instrument }
   = f.input :expt_name, :label => "Experiment Name"
-  = f.input :lab_book_no, :label => "Lab Book No."
+  = f.input :lab_book_no, label: "Lab Book No. (If you don't have one, please enter 'TBA')"
   = f.input :page_no, :label => "Page No."
   = f.input :cell_type_or_tissue, :label => "Cell Type or Tissue"
   = f.input :expt_type, :label => "Experiment Type", :collection => ["Fixed", "Live"]

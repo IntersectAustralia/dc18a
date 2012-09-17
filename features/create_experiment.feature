@@ -44,7 +44,7 @@ Feature: Create experiment
     Then I should see "Funded By:"
     Then I should see "Supervisor: Sean Lin"
     And I fill in "Experiment Name" with "Experiment 1"
-    And I fill in "Lab Book No." with "111"
+    And I fill in "Lab Book No. (If you don't have one, please enter 'TBA')" with "111"
     And I fill in "Page No." with "22"
     And I fill in "Cell Type or Tissue" with "Tissue A"
     And I select "Fixed" from "Experiment Type"
