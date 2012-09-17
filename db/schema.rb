@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904035741) do
+ActiveRecord::Schema.define(:version => 20120917054943) do
 
   create_table "experiments", :force => true do |t|
     t.integer  "expt_id"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20120904035741) do
     t.string   "cell_type_or_tissue"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.boolean  "slides"
     t.boolean  "dishes"
     t.boolean  "multiwell_chambers"
