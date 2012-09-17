@@ -73,8 +73,8 @@ class ExperimentsController < ApplicationController
               "Multiwell Chambers",
               "Other Equipment",
               "Specify Other Equipment",
-              "Reporter Protein",
-              "Reporter Protein Other",
+              "Fluorescent protein",
+              "Fluorescent protein Other",
               "Specific Dyes",
               "Specify Specific Dyes",
               "Immunofluorescence" ]
@@ -103,8 +103,8 @@ class ExperimentsController < ApplicationController
                experiment.multiwell_chambers? ? "Yes" : "No",
                experiment.other? ? "Yes" : "No",
                experiment.other_text || "",
-               experiment.reporter_protein? ? "Yes" : "No",
-               experiment.reporter_protein_text || "",
+               experiment.fluorescent_protein? ? "Yes" : "No",
+               experiment.fluorescent_protein_text || "",
                experiment.specific_dyes? ? "Yes" : "No",
                experiment.specific_dyes_text || "",
                experiment.immunofluorescence? ? "Yes" : "No" ]
