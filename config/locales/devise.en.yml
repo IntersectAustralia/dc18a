@@ -69,7 +69,7 @@ en:
         user_id: "Staff/Student ID"
         first_name: "Given Name"
         last_name: "Surname"
-        department: "Department/Institute"
+        department: "Schools/Institute"
         password_confirmation: "Confirm Password"
         supervisor_ids: "Supervisors"
       project:

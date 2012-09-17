@@ -54,7 +54,7 @@ class ExperimentsController < ApplicationController
               "Project Creator Staff Student/ID",
               "Project Creator",
               "Project Creator Email",
-              "Project Creator Department/Institute",
+              "Project Creator Schools/Institute",
               "Project Supervisor",
               "Project Description",
               "Funded by Agency",

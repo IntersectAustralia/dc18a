@@ -23,7 +23,7 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
       | Given Name       | Fred                      |
       | Surname          | Bloggs                    |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -41,7 +41,7 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
       | Given Name       | Fred                      |
       | Surname          | Bloggs                    |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -72,7 +72,7 @@ Feature: Request an account
       | Confirm Password | dr0w$Sap                  |
       | Given Name       | Fred                      |
       | Surname          | Bloggs                    |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -80,7 +80,7 @@ Feature: Request an account
     And the "Given Name" field should have no errors
     And the "Surname" field should have no errors
     And the "Email" field should have no errors
-    And the "Department/Institute" field should have no errors
+    And the "Schools/Institute" field should have no errors
     And the "Supervisors" field should have no errors
 
   Scenario: Password fields should be cleared out on validation error
@@ -105,7 +105,7 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
       | Given Name       | Fred                      |
       | Surname          | Bloggs                    |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -129,7 +129,7 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
       | Given Name       | Fred                      |
       | Surname          | Bloggs                    |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -145,7 +145,7 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
       | Given Name       | Sean                      |
       | Surname          | Lin                       |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -160,6 +160,6 @@ Feature: Request an account
       | Confirm Password | paS$w0rd                  |
       | Given Name       | Sean                      |
       | Surname          | Lin                       |
-      | Department/Institute | Microbial             |
+      | Schools/Institute | Microbial             |
     And I press "Submit Request"
     And the "Supervisors" field should have the error "can't be blank"

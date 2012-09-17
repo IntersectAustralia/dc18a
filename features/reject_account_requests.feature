@@ -73,7 +73,7 @@ Feature: Reject access requests
       | Confirm Password      | Pas$w0rd               |
       | Surname               | Fred                   |
       | Given Name            | Bloggs                 |
-      | Department/Institute  | Microbial              |
+      | Schools/Institute  | Microbial              |
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
