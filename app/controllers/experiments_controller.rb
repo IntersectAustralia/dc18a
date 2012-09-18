@@ -115,7 +115,7 @@ class ExperimentsController < ApplicationController
     t = Tempfile.new(file_name)
     Zip::Archive.open(t.path) do |z|
       z.add_dir(folder_name)
-      z.add_file("#{folder_name}/metadata.csv", csv.path)
+      z.add_file("#{folder_name}/metadata #{experiment.user.last_name}.csv", csv.path)
     end
     send_file t.path, :type => 'application/zip',
                       :disposition => 'attachment',
