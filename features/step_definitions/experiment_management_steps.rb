@@ -6,13 +6,14 @@ Given /^"([^"]*)" has experiments$/ do |user_id, table|
   end
 end
 
-Then /^I should get a download "YYYYMMDD_P<p_id>_E<e_id>_<instrument>.zip" for "([^"]*)"$/ do |e|
+Then /^I should get a download "YYYYMMDD_P<p_id>_E<e_id>_<instrument>_<last_name>_<first_name>.zip" for "([^"]*)"$/ do |e|
   experiment = Experiment.find_by_expt_name(e)
   prefix = I18n.localize(experiment.created_at, :format => :yyyymmdd)
   p_id = experiment.project.id
   e_id = experiment.expt_id
+  e_owner = experiment.user
   instrument = experiment.instrument
-  filename = "#{prefix}_P#{p_id}_E#{e_id}_#{instrument}.zip"
+  filename = "#{prefix}_P#{p_id}_E#{e_id}_#{instrument}_#{e_owner.last_name}_#{e_owner.first_name}.zip"
   page.response_headers['Content-Disposition'].should include("filename=\"#{filename}\"")
 end
 
