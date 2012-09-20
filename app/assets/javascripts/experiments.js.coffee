@@ -45,9 +45,9 @@ jQuery ->
     $('#experiment_other_text').prop('disabled', false)
 
   # Check 'Fluorescent protein (Specify)' textfield enable/disable
-  $('#experiment_fluorescent_protein_text').prop('disabled', true)
+  $('#experiment_fluorescent_protein_ids').select2('disable')
   if $('#experiment_fluorescent_protein:checked').val()
-    $('#experiment_fluorescent_protein_text').prop('disabled', false)
+    $('#experiment_fluorescent_protein_ids').select2('enable')
 
   # Check 'Fluorescent protein (Specify)' textfield enable/disable
   $('#experiment_specific_dyes_text').prop('disabled', true)
@@ -74,10 +74,10 @@ jQuery ->
   $('#experiment_fluorescent_protein').click () ->
     is_checked = $('#experiment_fluorescent_protein:checked').val()
     if is_checked
-      $('#experiment_fluorescent_protein_text').prop('disabled', false)
+      $('#experiment_fluorescent_protein_ids').select2('enable')
     else
-      $('#experiment_fluorescent_protein_text').val('')
-      $('#experiment_fluorescent_protein_text').prop('disabled', true)
+      $('#experiment_fluorescent_protein_ids').val('')
+      $('#experiment_fluorescent_protein_ids').select2('disable')
 
   $('#experiment_specific_dyes').click () ->
     is_checked = $('#experiment_specific_dyes:checked').val()

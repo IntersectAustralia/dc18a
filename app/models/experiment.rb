@@ -6,7 +6,6 @@ class Experiment < ActiveRecord::Base
   attr_accessible :cell_type_or_tissue, :lab_book_no, :expt_name, :page_no, :expt_type, :project_id,
                   :slides, :dishes, :multiwell_chambers, :other, :other_text, :fluorescent_protein, :fluorescent_protein_ids,
                   :specific_dyes, :specific_dyes_text, :immunofluorescence, :created_date, :instrument
-  attr_reader :fluorescent_protein_tokens
 
   has_and_belongs_to_many :fluorescent_proteins
 
