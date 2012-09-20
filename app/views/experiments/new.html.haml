@@ -62,7 +62,7 @@
 :javascript
   proteins = #{@proteins};
   selected = #{@selected};
-  //$('#experiment_fluorescent_protein_ids').val(selected);
+  $('#experiment_fluorescent_protein_ids').val(selected);
   $('#experiment_fluorescent_protein_ids').select2({
     createSearchChoice:
       function(term, data) {
@@ -79,6 +79,7 @@
     formatResult: format,
     initSelection:
       function (element, callback) {
+        $('#experiment_fluorescent_protein_ids').val('');
         callback(selected);
       }
 

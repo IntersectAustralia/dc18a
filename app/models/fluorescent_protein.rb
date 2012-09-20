@@ -4,7 +4,7 @@ class FluorescentProtein < ActiveRecord::Base
   scope :core, where(core: true)
 
   def self.ids_from_tokens(tokens)
-    tokens.gsub!(/<<<(.+?)>>>/) { create!(name: $1).id }
+    tokens.gsub!(/<<<(.+?)>>>/) { find_or_create_by_name!($1).id }
     tokens.split(',')
   end
 end
