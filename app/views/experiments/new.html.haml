@@ -49,7 +49,7 @@
   = f.input :other_text, :label => "Other (Specify)"
   <hr/>
   = f.input :fluorescent_protein
-  = f.input :fluorescent_protein_text, :label => "Fluorescent protein (Specify)", :collection => ["GFP","YFP","CFP","RFP","Other"]
+  = f.association :fluorescent_proteins, input_html: {multiple:true}
   = f.input :specific_dyes
   = f.input :specific_dyes_text, :label => "Specific Dye (Specify)"
   = f.input :immunofluorescence
@@ -58,4 +58,3 @@
     = f.submit "Create Experiment", :class => "btn btn-primary", :id => "experiment_submit"
     = link_to 'Save and Download Data', root_path, :class => "btn", :disabled => true
     = link_to 'Cancel', cancel_experiments_path, :class => "btn"
-

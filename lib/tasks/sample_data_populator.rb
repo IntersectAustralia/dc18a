@@ -6,6 +6,14 @@ def populate_data
 
   create_test_users
   create_test_projects
+  create_fluorescent_proteins
+end
+
+def create_fluorescent_proteins
+  FluorescentProtein.create!(name:"GFP", core:true)
+  FluorescentProtein.create!(name:"YFP", core:true)
+  FluorescentProtein.create!(name:"CFP", core:true)
+  FluorescentProtein.create!(name:"RFP", core:true)
 end
 
 def create_test_projects
