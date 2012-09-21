@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917054943) do
+ActiveRecord::Schema.define(:version => 20120921012248) do
 
   create_table "experiment_feedbacks", :force => true do |t|
     t.datetime "created_at",               :null => false
