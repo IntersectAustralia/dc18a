@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(:version => 20120921012248) do
 
   add_index "experiments", ["expt_name"], :name => "index_experiments_on_expt_name"
 
+  create_table "experiments_fluorescent_proteins", :force => true do |t|
+    t.integer "experiment_id"
+    t.integer "fluorescent_protein_id"
+  end
+
+  create_table "fluorescent_proteins", :force => true do |t|
+    t.string   "name"
+    t.boolean  "core",       :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "permissions", :force => true do |t|
     t.string   "entity"
     t.string   "action"

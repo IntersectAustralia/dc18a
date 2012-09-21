@@ -3,9 +3,8 @@
 %h3 Project Details
 %p
 .somecontainer
-  Select a project
-  <abbr title="required">*</abbr>
-  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name), :prompt => "----"
+  = label_tag "project_select", "<abbr title='required'>*</abbr> Select a project".html_safe, {class:"string select control-label"}
+  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name, @experiment.project_id), :prompt => "----"
   = link_to "Create New Project", new_project_path
 
 .project_display
@@ -41,7 +40,7 @@
   = f.input :other_text, :label => "Other (Specify)"
   <hr/>
   = f.input :fluorescent_protein
-  = f.association :fluorescent_proteins, input_html: {multiple:true}
+  = f.input :fluorescent_protein_ids, label: "Fluorescent proteins", input_html:{value:""}
   = f.input :specific_dyes
   = f.input :specific_dyes_text, :label => "Specific Dye (Specify)"
   = f.input :immunofluorescence
@@ -50,3 +49,30 @@
     = f.submit "Create Experiment", :class => "btn btn-primary", :id => "experiment_submit"
     = link_to 'Save and Download Data', root_path, :class => "btn", :disabled => true
     = link_to 'Cancel', cancel_experiments_path, :class => "btn"
+
+:javascript
+  proteins = #{@proteins};
+  selected = #{@selected};
+  $('#experiment_fluorescent_protein_ids').val(selected);
+  $('#experiment_fluorescent_protein_ids').select2({
+    createSearchChoice:
+      function(term, data) {
+        if ($(data).filter(function() {
+          return this.name.localeCompare(term)===0;
+        }).length===0){
+          return {id:'<<<'+term+'>>>', name:term};
+        }
+      },
+    width: "400px",
+    multiple:true,
+    data: {results: proteins, text:'name'},
+    formatSelection: format,
+    formatResult: format,
+    initSelection:
+      function (element, callback) {
+        $('#experiment_fluorescent_protein_ids').val('');
+        callback(selected);
+      }
+
+  });
+  function format(item) { return item.name; };

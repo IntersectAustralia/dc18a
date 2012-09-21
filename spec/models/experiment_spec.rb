@@ -19,7 +19,6 @@ describe Experiment do
     it { should ensure_length_of(:page_no).is_at_most(255) }
     it { should ensure_length_of(:cell_type_or_tissue).is_at_most(255) }
     it { should ensure_length_of(:other_text).is_at_most(255) }
-    it { should ensure_length_of(:fluorescent_protein_text).is_at_most(255) }
     it { should ensure_length_of(:specific_dyes_text).is_at_most(255) }
 
     it 'ensures an other_text, but only if other is true' do
@@ -35,16 +34,17 @@ describe Experiment do
       experiment.should_not be_valid
     end
 
-    it 'ensures an fluorescent_protein_text, but only if other is true' do
+    it 'ensures a fluorescent_protein_ids, but only if other is true' do
       experiment = FactoryGirl.create(:experiment)
+
       experiment.should be_valid
 
       experiment.fluorescent_protein = true
-      experiment.fluorescent_protein_text = "some text"
+      experiment.fluorescent_proteins << FactoryGirl.create(:fluorescent_protein)
       experiment.should be_valid
 
       experiment.fluorescent_protein = true
-      experiment.fluorescent_protein_text = ""
+      experiment.fluorescent_protein_ids = []
       experiment.should_not be_valid
     end
 

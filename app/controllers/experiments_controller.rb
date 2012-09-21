@@ -4,7 +4,7 @@ require 'csv'
 class ExperimentsController < ApplicationController
   before_filter :authenticate_user!
 
-  load_resource
+  load_resource except: :create
 
   def new
     # Custom authentication strategy need custom flash message
@@ -18,18 +18,23 @@ class ExperimentsController < ApplicationController
 
     @projects = current_user.projects
     @experiment = current_user.experiments.new
+    @proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
+    @selected = []
     @instrument = INSTRUMENTS[request.remote_ip]
   end
 
   def create
+    protein_ids = params[:experiment].delete("fluorescent_protein_ids")
     @experiment = current_user.experiments.build(params[:experiment])
-
+    @experiment.fluorescent_protein_ids = FluorescentProtein.ids_from_tokens(protein_ids)
     if @experiment.save
       flash[:notice] = "Experiment created"
       redirect_to project_path @experiment.project
     else
       flash[:alert] = "Please fill in all mandatory fields"
       @projects = current_user.projects
+      @proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
+      @selected = @experiment.fluorescent_proteins.to_a.to_json(only: [:id,:name])
       render action: "new"
     end
   end

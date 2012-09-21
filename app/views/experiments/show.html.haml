@@ -18,7 +18,7 @@
   = render_field "Other", @experiment.other
   = render_field "Other (Specify)", @experiment.other_text
   = render_field "Fluorescent protein", @experiment.fluorescent_protein
-  = render_field "Fluorescent protein (Specify)", @experiment.fluorescent_protein_text
+  = render_field "Fluorescent proteins", @experiment.fluorescent_proteins.pluck(:name)
   = render_field "Specific Dyes", @experiment.specific_dyes
   = render_field "Specific Dyes (Specify)", @experiment.specific_dyes_text
   = render_field "Immunofluorescence", @experiment.immunofluorescence
