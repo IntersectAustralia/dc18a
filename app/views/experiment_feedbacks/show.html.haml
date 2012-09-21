@@ -1,0 +1,10 @@
+%h2 Experiment Feedback
+
+.container
+  = render_field "Experiment Failed", @experiment_feedback.experiment_failed? ? "Yes" : "No"
+  = render_field "Instrument Failed", @experiment_feedback.instrument_failed? ? "Yes" : "No"
+  = render_field "Instrument Failed Reason", @experiment_feedback.instrument_failed_reason
+  = render_field "Other Comments", @experiment_feedback.other_comments
+
+%p
+<a href="javascript:parent.close();" target="_top" class="btn">Close</a>

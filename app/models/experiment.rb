@@ -3,14 +3,13 @@ class Experiment < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
-  attr_accessible :cell_type_or_tissue, :lab_book_no, :expt_name, :page_no, :expt_type, :project_id,
+  has_one :experiment_feedback
+
+  attr_accessible :cell_type_or_tissue, :lab_book_no, :expt_name, :page_no, :expt_type, :project_id ,
                   :slides, :dishes, :multiwell_chambers, :other, :other_text, :fluorescent_protein, :fluorescent_protein_ids,
                   :specific_dyes, :specific_dyes_text, :immunofluorescence, :created_date, :instrument
-  attr_reader :fluorescent_protein_tokens
 
   has_and_belongs_to_many :fluorescent_proteins
-
-  accepts_nested_attributes_for :fluorescent_proteins, allow_destroy: true
 
   validates_length_of :expt_name, :maximum => 255
   validates_length_of :lab_book_no, :maximum => 255
@@ -25,19 +24,25 @@ class Experiment < ActiveRecord::Base
   validates_presence_of :cell_type_or_tissue
   validates_presence_of :expt_type
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
-  #validates_presence_of :fluorescent_protein_ids, :if => :fluorescent_protein?, :message => '"Fluorescent protein (Specify)" cannot be empty if "Fluorescent protein" is checked'
+  validates_presence_of :fluorescent_protein_ids, :if => :fluorescent_protein?, :message => '"Fluorescent protein (Specify)" cannot be empty if "Fluorescent protein" is checked'
   validates_presence_of :specific_dyes_text, :if => :specific_dyes?, :message => '"Specific Dyes (Specify)" cannot be empty if "Specific Dyes" is checked'
-
-  validate :has_fluorescent_proteins
 
   before_save :assign_experiment_id
 
-  def has_fluorescent_proteins
-    errors.add(:fluorescent_protein_ids, 'Fluorescent proteins cannot be empty if "Fluorescent protein" is checked') if self.fluorescent_protein? and self.fluorescent_proteins.blank?
-  end
-
   def created_date
     self.created_at.localtime.strftime("%d/%m/%Y")
+  end
+
+  def assign_end_time
+    self.end_time = DateTime.now
+    save!
+  end
+
+  def expt_duration
+    expt_start = self.created_at.localtime.strftime('%Y-%m-%d %H:%M')
+    expt_end = self.end_time.localtime.strftime('%Y-%m-%d %H:%M')
+    duration = Time.diff(Time.parse(expt_start), Time.parse(expt_end))
+
   end
 
   private

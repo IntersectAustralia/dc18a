@@ -43,7 +43,8 @@ class ExperimentsController < ApplicationController
     project = experiment.project
     researcher = project.user
     supervisor = project.supervisor
-    folder_name = localize(experiment.created_at, :format => :yyyymmdd) + "_P" + project.id.to_s + "_E" + experiment.expt_id.to_s + "_" + experiment.instrument
+    owner = experiment.user
+    folder_name = "#{localize(experiment.created_at, :format => :yyyymmdd)}_P#{project.id}_E#{experiment.expt_id}_#{experiment.instrument}_#{owner.last_name}_#{owner.first_name}"
 
     # generate the metadata file
     csv = Tempfile.new("metadata.csv")
@@ -52,10 +53,12 @@ class ExperimentsController < ApplicationController
               "Project Name",
               "Project Create date",
               "Project Creator Staff Student/ID",
-              "Project Creator",
+              "Project Creator First Name",
+              "Project Creator Last Name",
               "Project Creator Email",
               "Project Creator Schools/Institute",
-              "Project Supervisor",
+              "Project Supervisor First Name",
+              "Project Supervisor Last Name",
               "Project Description",
               "Funded by Agency",
               "Funding Agency",
@@ -63,6 +66,8 @@ class ExperimentsController < ApplicationController
               "Experiment ID",
               "Experiment Name",
               "Experiment Date",
+              "Experiment Owner First Name",
+              "Experiment Owner Last Name",
               "Instrument Name",
               "Lab Book No.",
               "Page No.",
@@ -82,10 +87,12 @@ class ExperimentsController < ApplicationController
                project.name || "",
                localize(project.created_at, :format => :short),
                researcher.user_id,
-               researcher.full_name,
+               researcher.first_name,
+               researcher.last_name,
                researcher.email,
                researcher.department,
-               supervisor.full_name,
+               supervisor.first_name,
+               supervisor.last_name,
                project.description || "",
                project.funded_by_agency? ? "Yes" : "No",
                project.agency || "",
@@ -93,6 +100,8 @@ class ExperimentsController < ApplicationController
                experiment.expt_id,
                experiment.expt_name || "",
                localize(experiment.created_at, :format => :short),
+               experiment.user.first_name,
+               experiment.user.last_name,
                experiment.instrument || "",
                experiment.lab_book_no || "",
                experiment.page_no || "",
@@ -115,7 +124,8 @@ class ExperimentsController < ApplicationController
     t = Tempfile.new(file_name)
     Zip::Archive.open(t.path) do |z|
       z.add_dir(folder_name)
-      z.add_file("#{folder_name}/metadata.csv", csv.path)
+      included_file_name = "#{folder_name}/#{folder_name}_metadata.csv"
+      z.add_file(included_file_name, csv.path)
     end
     send_file t.path, :type => 'application/zip',
                       :disposition => 'attachment',

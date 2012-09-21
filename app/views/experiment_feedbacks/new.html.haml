@@ -1,0 +1,11 @@
+%h2 Experiment Feedback
+
+%p
+= simple_form_for [@experiment, @experiment_feedback] do |f|
+  = f.input :experiment_failed
+  = f.input :instrument_failed
+  = f.input :instrument_failed_reason
+  = f.input :other_comments
+
+  .form-actions
+    = f.submit "Submit", :class => "btn btn-primary", :id => "experiment_feedback_submit"

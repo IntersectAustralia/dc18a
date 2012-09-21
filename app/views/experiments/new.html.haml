@@ -22,14 +22,6 @@
 - else
   = label_tag "Instrument", "Instrument: Unknown"
 
-:css
-  .control-group.boolean label, .control-group.boolean>div.controls {
-    display: inline;
-  }
-  .control-group.boolean input {
-    margin-left: 0;
-  }
-
 %p
 = simple_form_for(@experiment) do |f|
   = f.input :project_id, :as => :hidden, :input_html => { :value => @project_id }
