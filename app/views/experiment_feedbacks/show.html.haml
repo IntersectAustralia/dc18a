@@ -7,4 +7,4 @@
   = render_field "Other Comments", @experiment_feedback.other_comments
 
 %p
-= link_to 'Close', root_path, :class => "btn", :id => "experiment_feedback_close"
+<a href="javascript:parent.close();" target="_top" class="btn">Close</a>
