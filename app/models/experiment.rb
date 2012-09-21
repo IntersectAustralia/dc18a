@@ -9,14 +9,11 @@ class Experiment < ActiveRecord::Base
 
   has_and_belongs_to_many :fluorescent_proteins
 
-  accepts_nested_attributes_for :fluorescent_proteins, allow_destroy: true
-
   validates_length_of :expt_name, :maximum => 255
   validates_length_of :lab_book_no, :maximum => 255
   validates_length_of :page_no, :maximum => 255
   validates_length_of :cell_type_or_tissue, :maximum => 255
   validates_length_of :other_text, :maximum => 255
-  validates_length_of :fluorescent_protein_text, :maximum => 255
   validates_length_of :specific_dyes_text, :maximum => 255
   validates_presence_of :expt_name
   validates_presence_of :lab_book_no
@@ -24,16 +21,10 @@ class Experiment < ActiveRecord::Base
   validates_presence_of :cell_type_or_tissue
   validates_presence_of :expt_type
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
-  #validates_presence_of :fluorescent_protein_ids, :if => :fluorescent_protein?, :message => '"Fluorescent protein (Specify)" cannot be empty if "Fluorescent protein" is checked'
+  validates_presence_of :fluorescent_protein_ids, if: :fluorescent_protein?, message: "can't be empty if 'Fluorescent protein' is checked"
   validates_presence_of :specific_dyes_text, :if => :specific_dyes?, :message => '"Specific Dyes (Specify)" cannot be empty if "Specific Dyes" is checked'
 
-  validate :has_fluorescent_proteins
-
   before_save :assign_experiment_id
-
-  def has_fluorescent_proteins
-    errors.add(:fluorescent_protein_ids, 'Fluorescent proteins cannot be empty if "Fluorescent protein" is checked') if self.fluorescent_protein? and self.fluorescent_proteins.blank?
-  end
 
   def created_date
     self.created_at.localtime.strftime("%d/%m/%Y")

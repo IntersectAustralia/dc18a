@@ -57,6 +57,12 @@ jQuery ->
   # Check if any project has already been selected
   project_details_display($("#project_select").val())
 
+  project_id = $("#project_select").val()
+  enable_submit_button($("#project_select").val())
+  project_details_display($("#project_select").val())
+  $("#experiment_project_id").val($("#project_select").val())
+
+
   $('#project_select').change () ->
     project_id = $("#project_select").val()
     enable_submit_button(project_id)

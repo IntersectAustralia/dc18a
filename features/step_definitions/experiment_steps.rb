@@ -17,3 +17,30 @@ And /^I have experiments$/ do |table|
                        :user => user, :project => project)
   end
 end
+
+And /^I have fluorescent proteins/ do |table|
+  table.hashes.each do |attributes|
+    FactoryGirl.create(:fluorescent_protein, attributes)
+  end
+end
+
+
+And /^I search for "(.*)" in "(.*)" and select "(.*)"$/ do |term, label, selection|
+  find(:xpath, ".//label[text() = '#{label}']/../div/div/ul//input").set(term)
+  find(:xpath, ".//div[@class='select2-result-label'][text() = '#{selection}']").click
+
+end
+
+And /^I search for "(.*)" in "(.*)" and should see nothing$/ do |term, label|
+  find(:xpath, ".//label[text() = '#{label}']/../div/div/ul//input").set(term)
+  find(:xpath, ".//ul[@class='select2-results']/li[contains(@class,'select2-disabled')]/div[text()='#{term}']")
+
+end
+
+And /^the experiment "(.*)" should have (\d+) fluorescent proteins$/ do |exp_name, number|
+  Experiment.find_by_expt_name(exp_name).fluorescent_proteins.count.should eq(number.to_i)
+end
+
+And /^there should be (\d+) fluorescent proteins$/ do |number|
+  FluorescentProtein.count.should eq(number.to_i)
+end

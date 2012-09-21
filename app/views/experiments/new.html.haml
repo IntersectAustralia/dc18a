@@ -3,9 +3,8 @@
 %h3 Project Details
 %p
 .somecontainer
-  Select a project
-  <abbr title="required">*</abbr>
-  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name), :prompt => "----"
+  = label_tag "project_select", "<abbr title='required'>*</abbr> Select a project".html_safe, {class:"string select control-label"}
+  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name, @experiment.project_id), :prompt => "----"
   = link_to "Create New Project", new_project_path
 
 .project_display
