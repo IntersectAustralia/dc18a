@@ -31,6 +31,18 @@ class Experiment < ActiveRecord::Base
     self.created_at.localtime.strftime("%d/%m/%Y")
   end
 
+  def assign_end_time
+    self.end_time = DateTime.now
+    save!
+  end
+
+  def expt_duration
+    expt_start = self.created_at.localtime.strftime('%Y-%m-%d %H:%M')
+    expt_end = self.end_time.localtime.strftime('%Y-%m-%d %H:%M')
+    duration = Time.diff(Time.parse(expt_start), Time.parse(expt_end))
+
+  end
+
   private
 
   def assign_experiment_id

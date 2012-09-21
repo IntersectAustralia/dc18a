@@ -80,4 +80,22 @@ describe Experiment do
     end
   end
 
+  describe "Assign End Time" do
+    it "assigns experiment end time to current time" do
+      experiment = FactoryGirl.create(:experiment)
+      experiment.assign_end_time
+      experiment.end_time.should_not eq nil
+    end
+  end
+
+  describe "Experiment Duration" do
+    it 'calculates the duration of the experiment from created time to end time' do
+      experiment = FactoryGirl.create(:experiment)
+      experiment.created_at = DateTime.tomorrow.strftime('%Y-%m-%d %H:%M')
+      experiment.end_time = (DateTime.tomorrow + 1.55).strftime('%Y-%m-%d %H:%M')
+      dur = experiment.expt_duration
+      dur[:diff].should eq "1 day and 13:12:00"
+    end
+  end
+
 end
