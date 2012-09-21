@@ -16,6 +16,8 @@ class ExperimentFeedbacksController < ApplicationController
     @experiment_feedback.experiment_id = @experiment.id
     if @experiment_feedback.save
       flash[:notice] = "Experiment feedback is saved"
+      @experiment.assign_end_time
+      @experiment_feedback.notify_admins_if_instrument_failed
       render action: :show
     else
       flash[:notice] = "Please fill in all mandatory fields"
