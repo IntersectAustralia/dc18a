@@ -17,9 +17,9 @@
   = render_field "Multiwell Chambers", @experiment.multiwell_chambers
   = render_field "Other", @experiment.other
   = render_field "Other (Specify)", @experiment.other_text
-  = render_field "Fluorescent proteins", @experiment.fluorescent_protein
+  = render_field "Fluorescent proteins", @experiment.has_fluorescent_proteins
   = render_field "Fluorescent Proteins (Specify)", @experiment.fluorescent_proteins.pluck(:name)
-  = render_field "Specific dyes", @experiment.specific_dyes
+  = render_field "Specific dyes", @experiment.has_specific_dyes
   = render_field "Specific Dyes (Specify)", @experiment.specific_dyes.pluck(:name)
   = render_field "Immunofluorescence", @experiment.immunofluorescence
 

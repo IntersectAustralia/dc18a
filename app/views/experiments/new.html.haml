@@ -93,6 +93,7 @@
     data: {results: [], text:'name'},
     formatSelection: format,
     formatResult: format,
+    formatNoMatches: function(term){return "Specify a dye"},
     initSelection:
       function (element, callback) {
         $('#experiment_specific_dye_ids').val('');

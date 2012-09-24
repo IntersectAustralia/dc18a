@@ -24,7 +24,7 @@ class Experiment < ActiveRecord::Base
   validates_presence_of :expt_type
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
   validates_presence_of :fluorescent_protein_ids, if: :has_fluorescent_proteins?, message: "can't be empty if 'Fluorescent proteins' is checked"
-  validates_presence_of :specific_dye_ids, :if => :has_specific_dyes?, :message => "can't be empty if 'Specific dyes' is checked"
+  validates_presence_of :specific_dye_ids, if: :has_specific_dyes?, message: "can't be empty if 'Specific dyes' is checked"
 
   before_save :assign_experiment_id
 
