@@ -39,13 +39,16 @@ Feature: Create experiment
     Then I should see "Please fill in all mandatory fields"
     And "Project A" should be selected for "Select a project"
     And I should see "Some desc A"
-    And I should not see "can't be empty if 'Fluorescent protein' is checked"
+    And I should not see "can't be empty if 'Fluorescent proteins' is checked"
+    And I should not see "can't be empty if 'Specific dyes' is checked"
     And I check "Fluorescent protein"
+    And I check "Specific dyes"
     And I press "Create Experiment"
     Then I should see "Please fill in all mandatory fields"
     And I should see "Some desc A"
     And "Project A" should be selected for "Select a project"
-    And I should see "can't be empty if 'Fluorescent protein' is checked"
+    And I should see "can't be empty if 'Fluorescent proteins' is checked"
+    And I should see "can't be empty if 'Specific dyes' is checked"
 
   @javascript
   Scenario: Creating an experiment with initial validation errors retains select2 tags
@@ -58,12 +61,14 @@ Feature: Create experiment
     Then I should see "Funded By:"
     Then I should see "Supervisor: Sean Lin"
     And I should not see "WOMBAT"
-    And I check "Fluorescent protein"
-
-    And I search for "G" in "Fluorescent proteins" and select "GDA"
-    And I search for "ASRB" in "Fluorescent proteins" and select "ASRB"
-    And I search for "custom" in "Fluorescent proteins" and select "custom"
-    And I search for "ASRB" in "Fluorescent proteins" and should see nothing
+    And I check "Fluorescent proteins"
+    And I search for "G" in "Fluorescent Proteins (Specify)" and select "GDA"
+    And I search for "ASRB" in "Fluorescent Proteins (Specify)" and select "ASRB"
+    And I search for "custom" in "Fluorescent Proteins (Specify)" and select "custom"
+    And I search for "ASRB" in "Fluorescent Proteins (Specify)" and should see nothing
+    And I check "Specific dyes"
+    And I search for "Blue" in "Specific Dyes (Specify)" and select "Blue"
+    And I search for "Red" in "Specific Dyes (Specify)" and select "Red"
     And I press "Create Experiment"
     And I fill in "Experiment Name" with "Experiment 1"
     And I fill in "Lab Book No. (If you don't have one, please enter 'TBA')" with "111"
@@ -77,4 +82,6 @@ Feature: Create experiment
     Then I should be on the view project page for "Project A"
     And the experiment "Experiment 1" should have 3 fluorescent proteins
     And there should be 4 fluorescent proteins
+    And the experiment "Experiment 1" should have 2 specific dyes
+    And there should be 2 specific dyes
     And I should see "Experiment created"

@@ -6,25 +6,25 @@ class Experiment < ActiveRecord::Base
   has_one :experiment_feedback
 
   attr_accessible :cell_type_or_tissue, :lab_book_no, :expt_name, :page_no, :expt_type, :project_id ,
-                  :slides, :dishes, :multiwell_chambers, :other, :other_text, :fluorescent_protein, :fluorescent_protein_ids,
-                  :specific_dyes, :specific_dyes_text, :immunofluorescence, :created_date, :instrument
+                  :slides, :dishes, :multiwell_chambers, :other, :other_text, :has_fluorescent_proteins, :fluorescent_protein_ids,
+                  :has_specific_dyes, :specific_dye_ids, :immunofluorescence, :created_date, :instrument
 
   has_and_belongs_to_many :fluorescent_proteins
+  has_and_belongs_to_many :specific_dyes
 
   validates_length_of :expt_name, :maximum => 255
   validates_length_of :lab_book_no, :maximum => 255
   validates_length_of :page_no, :maximum => 255
   validates_length_of :cell_type_or_tissue, :maximum => 255
   validates_length_of :other_text, :maximum => 255
-  validates_length_of :specific_dyes_text, :maximum => 255
   validates_presence_of :expt_name
   validates_presence_of :lab_book_no
   validates_presence_of :page_no
   validates_presence_of :cell_type_or_tissue
   validates_presence_of :expt_type
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
-  validates_presence_of :fluorescent_protein_ids, if: :fluorescent_protein?, message: "can't be empty if 'Fluorescent protein' is checked"
-  validates_presence_of :specific_dyes_text, :if => :specific_dyes?, :message => '"Specific Dyes (Specify)" cannot be empty if "Specific Dyes" is checked'
+  validates_presence_of :fluorescent_protein_ids, if: :has_fluorescent_proteins?, message: "can't be empty if 'Fluorescent proteins' is checked"
+  validates_presence_of :specific_dye_ids, :if => :has_specific_dyes?, :message => "can't be empty if 'Specific dyes' is checked"
 
   before_save :assign_experiment_id
 

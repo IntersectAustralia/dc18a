@@ -39,10 +39,10 @@
   = f.input :other
   = f.input :other_text, :label => "Other (Specify)"
   <hr/>
-  = f.input :fluorescent_protein
-  = f.input :fluorescent_protein_ids, label: "Fluorescent proteins", input_html:{value:""}
-  = f.input :specific_dyes
-  = f.input :specific_dyes_text, :label => "Specific Dye (Specify)"
+  = f.input :has_fluorescent_proteins, label:"Fluorescent proteins"
+  = f.input :fluorescent_protein_ids, label: "Fluorescent Proteins (Specify)", input_html:{value:""}
+  = f.input :has_specific_dyes, label: "Specific dyes"
+  = f.input :specific_dye_ids, label: "Specific Dyes (Specify)", input_html:{value:""}
   = f.input :immunofluorescence
 
   .form-actions
@@ -51,9 +51,10 @@
     = link_to 'Cancel', cancel_experiments_path, :class => "btn"
 
 :javascript
+  core = #{@core_proteins};
   proteins = #{@proteins};
-  selected = #{@selected};
-  $('#experiment_fluorescent_protein_ids').val(selected);
+  dyes = #{@dyes};
+  $('#experiment_fluorescent_protein_ids').val(proteins);
   $('#experiment_fluorescent_protein_ids').select2({
     createSearchChoice:
       function(term, data) {
@@ -65,14 +66,38 @@
       },
     width: "400px",
     multiple:true,
-    data: {results: proteins, text:'name'},
+    data: {results: core, text:'name'},
     formatSelection: format,
     formatResult: format,
     initSelection:
       function (element, callback) {
         $('#experiment_fluorescent_protein_ids').val('');
-        callback(selected);
+        callback(proteins);
       }
 
   });
   function format(item) { return item.name; };
+
+  $('#experiment_specific_dye_ids').val(dyes);
+  $('#experiment_specific_dye_ids').select2({
+    createSearchChoice:
+      function(term, data) {
+        if ($(data).filter(function() {
+          return this.name.localeCompare(term)===0;
+        }).length===0){
+          return {id:'<<<'+term+'>>>', name:term};
+        }
+      },
+    width: "400px",
+    multiple:true,
+    data: {results: [], text:'name'},
+    formatSelection: format,
+    formatResult: format,
+    initSelection:
+      function (element, callback) {
+        $('#experiment_specific_dye_ids').val('');
+        callback(dyes);
+      }
+
+  });
+

@@ -18,23 +18,27 @@ class ExperimentsController < ApplicationController
 
     @projects = current_user.projects
     @experiment = current_user.experiments.new
-    @proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
-    @selected = []
+    @core_proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
+    @proteins = []
+    @dyes = []
     @instrument = INSTRUMENTS[request.remote_ip]
   end
 
   def create
     protein_ids = params[:experiment].delete("fluorescent_protein_ids")
+    dye_ids = params[:experiment].delete("specific_dye_ids")
     @experiment = current_user.experiments.build(params[:experiment])
     @experiment.fluorescent_protein_ids = FluorescentProtein.ids_from_tokens(protein_ids)
+    @experiment.specific_dye_ids = SpecificDye.ids_from_tokens(dye_ids)
     if @experiment.save
       flash[:notice] = "Experiment created"
       redirect_to project_path @experiment.project
     else
       flash[:alert] = "Please fill in all mandatory fields"
       @projects = current_user.projects
-      @proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
-      @selected = @experiment.fluorescent_proteins.to_a.to_json(only: [:id,:name])
+      @core_proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
+      @proteins = @experiment.fluorescent_proteins.to_a.to_json(only: [:id,:name])
+      @dyes = @experiment.specific_dyes.to_a.to_json(only: [:id,:name])
       render action: "new"
     end
   end
@@ -84,7 +88,7 @@ class ExperimentsController < ApplicationController
               "Other Equipment",
               "Specify Other Equipment",
               "Fluorescent protein",
-              "Fluorescent protein Other",
+              "Specify Fluorescent Proteins",
               "Specific Dyes",
               "Specify Specific Dyes",
               "Immunofluorescence" ]
@@ -117,10 +121,10 @@ class ExperimentsController < ApplicationController
                experiment.multiwell_chambers? ? "Yes" : "No",
                experiment.other? ? "Yes" : "No",
                experiment.other_text || "",
-               experiment.fluorescent_protein? ? "Yes" : "No",
-               experiment.fluorescent_protein_text || "",
-               experiment.specific_dyes? ? "Yes" : "No",
-               experiment.specific_dyes_text || "",
+               experiment.has_fluorescent_proteins? ? "Yes" : "No",
+               experiment.fluorescent_proteins.pluck(:name) || "",
+               experiment.has_specific_dyes? ? "Yes" : "No",
+               experiment.specific_dyes.pluck(:name) || "",
                experiment.immunofluorescence? ? "Yes" : "No" ]
     end
 
