@@ -3,9 +3,12 @@ def populate_data
 
   User.delete_all
   Project.delete_all
+  Experiment.delete_all
+  FluorescentProtein.delete_all
 
   create_test_users
   create_test_projects
+  create_test_experiments
   create_fluorescent_proteins
 end
 
@@ -20,17 +23,38 @@ def create_test_projects
   uid1 = User.find_by_user_id('userid4veronica').id
   uid2 = User.find_by_user_id('userid4seanl').id
   uid3 = User.find_by_user_id('userid4marc').id
-  p1 = create_project(uid1, "Project A", uid1)
-  p2 = create_project(uid1, "Project B", uid1)
-  p3 = create_project(uid2, "Project 1", uid2)
-  p4 = create_project(uid2, "Project 2", uid2)
-  p5 = create_project(uid3, "Project X", uid1)
-  p6 = create_project(uid3, "Project Y", uid2)
+  create_project(uid1, "Project A", uid1)
+  create_project(uid1, "Project B", uid1)
+  create_project(uid2, "Project 1", uid2)
+  create_project(uid2, "Project 2", uid2)
+  create_project(uid3, "Project X", uid1)
+  create_project(uid3, "Project Y", uid2)
 end
 
 def create_project(uid, name, sid)
   project = Project.new(:user_id => uid, :description => "Description for #{name}", :name => name, :supervisor_id => sid, :funded_by_agency => false)
   project.save!
+end
+
+def create_test_experiments
+  uid1 = User.find_by_user_id('userid4veronica').id
+  uid2 = User.find_by_user_id('userid4seanl').id
+  uid3 = User.find_by_user_id('userid4marc').id
+  pid1 = Project.find_by_name("Project A").id
+  pid2 = Project.find_by_name("Project 1").id
+  pid3 = Project.find_by_name("Project X").id
+  create_experiment(uid1, "Experiment 1", pid1)
+  create_experiment(uid1, "Experiment 2", pid1)
+  create_experiment(uid2, "Experiment 3", pid2)
+  create_experiment(uid3, "Experiment 4", pid3)
+end
+
+def create_experiment(uid, name, pid)
+  experiment = Experiment.new(:user_id => uid, :project_id => pid, :expt_name => name,
+                              :lab_book_no => "#{rand(100).to_s}", :page_no => "#{rand(50).to_s}",
+                              :cell_type_or_tissue => "Type #{rand(10).to_s}", :expt_type => ["Fixed", "Live"][rand(2)])
+  experiment.save!
+
 end
 
 def create_test_users
