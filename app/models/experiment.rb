@@ -2,8 +2,7 @@ class Experiment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :project
-
-  has_one :experiment_feedback
+  belongs_to :experiment_feedback
 
   attr_accessible :cell_type_or_tissue, :lab_book_no, :expt_name, :page_no, :expt_type, :project_id ,
                   :slides, :dishes, :multiwell_chambers, :other, :other_text, :has_fluorescent_proteins, :fluorescent_protein_ids,

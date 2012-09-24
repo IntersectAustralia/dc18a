@@ -43,11 +43,9 @@ end
   resources :experiments do
     get :cancel, :on => :collection
     get :download, :on => :member
-
-    resources :experiment_feedbacks, :only => [:new, :create, :show]
   end
 
-
+  resources :experiment_feedbacks, :only => [:new, :create, :show]
 
 
     # The priority is based upon order of creation:

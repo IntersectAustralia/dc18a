@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe ExperimentFeedback do
-  describe "Associations" do
-    it { should belong_to(:experiment) }
-  end
 
   describe "Validations" do
 

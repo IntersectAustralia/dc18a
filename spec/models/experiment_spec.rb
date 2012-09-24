@@ -6,6 +6,7 @@ describe Experiment do
   describe "Associations" do
     it { should belong_to(:user) }
     it { should belong_to(:project) }
+    it { should belong_to(:experiment_feedback) }
   end
 
   describe "Validations" do

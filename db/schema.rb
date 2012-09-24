@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120924012533) do
+ActiveRecord::Schema.define(:version => 20120924043918) do
 
   create_table "experiment_feedbacks", :force => true do |t|
     t.datetime "created_at",               :null => false
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20120924012533) do
     t.boolean  "instrument_failed"
     t.text     "instrument_failed_reason"
     t.text     "other_comments"
-    t.integer  "experiment_id"
   end
 
   create_table "experiments", :force => true do |t|
@@ -44,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20120924012533) do
     t.boolean  "immunofluorescence"
     t.string   "instrument"
     t.datetime "end_time"
+    t.integer  "experiment_feedback_id"
   end
 
   add_index "experiments", ["expt_name"], :name => "index_experiments_on_expt_name"

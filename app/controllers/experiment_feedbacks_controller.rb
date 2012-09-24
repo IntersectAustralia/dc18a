@@ -5,15 +5,19 @@ class ExperimentFeedbacksController < ApplicationController
   end
 
   def new
-    @experiment = Experiment.find_by_id(params[:experiment_id])
+    @experiment = current_user.experiments.last
+    # delete any previously assigned feedback
+    @experiment.experiment_feedback.delete
     @experiment_feedback = ExperimentFeedback.new
   end
 
   def create
-    # TODO Refactor this!! This is not the right way to do things!!!
-    @experiment = Experiment.find_by_id(params[:experiment_id])
+    @experiment = current_user.experiments.last
+    # create new feedback
     @experiment_feedback = ExperimentFeedback.create(params[:experiment_feedback])
-    @experiment_feedback.experiment_id = @experiment.id
+    #@experiment_feedback.experiment_id = @experiment.id
+    @experiment.experiment_feedback = @experiment_feedback
+    @experiment.save!
     if @experiment_feedback.save
       flash[:notice] = "Experiment feedback is saved"
       @experiment.assign_end_time

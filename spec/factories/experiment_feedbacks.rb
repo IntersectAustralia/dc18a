@@ -6,6 +6,5 @@ FactoryGirl.define do
     instrument_failed true
     instrument_failed_reason "Some Failure Reason"
     other_comments "Some Comments"
-    association :experiment, :factory => :experiment
   end
 end
