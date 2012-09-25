@@ -7,7 +7,9 @@ class ExperimentFeedbacksController < ApplicationController
   def new
     @experiment = current_user.experiments.last
     # delete any previously assigned feedback
-    @experiment.experiment_feedback.delete
+    if @experiment.experiment_feedback
+      @experiment.experiment_feedback.delete
+    end
     @experiment_feedback = ExperimentFeedback.new
   end
 
@@ -15,7 +17,6 @@ class ExperimentFeedbacksController < ApplicationController
     @experiment = current_user.experiments.last
     # create new feedback
     @experiment_feedback = ExperimentFeedback.create(params[:experiment_feedback])
-    #@experiment_feedback.experiment_id = @experiment.id
     @experiment.experiment_feedback = @experiment_feedback
     @experiment.save!
     if @experiment_feedback.save
