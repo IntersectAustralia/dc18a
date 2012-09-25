@@ -5,6 +5,15 @@ class ExperimentFeedbacksController < ApplicationController
   end
 
   def new
+    # Custom authentication strategy need custom flash message
+    if params[:login_id]
+      if current_user.nil?
+        flash[:alert] = request.env['warden'].message
+      else
+        flash[:notice] = request.env['warden'].message
+      end
+    end
+
     @experiment = current_user.experiments.last
     # delete any previously assigned feedback
     if @experiment.experiment_feedback
