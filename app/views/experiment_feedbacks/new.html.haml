@@ -1,9 +1,13 @@
-%h2 Experiment Feedback
 
+%h2 Experiment Feedback
 %p
-= simple_form_for [@experiment, @experiment_feedback] do |f|
-  = f.input :experiment_failed
-  = f.input :instrument_failed
+.container
+  = render_field "Experiment Name", '  ' + @experiment.expt_name
+  = render_field "Created At", @experiment.created_at.localtime.strftime('  %d-%m-%Y %H:%M')
+%p
+= simple_form_for [@experiment_feedback] do |f|
+  = f.input :experiment_failed, label:"Experiment failed?"
+  = f.input :instrument_failed, label:"Instrument failed?"
   = f.input :instrument_failed_reason
   = f.input :other_comments
 

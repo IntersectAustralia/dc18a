@@ -49,16 +49,16 @@ module NavigationHelpers
     when /the create experiment page/
       new_experiment_path
 
-      when /the view project page for "(.*)"$/
-        project_path(Project.where(:name => $1).first)
+    when /the view project page for "(.*)"$/
+      project_path(Project.where(:name => $1).first)
 
-      when /the view experiment page for "(.*)"$/
-        experiment_path(Experiment.where(:expt_name => $1).first)
+    when /the feedback page/
+      new_experiment_feedback_path
+        
+    when /the view experiment page for "(.*)"$/
+      experiment_path(Experiment.where(:expt_name => $1).first)
 
-      when /the feedback page for experiment "(.*)"$/
-      new_experiment_experiment_feedback_path(Experiment.where(:expt_name => $1).first)
-
-# Add more mappings here.
+  # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i

@@ -26,7 +26,7 @@ Feature: Experiment Feedback
 
 
   Scenario: Collect feedback on Experiment
-    Given I am on the feedback page for experiment "e1"
+    Given I am on the feedback page
     When I check "Experiment failed"
     And I check "Instrument failed"
     And I fill in "Instrument failed reason" with "Technical Difficulties"

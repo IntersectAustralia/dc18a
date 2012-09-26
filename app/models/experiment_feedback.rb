@@ -1,5 +1,5 @@
 class ExperimentFeedback < ActiveRecord::Base
-  belongs_to :experiment
+  has_one :experiment
 
   attr_accessible :experiment_failed, :instrument_failed, :instrument_failed_reason, :other_comments
 
