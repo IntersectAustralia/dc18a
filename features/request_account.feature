@@ -1,3 +1,4 @@
+@javascript
 Feature: Request an account
   In order to use the system
   As a user
@@ -7,23 +8,23 @@ Feature: Request an account
     Given I have no users
     Given I have the usual roles and permissions
     And I have administrators
-      | user_id                   | email                           | first_name | last_name |
-      | userid4seanlin            | seanl@intersect.org.au          | Sean       | Lin       |
+      | user_id        | email                  | first_name | last_name |
+      | userid4seanlin | seanl@intersect.org.au | Sean       | Lin       |
     And I have supervisors
-      | user_id                   | email                           | first_name | last_name |
-      | userid4supervisor1        | supervisor1@intersect.org.au    | Supervisor | 1         |
-      | userid4supervisor2        | supervisor2@intersect.org.au    | Supervisor | 2         |
+      | user_id            | email                        | first_name | last_name |
+      | userid4supervisor1 | supervisor1@intersect.org.au | Supervisor | 1         |
+      | userid4supervisor2 | supervisor2@intersect.org.au | Supervisor | 2         |
 
   Scenario: Request account
     Given I am on the request account page
     When I fill in the following:
-      | Staff/Student ID | userid4georgina           |
-      | Email            | georgina@intersect.org.au |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | paS$w0rd                  |
-      | Given Name       | Fred                      |
-      | Surname          | Bloggs                    |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4georgina           |
+      | Email             | georgina@intersect.org.au |
+      | Password          | paS$w0rd                  |
+      | Confirm Password  | paS$w0rd                  |
+      | Given Name        | Fred                      |
+      | Surname           | Bloggs                    |
+    And I select "Engineering" from "Schools/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -35,13 +36,13 @@ Feature: Request an account
   Scenario: Email to superuser upon account request and clicking through to access requests page
     Given I am on the request account page
     When I fill in the following:
-      | Staff/Student ID | userid4georgina           |
-      | Email            | georgina@intersect.org.au |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | paS$w0rd                  |
-      | Given Name       | Fred                      |
-      | Surname          | Bloggs                    |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4georgina           |
+      | Email             | georgina@intersect.org.au |
+      | Password          | paS$w0rd                  |
+      | Confirm Password  | paS$w0rd                  |
+      | Given Name        | Fred                      |
+      | Surname           | Bloggs                    |
+    And I select "Engineering" from "Schools/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -60,19 +61,19 @@ Feature: Request an account
     And I press "Log in"
     Then I should be on the access requests page
     And I should see "access_requests" table with
-      |Staff/Student ID | Given Name | Surname   | Email                     |
-      |userid4georgina  | Fred       | Bloggs    | georgina@intersect.org.au |
+      | Staff/Student ID | Given Name | Surname | Email                     |
+      | userid4georgina  | Fred       | Bloggs  | georgina@intersect.org.au |
 
   Scenario: Requesting an account with mismatched password confirmation should be rejected
     Given I am on the request account page
     When I fill in the following:
-      | Staff/Student ID | userid4georgina           |
-      | Email            | georgina@intersect.org.au |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | dr0w$Sap                  |
-      | Given Name       | Fred                      |
-      | Surname          | Bloggs                    |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4georgina           |
+      | Email             | georgina@intersect.org.au |
+      | Password          | paS$w0rd                  |
+      | Confirm Password  | dr0w$Sap                  |
+      | Given Name        | Fred                      |
+      | Surname           | Bloggs                    |
+    And I select "Engineering" from "Schools/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -99,13 +100,13 @@ Feature: Request an account
   Scenario: Newly requested account should not be able to log in yet
     Given I am on the request account page
     And I fill in the following:
-      | Staff/Student ID | userid4georgina           |
-      | Email            | georgina@intersect.org.au |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | paS$w0rd                  |
-      | Given Name       | Fred                      |
-      | Surname          | Bloggs                    |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4georgina           |
+      | Email             | georgina@intersect.org.au |
+      | Password          | paS$w0rd                  |
+      | Confirm Password  | paS$w0rd                  |
+      | Given Name        | Fred                      |
+      | Surname           | Bloggs                    |
+    And I select "Engineering" from "Schools/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -123,13 +124,13 @@ Feature: Request an account
     And "userid4fred" is deactivated
     And I am on the request account page
     When I fill in the following:
-      | Staff/Student ID | userid4georgina           |
-      | Email            | georgina@intersect.org.au |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | paS$w0rd                  |
-      | Given Name       | Fred                      |
-      | Surname          | Bloggs                    |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4georgina           |
+      | Email             | georgina@intersect.org.au |
+      | Password          | paS$w0rd                  |
+      | Confirm Password  | paS$w0rd                  |
+      | Given Name        | Fred                      |
+      | Surname           | Bloggs                    |
+    And I select "Engineering" from "Schools/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -139,13 +140,13 @@ Feature: Request an account
   Scenario: Requesting an account with existed Staff/Student ID should be rejected
     Given I am on the request account page
     When I fill in the following:
-      | Staff/Student ID | userid4seanlin            |
-      | Email            | seanl@intersect.org.au    |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | paS$w0rd                  |
-      | Given Name       | Sean                      |
-      | Surname          | Lin                       |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4seanlin         |
+      | Email             | seanl@intersect.org.au |
+      | Password          | paS$w0rd               |
+      | Confirm Password  | paS$w0rd               |
+      | Given Name        | Sean                   |
+      | Surname           | Lin                    |
+    And I select "Engineering" from "Schools/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -154,12 +155,12 @@ Feature: Request an account
   Scenario: Requesting an account without select supervisor should be rejected
     Given I am on the request account page
     When I fill in the following:
-      | Staff/Student ID | userid4seanlin            |
-      | Email            | seanl@intersect.org.au    |
-      | Password         | paS$w0rd                  |
-      | Confirm Password | paS$w0rd                  |
-      | Given Name       | Sean                      |
-      | Surname          | Lin                       |
-      | Schools/Institute | Microbial             |
+      | Staff/Student ID  | userid4seanlin         |
+      | Email             | seanl@intersect.org.au |
+      | Password          | paS$w0rd               |
+      | Confirm Password  | paS$w0rd               |
+      | Given Name        | Sean                   |
+      | Surname           | Lin                    |
+    And I select "Engineering" from "Schools/Institute"
     And I press "Submit Request"
     And the "Supervisors" field should have the error "can't be blank"

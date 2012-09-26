@@ -32,7 +32,7 @@ class ExperimentsController < ApplicationController
     @experiment.specific_dye_ids = SpecificDye.ids_from_tokens(dye_ids)
     if @experiment.save
       flash[:notice] = "Experiment created"
-      redirect_to project_path @experiment.project
+      redirect_to @experiment
     else
       flash[:alert] = "Please fill in all mandatory fields"
       @projects = current_user.projects

@@ -79,7 +79,7 @@ Feature: Create experiment
     And I check "Multiwell Chambers"
     And I check "Immunofluorescence"
     And I press "Create Experiment"
-    Then I should be on the view project page for "Project A"
+    Then I should be on the view experiment page for "Experiment 1"
     And the experiment "Experiment 1" should have 3 fluorescent proteins
     And there should be 4 fluorescent proteins
     And the experiment "Experiment 1" should have 2 specific dyes
