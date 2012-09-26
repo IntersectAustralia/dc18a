@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120924043918) do
+ActiveRecord::Schema.define(:version => 20120926010215) do
 
   create_table "experiment_feedbacks", :force => true do |t|
     t.datetime "created_at",               :null => false
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20120924043918) do
     t.string   "other_text"
     t.boolean  "has_fluorescent_proteins"
     t.boolean  "has_specific_dyes"
-    t.boolean  "immunofluorescence"
+    t.boolean  "has_immunofluorescence"
     t.string   "instrument"
     t.datetime "end_time"
     t.integer  "experiment_feedback_id"
@@ -53,6 +53,11 @@ ActiveRecord::Schema.define(:version => 20120924043918) do
     t.integer "fluorescent_protein_id"
   end
 
+  create_table "experiments_immunofluorescences", :force => true do |t|
+    t.integer "experiment_id"
+    t.integer "immunofluorescence_id"
+  end
+
   create_table "experiments_specific_dyes", :force => true do |t|
     t.integer "experiment_id"
     t.integer "specific_dye_id"
@@ -63,6 +68,12 @@ ActiveRecord::Schema.define(:version => 20120924043918) do
     t.boolean  "core",       :default => false, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "immunofluorescences", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "permissions", :force => true do |t|

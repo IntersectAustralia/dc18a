@@ -21,7 +21,8 @@
   = render_field "Fluorescent Proteins (Specify)", @experiment.fluorescent_proteins.pluck(:name)
   = render_field "Specific dyes", @experiment.has_specific_dyes
   = render_field "Specific Dyes (Specify)", @experiment.specific_dyes.pluck(:name)
-  = render_field "Immunofluorescence", @experiment.immunofluorescence
+  = render_field "Immunofluorescence", @experiment.has_immunofluorescence
+  = render_field "Specific Dyes (Specify)", @experiment.immunofluorescences.pluck(:name)
 
 
 = link_to 'View Project Details', project_path(@experiment.project), :id => "back_to_project_page"

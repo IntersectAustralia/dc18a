@@ -16,31 +16,35 @@ class ExperimentsController < ApplicationController
       end
     end
 
-    @projects = current_user.projects
     @experiment = current_user.experiments.new
-    @core_proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
-    @proteins = []
-    @dyes = []
+    setup_values
     @instrument = INSTRUMENTS[request.remote_ip]
   end
 
   def create
     protein_ids = params[:experiment].delete("fluorescent_protein_ids")
     dye_ids = params[:experiment].delete("specific_dye_ids")
+    immuno_ids = params[:experiment].delete("immunofluorescence_ids")
     @experiment = current_user.experiments.build(params[:experiment])
     @experiment.fluorescent_protein_ids = FluorescentProtein.ids_from_tokens(protein_ids)
     @experiment.specific_dye_ids = SpecificDye.ids_from_tokens(dye_ids)
+    @experiment.immunofluorescence_ids = Immunofluorescence.ids_from_tokens(immuno_ids)
     if @experiment.save
       flash[:notice] = "Experiment created"
       redirect_to @experiment
     else
       flash[:alert] = "Please fill in all mandatory fields"
-      @projects = current_user.projects
-      @core_proteins = FluorescentProtein.core.to_a.to_json(only: [:id,:name])
-      @proteins = @experiment.fluorescent_proteins.to_a.to_json(only: [:id,:name])
-      @dyes = @experiment.specific_dyes.to_a.to_json(only: [:id,:name])
+      setup_values
       render action: "new"
     end
+  end
+
+  def setup_values
+    @projects = current_user.projects
+    @core_proteins = FluorescentProtein.core.to_a.to_json(only: [:id, :name])
+    @proteins = @experiment.fluorescent_proteins.to_a.to_json(only: [:id, :name])
+    @dyes = @experiment.specific_dyes.to_a.to_json(only: [:id, :name])
+    @immunos = @experiment.immunofluorescences.to_a.to_json(only: [:id, :name])
   end
 
   def cancel
@@ -125,7 +129,7 @@ class ExperimentsController < ApplicationController
                experiment.fluorescent_proteins.pluck(:name) || "",
                experiment.has_specific_dyes? ? "Yes" : "No",
                experiment.specific_dyes.pluck(:name) || "",
-               experiment.immunofluorescence? ? "Yes" : "No" ]
+               experiment.has_immunofluorescence? ? "Yes" : "No" ]
     end
 
     # generate the zip file

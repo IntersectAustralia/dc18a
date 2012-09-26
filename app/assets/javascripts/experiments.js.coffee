@@ -49,7 +49,10 @@ jQuery ->
   if $('#experiment_has_fluorescent_proteins:checked').val()
     $('#experiment_fluorescent_protein_ids').select2('enable')
 
-  # Check 'Fluorescent protein (Specify)' textfield enable/disable
+  $('#experiment_immunofluorescence_ids').select2('disable')
+  if $('#experiment_has_immunofluorescence:checked').val()
+    $('#experiment_immunofluorescence_ids').select2('enable')
+
   $('#experiment_specific_dye_ids').select2('disable')
   if $('#experiment_has_specific_dyes:checked').val()
     $('#experiment_specific_dye_ids').select2('enable')
@@ -92,3 +95,11 @@ jQuery ->
     else
       $('#experiment_specific_dye_ids').val('')
       $('#experiment_specific_dye_ids').select2('disable')
+
+  $('#experiment_has_immunofluorescence').click () ->
+    is_checked = $('#experiment_has_immunofluorescence:checked').val()
+    if is_checked
+      $('#experiment_immunofluorescence_ids').select2('enable')
+    else
+      $('#experiment_immunofluorescence_ids').val('')
+      $('#experiment_immunofluorescence_ids').select2('disable')

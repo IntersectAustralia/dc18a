@@ -39,11 +39,12 @@
   = f.input :other
   = f.input :other_text, :label => "Other (Specify)"
   <hr/>
-  = f.input :has_fluorescent_proteins, label:"Fluorescent proteins"
-  = f.input :fluorescent_protein_ids, label: "Fluorescent Proteins (Specify)", input_html:{value:""}
-  = f.input :has_specific_dyes, label: "Specific dyes"
-  = f.input :specific_dye_ids, label: "Specific Dyes (Specify)", input_html:{value:""}
-  = f.input :immunofluorescence
+  = f.input :has_fluorescent_proteins
+  = f.input :fluorescent_protein_ids, input_html:{value:""}
+  = f.input :has_specific_dyes
+  = f.input :specific_dye_ids, input_html:{value:""}
+  = f.input :has_immunofluorescence
+  = f.input :immunofluorescence_ids, input_html:{value:""}
 
   .form-actions
     = f.submit "Create Experiment", :class => "btn btn-primary", :id => "experiment_submit"
@@ -54,6 +55,8 @@
   core = #{@core_proteins};
   proteins = #{@proteins};
   dyes = #{@dyes};
+  immunos = #{@immunos};
+
   $('#experiment_fluorescent_protein_ids').val(proteins);
   $('#experiment_fluorescent_protein_ids').select2({
     createSearchChoice:
@@ -76,7 +79,6 @@
       }
 
   });
-  function format(item) { return item.name; };
 
   $('#experiment_specific_dye_ids').val(dyes);
   $('#experiment_specific_dye_ids').select2({
@@ -101,4 +103,31 @@
       }
 
   });
+
+  $('#experiment_immunofluorescence_ids').val(immunos);
+  $('#experiment_immunofluorescence_ids').select2({
+    createSearchChoice:
+      function(term, data) {
+        if ($(data).filter(function() {
+          return this.name.localeCompare(term)===0;
+        }).length===0){
+          return {id:'<<<'+term+'>>>', name:term};
+        }
+      },
+    width: "400px",
+    multiple:true,
+    data: {results: [], text:'name'},
+    formatSelection: format,
+    formatResult: format,
+    formatNoMatches: function(term){return "Specify an immunofluorescence value"},
+    initSelection:
+      function (element, callback) {
+        $('#experiment_immunofluorescence_ids').val('');
+        callback(immunos);
+      }
+
+  });
+
+  function format(item) { return item.name; };
+
 

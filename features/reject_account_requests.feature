@@ -76,7 +76,7 @@ Feature: Reject access requests
       | Confirm Password | Pas$w0rd               |
       | Surname          | Fred                   |
       | Given Name       | Bloggs                 |
-    And I select "" from "Schools/Institute"
+    And I select "" from "School/Institute"
     And I fill in "Specify Other School/Institute" with "Microbial"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"

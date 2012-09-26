@@ -69,7 +69,7 @@ en:
         user_id: "Staff/Student ID"
         first_name: "Given Name"
         last_name: "Surname"
-        department: "Schools/Institute"
+        department: "School/Institute"
         password_confirmation: "Confirm Password"
         supervisor_ids: "Supervisors"
       project:
@@ -79,3 +79,11 @@ en:
         agency: "If yes please specify"
         other_agency: "If Other please specify"
         supervisor_id: "Supervisor"
+      experiment:
+        has_fluorescent_proteins: "Fluorescent proteins"
+        fluorescent_protein_ids: "Fluorescent proteins (Specify)"
+        has_specific_dyes: "Specific dyes"
+        specific_dye_ids: "Specific dyes (Specify)"
+        has_immunofluorescence: "Immunofluorescence values"
+        immunofluorescence_ids: "Immunofluorescence values (Specify)"
+

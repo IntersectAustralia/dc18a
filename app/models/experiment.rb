@@ -6,10 +6,11 @@ class Experiment < ActiveRecord::Base
 
   attr_accessible :cell_type_or_tissue, :lab_book_no, :expt_name, :page_no, :expt_type, :project_id ,
                   :slides, :dishes, :multiwell_chambers, :other, :other_text, :has_fluorescent_proteins, :fluorescent_protein_ids,
-                  :has_specific_dyes, :specific_dye_ids, :immunofluorescence, :created_date, :instrument, :user_id
+                  :has_specific_dyes, :specific_dye_ids, :has_immunofluorescence, :immunofluorescence_ids, :created_date, :instrument, :user_id
 
   has_and_belongs_to_many :fluorescent_proteins
   has_and_belongs_to_many :specific_dyes
+  has_and_belongs_to_many :immunofluorescences
 
   validates_length_of :expt_name, :maximum => 255
   validates_length_of :lab_book_no, :maximum => 255
@@ -24,6 +25,7 @@ class Experiment < ActiveRecord::Base
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
   validates_presence_of :fluorescent_protein_ids, if: :has_fluorescent_proteins?, message: "can't be empty if 'Fluorescent proteins' is checked"
   validates_presence_of :specific_dye_ids, if: :has_specific_dyes?, message: "can't be empty if 'Specific dyes' is checked"
+  validates_presence_of :immunofluorescence_ids, if: :has_immunofluorescence?, message: "can't be empty if 'Immunofluorescence' is checked"
 
   before_save :assign_experiment_id
 
