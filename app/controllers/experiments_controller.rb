@@ -62,74 +62,89 @@ class ExperimentsController < ApplicationController
     # generate the metadata file
     csv = Tempfile.new("metadata.csv")
     CSV.open(csv.path, "wb") do |csv|
-      csv << ["Project ID",
-              "Project Name",
-              "Project Create date",
-              "Project Creator Staff Student/ID",
-              "Project Creator First Name",
-              "Project Creator Last Name",
-              "Project Creator Email",
-              "Project Creator Schools/Institute",
-              "Project Supervisor First Name",
-              "Project Supervisor Last Name",
-              "Project Description",
-              "Funded by Agency",
-              "Funding Agency",
-              "Other Funding Agency",
-              "Experiment ID",
-              "Experiment Name",
-              "Experiment Date",
-              "Experiment Owner First Name",
-              "Experiment Owner Last Name",
-              "Instrument Name",
-              "Lab Book No.",
-              "Page No.",
-              "Cell Type/Tissue",
-              "Experiment Type",
-              "Slides",
-              "Dishes",
-              "Multiwell Chambers",
-              "Other Equipment",
-              "Specify Other Equipment",
-              "Fluorescent protein",
-              "Specify Fluorescent Proteins",
-              "Specific Dyes",
-              "Specify Specific Dyes",
-              "Immunofluorescence" ]
-      csv << [ project.id,
-               project.name || "",
-               localize(project.created_at, :format => :short),
-               researcher.user_id,
-               researcher.first_name,
-               researcher.last_name,
-               researcher.email,
-               researcher.department,
-               supervisor.first_name,
-               supervisor.last_name,
-               project.description || "",
-               project.funded_by_agency? ? "Yes" : "No",
-               project.agency || "",
-               project.other_agency || "",
-               experiment.expt_id,
-               experiment.expt_name || "",
-               localize(experiment.created_at, :format => :short),
-               experiment.user.first_name,
-               experiment.user.last_name,
-               experiment.instrument || "",
-               experiment.lab_book_no || "",
-               experiment.page_no || "",
-               experiment.cell_type_or_tissue || "",
-               experiment.expt_type || "",
-               experiment.slides? ? "Yes" : "No",
-               experiment.dishes? ? "Yes" : "No",
-               experiment.multiwell_chambers? ? "Yes" : "No",
-               experiment.other? ? "Yes" : "No",
-               experiment.other_text || "",
-               experiment.has_fluorescent_proteins? ? "Yes" : "No",
-               experiment.fluorescent_proteins.pluck(:name) || "",
-               experiment.has_specific_dyes? ? "Yes" : "No",
-               experiment.specific_dyes.pluck(:name) || "",
-               experiment.has_immunofluorescence? ? "Yes" : "No" ]
+
+      header = ["Project ID",
+                "Project Name",
+                "Project Create date",
+                "Project Creator Staff Student/ID",
+                "Project Creator First Name",
+                "Project Creator Last Name",
+                "Project Creator Email",
+                "Project Creator Schools/Institute",
+                "Project Supervisor First Name",
+                "Project Supervisor Last Name",
+                "Project Description",
+                "Funded by Agency",
+                "Funding Agency",
+                "Other Funding Agency",
+                "Experiment ID",
+                "Experiment Name",
+                "Experiment Date",
+                "Experiment Owner First Name",
+                "Experiment Owner Last Name",
+                "Instrument Name",
+                "Lab Book No.",
+                "Page No.",
+                "Cell Type/Tissue",
+                "Experiment Type",
+                "Slides",
+                "Dishes",
+                "Multiwell Chambers",
+                "Other Equipment",
+                "Specify Other Equipment"]
+
+      header << "Has Fluorescent Proteins?"
+      experiment.fluorescent_proteins.count.times do |i|
+        header << "Fluorescent Protein #{i+1}"
+      end if experiment.has_fluorescent_proteins?
+      header << "Has Specific Dyes?"
+      experiment.specific_dyes.count.times do |i|
+        header << "Specific Dye #{i+1}"
+      end if experiment.has_specific_dyes?
+      header << "Has Immunofluorescence?"
+      experiment.immunofluorescences.count.times do |i|
+        header << "Immunofluorescence #{i+1}"
+      end if experiment.has_immunofluorescence?
+
+      values = [project.id,
+                project.name || "",
+                localize(project.created_at, :format => :short),
+                researcher.user_id,
+                researcher.first_name,
+                researcher.last_name,
+                researcher.email,
+                researcher.department,
+                supervisor.first_name,
+                supervisor.last_name,
+                project.description || "",
+                project.funded_by_agency? ? "Yes" : "No",
+                project.agency || "",
+                project.other_agency || "",
+                experiment.expt_id,
+                experiment.expt_name || "",
+                localize(experiment.created_at, :format => :short),
+                experiment.user.first_name,
+                experiment.user.last_name,
+                experiment.instrument || "",
+                experiment.lab_book_no || "",
+                experiment.page_no || "",
+                experiment.cell_type_or_tissue || "",
+                experiment.expt_type || "",
+                experiment.slides? ? "Yes" : "No",
+                experiment.dishes? ? "Yes" : "No",
+                experiment.multiwell_chambers? ? "Yes" : "No",
+                experiment.other? ? "Yes" : "No",
+                experiment.other_text || ""]
+
+      experiment.has_fluorescent_proteins? ? values << "Yes" : values << "No"
+      values += experiment.fluorescent_proteins.pluck(:name) if experiment.has_fluorescent_proteins?
+      experiment.has_specific_dyes? ? values << "Yes" : values << "No"
+      values += experiment.specific_dyes.pluck(:name) if experiment.has_specific_dyes?
+      experiment.has_immunofluorescence? ? values << "Yes" : values << "No"
+      values += experiment.immunofluorescences.pluck(:name) if experiment.has_immunofluorescence?
+
+      csv << header
+      csv << values
     end
 
     # generate the zip file
@@ -141,8 +156,8 @@ class ExperimentsController < ApplicationController
       z.add_file(included_file_name, csv.path)
     end
     send_file t.path, :type => 'application/zip',
-                      :disposition => 'attachment',
-                      :filename => file_name
+              :disposition => 'attachment',
+              :filename => file_name
     t.close
   end
 
