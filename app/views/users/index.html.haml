@@ -1,5 +1,5 @@
 - title 'Listing Users'
-= will_paginate(@projects)
+= will_paginate(@users)
 %table#users.table.table-bordered.table-striped.table-condensed.pretty
   %tr
     %th= sortable "user_id", "Staff/Student ID"
@@ -31,4 +31,4 @@
         = link_to "View Details", user, :id => "view_#{user.id}"
         - if can?(:update_role, User)
           = link_to "Edit role", edit_role_user_path(user), :id => "edit_role_#{user.id}"
-= will_paginate(@projects)
+= will_paginate(@users)

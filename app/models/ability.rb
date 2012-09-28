@@ -20,9 +20,9 @@ class Ability
     alias_action :reject_reason, :to => :reject
 
     return unless user.role
-    user.role.permissions.each do |permission|
-      action = permission.action.to_sym
-      can action, permission.entity.constantize
+
+    if user.administrator?
+      can :manage, User
     end
 
     # Define abilities for the passed in user here. For example:

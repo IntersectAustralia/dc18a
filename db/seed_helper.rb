@@ -10,24 +10,5 @@ def create_roles_and_permissions
   Role.create!(:name => researcher)
   Role.create!(:name => supervisor)
 
-  #TODO: set your own permissions here
-  create_permission("User", "read", [superuser])
-  create_permission("User", "update_role", [superuser])
-  create_permission("User", "activate_deactivate", [superuser])
-  create_permission("User", "admin", [superuser])
-  create_permission("User", "reject", [superuser])
-  create_permission("User", "approve", [superuser])
-
-  #TODO: create more permissions here
-end
-
-def create_permission(entity, action, roles)
-  permission = Permission.new(:entity => entity, :action => action)
-  permission.save!
-  roles.each do |role_name|
-    role = Role.where(:name => role_name).first
-    role.permissions << permission
-    role.save!
-  end
 end
 

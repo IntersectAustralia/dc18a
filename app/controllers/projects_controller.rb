@@ -36,6 +36,10 @@ class ProjectsController < ApplicationController
      render :json => project.to_json_data
   end
 
+  def summary
+
+  end
+
   private
 
   def sort_column

@@ -18,6 +18,10 @@ class UsersController < ApplicationController
 
   end
 
+  def reports
+
+  end
+
   def access_requests
     @users = User.pending_approval
   end

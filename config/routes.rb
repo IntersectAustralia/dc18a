@@ -12,6 +12,7 @@ end
       get :access_requests
       get :index
       get :admin
+      get :reports
     end
 
     member do
@@ -35,6 +36,7 @@ end
 
   resources :projects do
     get :cancel, :on => :collection
+    get :summary, :on => :collection
     member do
       get :project_data
     end
