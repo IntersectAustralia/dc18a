@@ -1,7 +1,7 @@
 class SpecificDye < ActiveRecord::Base
   attr_accessible :name
 
-  validates :name, presence: true, uniqueness: {case_sensitive:false}
+  validates :name, presence: true, uniqueness: true
 
   before_validation :squish_whitespace
 

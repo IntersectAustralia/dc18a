@@ -23,6 +23,7 @@ class Ability
 
     if user.administrator?
       can :manage, User
+      can :summary, Project
     end
 
     # Define abilities for the passed in user here. For example:

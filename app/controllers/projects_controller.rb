@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find_by_id(params[:id])
-    @experiments =  @project.experiments.order(sort_column + " " + sort_direction).paginate(page: params[:page]) unless @project.nil?
+    @experiments = @project.experiments.order(sort_column + " " + sort_direction).paginate(page: params[:page]) unless @project.nil?
   end
 
   def new
@@ -32,12 +32,147 @@ class ProjectsController < ApplicationController
   end
 
   def project_data
-     project = Project.find_by_id(params[:id])
-     render :json => project.to_json_data
+    project = Project.find_by_id(params[:id])
+    render :json => project.to_json_data
   end
 
   def summary
 
+    # generate the metadata file
+    csv = Tempfile.new("metadata.csv")
+    CSV.open(csv.path, "wb") do |csv|
+
+      header = ["Project ID",
+                "Project Name",
+                "Project Create date",
+                "Project Creator Staff Student/ID",
+                "Project Creator First Name",
+                "Project Creator Last Name",
+                "Project Creator Email",
+                "Project Creator Schools/Institute",
+                "Project Supervisor First Name",
+                "Project Supervisor Last Name",
+                "Project Description",
+                "Funded by Agency",
+                "Funding Agency",
+                "Other Funding Agency",
+                "Experiment ID",
+                "Experiment Name",
+                "Experiment Date",
+                "Experiment Owner First Name",
+                "Experiment Owner Last Name",
+                "Instrument Name",
+                "Lab Book No.",
+                "Page No.",
+                "Cell Type/Tissue",
+                "Experiment Type",
+                "Slides",
+                "Dishes",
+                "Multiwell Chambers",
+                "Other Equipment",
+                "Specify Other Equipment"]
+
+
+      fp_count = ActiveRecord::Base.connection.execute("select count(*) from experiments_fluorescent_proteins group by experiment_id order by count desc limit 1").entries.first
+      sd_count = ActiveRecord::Base.connection.execute("select count(*) from experiments_specific_dyes group by experiment_id order by count desc limit 1").entries.first
+      iv_count = ActiveRecord::Base.connection.execute("select count(*) from experiments_immunofluorescences group by experiment_id order by count desc limit 1").entries.first
+
+      fp_count.nil? ? fp_count = 0 : fp_count = fp_count["count"].to_i
+      sd_count.nil? ? sd_count = 0 : sd_count = sd_count["count"].to_i
+      iv_count.nil? ? iv_count = 0 : iv_count = iv_count["count"].to_i
+
+      header << "Has Fluorescent Proteins?"
+
+      fp_count.times do |i|
+        header << "Fluorescent Protein #{i+1}"
+      end
+      header << "Has Specific Dyes?"
+      sd_count.times do |i|
+        header << "Specific Dye #{i+1}"
+      end
+      header << "Has Immunofluorescence?"
+      iv_count.times do |i|
+        header << "Immunofluorescence #{i+1}"
+      end
+
+      csv << header
+
+      Project.all.each do |project|
+        researcher = project.user
+        supervisor = project.supervisor
+
+        project.experiments.each do |experiment|
+
+          owner = experiment.user
+          values = [project.id,
+                    project.name || "",
+                    localize(project.created_at, :format => :short),
+                    researcher.user_id,
+                    researcher.first_name,
+                    researcher.last_name,
+                    researcher.email,
+                    researcher.department,
+                    supervisor.first_name,
+                    supervisor.last_name,
+                    project.description || "",
+                    project.funded_by_agency? ? "Yes" : "No",
+                    project.agency || "",
+                    project.other_agency || "",
+                    experiment.expt_id,
+                    experiment.expt_name || "",
+                    localize(experiment.created_at, :format => :short),
+                    experiment.user.first_name,
+                    experiment.user.last_name,
+                    experiment.instrument || "",
+                    experiment.lab_book_no || "",
+                    experiment.page_no || "",
+                    experiment.cell_type_or_tissue || "",
+                    experiment.expt_type || "",
+                    experiment.slides? ? "Yes" : "No",
+                    experiment.dishes? ? "Yes" : "No",
+                    experiment.multiwell_chambers? ? "Yes" : "No",
+                    experiment.other? ? "Yes" : "No",
+                    experiment.other_text || ""]
+
+          if experiment.has_fluorescent_proteins?
+            values << "Yes"
+            values += experiment.fluorescent_proteins.pluck(:name)
+            values += [nil] * (fp_count - experiment.fluorescent_proteins.count)
+          else
+            values << "No"
+            values += [nil] * fp_count
+          end
+
+          if experiment.has_specific_dyes?
+            values << "Yes"
+            values += experiment.specific_dyes.pluck(:name)
+            values += [nil] * (sd_count - experiment.specific_dyes.count)
+          else
+            values << "No"
+            values += [nil] * sd_count
+
+          end
+
+          if experiment.has_immunofluorescence?
+            values << "Yes"
+            values += experiment.immunofluorescences.pluck(:name)
+            values += [nil] * (iv_count - experiment.immunofluorescences.count)
+          else
+            values << "No"
+            values += [nil] * iv_count
+          end
+
+          csv << values
+        end
+      end
+
+    end
+    # generate the zip file
+    file_name = "summary.csv"
+
+    send_file csv.path, :type => 'application/zip',
+              :disposition => 'attachment',
+              :filename => file_name
   end
 
   private
