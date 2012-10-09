@@ -121,8 +121,8 @@ class ProjectsController < ApplicationController
                     experiment.expt_id,
                     experiment.expt_name || "",
                     localize(experiment.created_at, :format => :short),
-                    experiment.user.first_name,
-                    experiment.user.last_name,
+                    owner.first_name,
+                    owner.last_name,
                     experiment.instrument || "",
                     experiment.lab_book_no || "",
                     experiment.page_no || "",
@@ -167,10 +167,12 @@ class ProjectsController < ApplicationController
       end
 
     end
-    # generate the zip file
-    file_name = "summary.csv"
 
-    send_file csv.path, :type => 'application/zip',
+
+
+    file_name = Time.now.strftime("summary_report_%Y%m%d%H%M%S.csv")
+
+    send_file csv.path, :type => 'text/csv',
               :disposition => 'attachment',
               :filename => file_name
   end
