@@ -127,7 +127,7 @@ class ProjectsController < ApplicationController
                     experiment.expt_name || "",
                     localize(experiment.created_at, :format => :short),
                     experiment.created_at.strftime("%H:%M:%S"),
-                    experiment.end_time.strftime("%H:%M:%S"),
+                    experiment.end_time.present? ? experiment.end_time.strftime("%H:%M:%S") : "",
                     experiment.end_time.present? ? (experiment.end_time - experiment.created_at)/60 : "",
                     owner.first_name,
                     owner.last_name,
