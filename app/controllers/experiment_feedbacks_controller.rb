@@ -19,10 +19,10 @@ class ExperimentFeedbacksController < ApplicationController
       render action: :no_experiments
     else
       # delete any previously assigned feedback
-      if @experiment.experiment_feedback
-        @experiment.experiment_feedback.delete
-      end
-      @experiment_feedback = ExperimentFeedback.new
+      #if @experiment.experiment_feedback
+      #  @experiment.experiment_feedback.delete
+      #end
+      @experiment_feedback = @experiment.experiment_feedback || ExperimentFeedback.new
     end
 
   end
