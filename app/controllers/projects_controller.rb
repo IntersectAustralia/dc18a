@@ -69,9 +69,8 @@ class ProjectsController < ApplicationController
                 "Slides",
                 "Dishes",
                 "Multiwell Chambers",
-                "Other Equipment",
-                "Specify Other Equipment"]
-
+                "Other Apparatus",
+                "Specify Other Apparatus"]
 
       fp_count = ActiveRecord::Base.connection.execute("select count(*) from experiments_fluorescent_proteins group by experiment_id order by count desc limit 1").entries.first
       sd_count = ActiveRecord::Base.connection.execute("select count(*) from experiments_specific_dyes group by experiment_id order by count desc limit 1").entries.first
@@ -82,18 +81,21 @@ class ProjectsController < ApplicationController
       iv_count.nil? ? iv_count = 0 : iv_count = iv_count["count"].to_i
 
       header << "Has Fluorescent Proteins?"
-
       fp_count.times do |i|
         header << "Fluorescent Protein #{i+1}"
       end
+
       header << "Has Specific Dyes?"
       sd_count.times do |i|
         header << "Specific Dye #{i+1}"
       end
+
       header << "Has Immunofluorescence?"
       iv_count.times do |i|
         header << "Immunofluorescence #{i+1}"
       end
+
+      header += ["Experiment Failed?", "Instrument Failed?", "Instrument Failed Reason", "Other Comments"]
 
       csv << header
 
@@ -150,7 +152,6 @@ class ProjectsController < ApplicationController
           else
             values << "No"
             values += [nil] * sd_count
-
           end
 
           if experiment.has_immunofluorescence?
@@ -160,6 +161,14 @@ class ProjectsController < ApplicationController
           else
             values << "No"
             values += [nil] * iv_count
+          end
+
+          if experiment.experiment_feedback
+            values += [experiment.experiment_feedback.experiment_failed? ? "Yes" : "No",
+                       experiment.experiment_feedback.instrument_failed? ? "Yes" : "No",
+                       experiment.experiment_feedback.instrument_failed_reason,
+                       experiment.experiment_feedback.other_comments]
+
           end
 
           csv << values
