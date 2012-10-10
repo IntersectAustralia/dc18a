@@ -15,11 +15,16 @@ class ExperimentFeedbacksController < ApplicationController
     end
 
     @experiment = current_user.experiments.last
-    # delete any previously assigned feedback
-    if @experiment.experiment_feedback
-      @experiment.experiment_feedback.delete
+    if !current_user.approved? or @experiment.nil?
+      render action: :no_experiments
+    else
+      # delete any previously assigned feedback
+      if @experiment.experiment_feedback
+        @experiment.experiment_feedback.delete
+      end
+      @experiment_feedback = ExperimentFeedback.new
     end
-    @experiment_feedback = ExperimentFeedback.new
+
   end
 
   def create
@@ -37,6 +42,10 @@ class ExperimentFeedbacksController < ApplicationController
       flash[:notice] = "Please fill in all mandatory fields"
       render action: :new
     end
+  end
+
+  def no_experiments
+
   end
 
 
