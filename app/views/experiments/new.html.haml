@@ -56,6 +56,7 @@
   proteins = #{@proteins};
   dyes = #{@dyes};
   immunos = #{@immunos};
+  core_immunos = #{@core_immunos};
 
   $('#experiment_fluorescent_protein_ids').val(proteins);
   $('#experiment_fluorescent_protein_ids').select2({
@@ -116,7 +117,7 @@
       },
     width: "400px",
     multiple:true,
-    data: {results: [], text:'name'},
+    data: {results: core_immunos, text:'name'},
     formatSelection: format,
     formatResult: format,
     formatNoMatches: function(term){return "Specify an immunofluorescence value"},

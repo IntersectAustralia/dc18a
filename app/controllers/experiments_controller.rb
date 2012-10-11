@@ -45,6 +45,7 @@ class ExperimentsController < ApplicationController
     @proteins = @experiment.fluorescent_proteins.to_a.to_json(only: [:id, :name])
     @dyes = @experiment.specific_dyes.to_a.to_json(only: [:id, :name])
     @immunos = @experiment.immunofluorescences.to_a.to_json(only: [:id, :name])
+    @core_immunos = Immunofluorescence.core.to_a.to_json(only: [:id, :name])
   end
 
   def cancel

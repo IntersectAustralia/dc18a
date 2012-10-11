@@ -4,12 +4,10 @@ def populate_data
   User.delete_all
   Project.delete_all
   Experiment.delete_all
-  FluorescentProtein.delete_all
 
   create_test_users
   create_test_projects
   create_test_experiments
-  create_fluorescent_proteins
 end
 
 def create_test_projects

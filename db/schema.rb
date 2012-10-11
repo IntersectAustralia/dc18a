@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926010215) do
+ActiveRecord::Schema.define(:version => 20121011034555) do
 
   create_table "experiment_feedbacks", :force => true do |t|
     t.datetime "created_at",               :null => false
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20120926010215) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "core"
   end
 
   create_table "permissions", :force => true do |t|
