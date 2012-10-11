@@ -18,10 +18,6 @@ class ExperimentFeedbacksController < ApplicationController
     if !current_user.approved? or @experiment.nil?
       render action: :no_experiments
     else
-      # delete any previously assigned feedback
-      #if @experiment.experiment_feedback
-      #  @experiment.experiment_feedback.delete
-      #end
       @experiment_feedback = @experiment.experiment_feedback || ExperimentFeedback.new
     end
 
@@ -29,7 +25,6 @@ class ExperimentFeedbacksController < ApplicationController
 
   def create
     @experiment = current_user.experiments.last
-    # create new feedback
     @experiment_feedback = ExperimentFeedback.new(params[:experiment_feedback])
     if @experiment_feedback.save
       flash[:notice] = "Experiment feedback is saved"

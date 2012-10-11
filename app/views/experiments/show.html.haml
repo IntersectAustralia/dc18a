@@ -26,5 +26,16 @@
 
 
 = link_to 'View Project Details', project_path(@experiment.project), :id => "back_to_project_page"
+= link_to 'Download Metadata', download_experiment_path(@experiment), :class => "view", :id => "download_#{@experiment.id}"
+= button_to "Close", nil, id: "close", class: "btn", disabled: true
 
 
+:javascript
+  $('.view').click(function(){
+    $('#close').removeAttr('disabled');
+  });
+
+  $('#close').click(function(){
+    parent.close();
+    return false;
+  });
