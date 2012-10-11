@@ -15,7 +15,6 @@ class ExperimentsController < ApplicationController
         flash[:notice] = request.env['warden'].message
       end
     end
-
     @experiment = current_user.experiments.new
     setup_values
     @instrument = INSTRUMENTS[request.remote_ip]

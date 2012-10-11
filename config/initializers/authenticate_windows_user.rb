@@ -14,10 +14,9 @@ module Devise
         ip = request.remote_ip
         login_id = params[:login_id]
         user = User.find_by_user_id(login_id)
-
         # Read ip from ip instruments mapping configuration file, see config/initializers/0_load_dc18a_config.rb
         ip_addresses = INSTRUMENTS.keys
-
+        session[:in_lab] = true
         if ip_addresses.include?(ip)
           if user
             # user in system and login from within lab
