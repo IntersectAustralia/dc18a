@@ -22,13 +22,11 @@
   = render_field "Specific dyes", @experiment.has_specific_dyes
   = render_field "Specific Dyes (Specify)", @experiment.specific_dyes.pluck(:name)
   = render_field "Immunofluorescence", @experiment.has_immunofluorescence
-  = render_field "Specific Dyes (Specify)", @experiment.immunofluorescences.pluck(:name)
-
+  = render_field "Immunofluorescence Values (Specify)", @experiment.immunofluorescences.pluck(:name)
 
 = link_to 'View Project Details', project_path(@experiment.project), :id => "back_to_project_page"
 = link_to 'Download Metadata', download_experiment_path(@experiment), :class => "view", :id => "download_#{@experiment.id}"
 = button_to "Close", nil, id: "close", class: "btn", disabled: true
-
 
 :javascript
   $('.view').click(function(){
@@ -36,6 +34,7 @@
   });
 
   $('#close').click(function(){
-    parent.close();
+    window.open('', '_self', '');
+    window.close();
     return false;
   });
