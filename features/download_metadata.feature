@@ -43,7 +43,7 @@ Feature: Download metadata
     And I am on the home page
     When I follow "View Details" for project "p1"
     And I follow "View Details"
-    And I follow "Download Folder"
+    And I follow "Download Metadata"
     And I should see button "Close Window"
 
   Scenario: Logging in normally shows close button for experiments
@@ -54,5 +54,5 @@ Feature: Download metadata
     And I am on the home page
     When I follow "View Details" for project "p1"
     And I follow "View Details"
-    And I follow "Download Folder"
+    And I follow "Download Metadata"
     And I should not see link "Close Window"
