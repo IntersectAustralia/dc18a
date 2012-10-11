@@ -8,3 +8,5 @@
 require File.dirname(__FILE__) + '/seed_helper.rb'
 
 create_roles_and_permissions
+create_fluorescent_proteins
+create_immunofluorescence_values

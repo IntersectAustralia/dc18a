@@ -12,13 +12,6 @@ def populate_data
   create_fluorescent_proteins
 end
 
-def create_fluorescent_proteins
-  FluorescentProtein.create!(name:"GFP", core:true)
-  FluorescentProtein.create!(name:"YFP", core:true)
-  FluorescentProtein.create!(name:"CFP", core:true)
-  FluorescentProtein.create!(name:"RFP", core:true)
-end
-
 def create_test_projects
   uid1 = User.find_by_user_id('userid4veronica').id
   uid2 = User.find_by_user_id('userid4seanl').id
@@ -50,9 +43,14 @@ def create_test_experiments
 end
 
 def create_experiment(uid, name, pid)
-  experiment = Experiment.new(:user_id => uid, :project_id => pid, :expt_name => name,
-                              :lab_book_no => "#{rand(100).to_s}", :page_no => "#{rand(50).to_s}",
-                              :cell_type_or_tissue => "Type #{rand(10).to_s}", :expt_type => ["Fixed", "Live"][rand(2)])
+  experiment = Experiment.new(user_id: uid,
+                              project_id: pid,
+                              expt_name: name,
+                              lab_book_no:"#{rand(100).to_s}",
+                              page_no: "#{rand(50).to_s}",
+                              cell_type_or_tissue: "Type #{rand(10).to_s}",
+                              expt_type: ["Fixed", "Live"][rand(2)],
+                              instrument: "Populator Microscope")
   experiment.save!
 
 end
