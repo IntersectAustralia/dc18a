@@ -47,7 +47,7 @@ end
     get :download, :on => :member
   end
 
-  resources :experiment_feedbacks, :only => [:new, :create, :show, :no_experiments]
+  resources :experiment_feedbacks, :only => [:new, :create, :update, :show, :no_experiments]
 
 
     # The priority is based upon order of creation:

@@ -46,4 +46,18 @@ Feature: Experiment Feedback
     And I should see "From Experiment: e1" in the email body
     And I should see "Reported by user: Raul Carrizo" in the email body
 
-
+  Scenario: Edit feedback on Experiment
+    Given I am on the feedback page
+    When I check "Experiment failed"
+    And I check "Instrument failed"
+    And I fill in "Instrument failed reason" with "Technical Difficulties"
+    And I fill in "Other comments" with "Please repeat experiment"
+    And I press "Submit"
+    Then I should see "Experiment feedback is saved"
+    Given I am on the feedback page
+    And I press "Submit"
+    Then I should see "Experiment feedback is saved"
+    And I should see "Experiment Failed:Yes"
+    And I should see "Instrument Failed:Yes"
+    And I should see "Technical Difficulties"
+    And I should see "Please repeat experiment"

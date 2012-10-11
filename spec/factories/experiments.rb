@@ -9,6 +9,6 @@ FactoryGirl.define do
     expt_type "Fixed"
     association :user, :factory => :user
     association :project, :factory => :project
-    association :experiment_feedback, :factory => :experiment_feedback
+    #association :experiment_feedback, :factory => :experiment_feedback
   end
 end

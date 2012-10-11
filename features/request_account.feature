@@ -24,7 +24,7 @@ Feature: Request an account
       | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -42,7 +42,7 @@ Feature: Request an account
       | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -73,7 +73,7 @@ Feature: Request an account
       | Confirm Password  | dr0w$Sap                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -106,7 +106,7 @@ Feature: Request an account
       | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -130,7 +130,7 @@ Feature: Request an account
       | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -146,7 +146,7 @@ Feature: Request an account
       | Confirm Password  | paS$w0rd               |
       | Given Name        | Sean                   |
       | Surname           | Lin                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
     And I press "Submit Request"
@@ -161,6 +161,6 @@ Feature: Request an account
       | Confirm Password  | paS$w0rd               |
       | Given Name        | Sean                   |
       | Surname           | Lin                    |
-    And I select "Engineering" from "School/Institute"
+    And I select "Pharmacy" from "School/Institute"
     And I press "Submit Request"
     And the "Supervisors" field should have the error "can't be blank"
