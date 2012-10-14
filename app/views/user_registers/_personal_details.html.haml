@@ -2,7 +2,7 @@
 = f.input :last_name
 = f.input :department, collection: INSTITUTIONS, include_blank: "Other (Specify)"
 = f.input :department, label: "Specify Other School/Institute",input_html: {id: "user_department_custom"}
-= f.association :supervisors, :collection => User.can_supervise, :label_method => lambda{ |supervisor| "#{supervisor.full_name}"}
+= f.association :supervisors, collection: User.can_supervise, label_method: lambda{ |supervisor| "#{supervisor.full_name}"}, required: true
 
 :javascript
   function updateFields(){
