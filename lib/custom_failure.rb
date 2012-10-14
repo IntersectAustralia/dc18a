@@ -4,7 +4,13 @@ class CustomFailure < Devise::FailureApp
     if params[:not_in_lab]
       scope_path
     elsif params[:login_id]
-      new_user_registration_path + "?login_id=#{params[:login_id]}"
+      user = User.find_by_user_id(params[:login_id])
+      if user.nil?
+        new_user_registration_path + "?login_id=#{params[:login_id]}"
+      else
+        pages_inactive_path
+      end
+
     else
       if warden_message == :timeout
         flash[:timedout] = true

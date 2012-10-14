@@ -1,10 +1,10 @@
 Dc18a::Application.routes.draw do
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
-devise_scope :user do
-  get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
-  get "/users/edit_password", :to => "user_registers#edit_password" #allow users to edit their own password
-  put "/users/update_password", :to => "user_registers#update_password" #allow users to edit their own password
-end
+  devise_scope :user do
+    get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
+    get "/users/edit_password", :to => "user_registers#edit_password" #allow users to edit their own password
+    put "/users/update_password", :to => "user_registers#update_password" #allow users to edit their own password
+  end
 
   resources :users, :only => [:show] do
 
@@ -33,6 +33,7 @@ end
   root :to => "pages#home"
 
   get "pages/home"
+  get "pages/inactive"
 
   resources :projects do
     get :cancel, :on => :collection
@@ -50,7 +51,7 @@ end
   resources :experiment_feedbacks, :only => [:new, :create, :update, :show, :no_experiments]
 
 
-    # The priority is based upon order of creation:
+  # The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:

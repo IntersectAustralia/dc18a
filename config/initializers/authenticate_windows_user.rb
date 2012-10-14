@@ -18,13 +18,17 @@ module Devise
         ip_addresses = INSTRUMENTS.keys
         session[:in_lab] = true
         if ip_addresses.include?(ip)
-          if user
+          if user.nil?
+            # login from within lab but user not in system
+            message = "You have not registered a user account with the Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed access until your account has been approved by the administrator."
+            fail!(message) # where message is the failure message
+          elsif user.active_for_authentication?
             # user in system and login from within lab
             message = "Welcome #{user.full_name}."
             success!(user, message) # where resource is the whatever you've authenticated, e.g. user;
           else
-            # login from within lab but user not in system
-            message = "You have not registered a user account with the Microbial Imaging facility. Please fill in the following details and register an account now. You will not be allowed access until your account has been approved by the administrator."
+            # login from within lab but user not active for authentication
+            message = "#{login_id} could not be logged in."
             fail!(message) # where message is the failure message
           end
         else
