@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011034555) do
+ActiveRecord::Schema.define(:version => 20121015014944) do
 
   create_table "experiment_feedbacks", :force => true do |t|
     t.datetime "created_at",               :null => false
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20121011034555) do
     t.string   "department"
     t.datetime "approved_on"
     t.text     "rejected_reason"
+    t.string   "other_department"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -164,3 +164,20 @@ Feature: Request an account
     And I select "Pharmacy" from "School/Institute"
     And I press "Submit Request"
     And the "Supervisors" field should have the error "can't be blank"
+
+  @javascript
+  Scenario: Signing up with "Other (Specify)" selected for "School/Institute" and not input in "Specify Other School/Institute" should be rejected
+    Given I am on the request account page
+    When I fill in the following:
+      | Staff/Student ID  | userid4seanlin         |
+      | Email             | seanl@intersect.org.au |
+      | Password          | paS$w0rd               |
+      | Confirm Password  | paS$w0rd               |
+      | Given Name        | Sean                   |
+      | Surname           | Lin                    |
+    And I select "Other (Specify)" from "School/Institute"
+    And I select "Supervisor 1" from "Supervisors"
+    And I select "Supervisor 2" from "Supervisors"
+    And I press "Submit Request"
+    Then the "Specify Other School/Institute" field should have the error "can't be blank"
+    And the "School/Institute" field should have no errors
