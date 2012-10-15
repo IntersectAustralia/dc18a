@@ -59,7 +59,7 @@ Feature: Reject access requests
     Then I should see "Invalid staff/student id or password."
     And I should be on the login page
 
-#  @javascript
+  @javascript
   Scenario: Rejected user should be able to apply again
     Given I am on the access requests page
     When I follow "Reject" for "userid4diego"
@@ -76,7 +76,7 @@ Feature: Reject access requests
       | Confirm Password | Pas$w0rd               |
       | Surname          | Fred                   |
       | Given Name       | Bloggs                 |
-    And I select "" from "School/Institute"
+    And I select "Other (Specify)" from "School/Institute"
     And I fill in "Specify Other School/Institute" with "Microbial"
     And I select "Supervisor 1" from "Supervisors"
     And I select "Supervisor 2" from "Supervisors"
