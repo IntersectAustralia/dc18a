@@ -4,11 +4,11 @@
 
 jQuery ->
   display_rest_of_proj_details = (data) ->
-    $('#pid').text("Project ID: " + data["project_id"])
-    $('#description').text("Description: " + data["description"])
-    $('#date_created').text("Date Created: " + data["date_created"])
-    $('#funded_by').text("Funded By: " + data["funded_by"])
-    $('#supervisor').text("Supervisor: " + data["supervisor"])
+    $('span', '#display_project_id').text(data["project_id"])
+    $('span', '#display_description').text(data["description"])
+    $('span', '#display_date_created').text(data["date_created"])
+    $('span', '#display_funded_by').text(data["funded_by"])
+    $('span', '#display_supervisor').text(data["supervisor"])
 
   project_details_display = (project_id) ->
     if project_id
@@ -22,11 +22,11 @@ jQuery ->
         success: (data, text_status, error) ->
           display_rest_of_proj_details (data)
     else
-      $('#pid').text("Project ID: ")
-      $('#description').text("Description: ")
-      $('#date_created').text("Date Created: ")
-      $('#funded_by').text("Funded By: ")
-      $('#supervisor').text("Supervisor: ")
+      $('span', '#display_project_id').text("")
+      $('span', '#display_description').text("")
+      $('span', '#display_date_created').text("")
+      $('span', '#display_funded_by').text("")
+      $('span', '#display_supervisor').text("")
 
   enable_submit_button = (project_id) ->
     if project_id

@@ -8,18 +8,15 @@
   = link_to "Create New Project", new_project_path
 
 .project_display
-  = label_tag "pid", "Project ID: ", { :id=>"pid" }
-  = label_tag "description", "Description: " , { :id=>"description" }
-  = label_tag "date_created", "Date Created: " , { :id=>"date_created" }
-  = label_tag "funded_by", "Funded By: ", { :id=>"funded_by" }
-  = label_tag "supervisor", "Supervisor: " , { :id=>"supervisor" }
+  = render_field "Project ID", nil, 2
+  = render_field "Description", nil, 2
+  = render_field "Date Created", nil, 2
+  = render_field "Funded By", nil, 2
+  = render_field "Supervisor", nil, 2
 
 <hr/>
 %h3 Experiment Details
-- if @instrument
-  = label_tag "Instrument", "Instrument: #{@instrument}"
-- else
-  = label_tag "Instrument", "Instrument: Unknown"
+= render_field "Instrument", @instrument || "Unknown", 1
 
 %p
 = simple_form_for(@experiment) do |f|
@@ -47,8 +44,8 @@
   = f.input :immunofluorescence_ids, input_html:{value:""}
 
   .form-actions
-    = f.submit "Create Experiment", :class => "btn btn-primary", :id => "experiment_submit"
     = link_to 'Cancel', cancel_experiments_path, :class => "btn"
+    = f.submit "Create Experiment", :class => "btn btn-primary", :id => "experiment_submit"
 
 :javascript
   core = #{@core_proteins};

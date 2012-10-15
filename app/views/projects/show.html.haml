@@ -1,13 +1,13 @@
 %h2 Project View
 
 .container
-  = render_field "Project ID", @project.id
-  = render_field "Project Name", @project.name
-  = render_field "Description", @project.description
-  = render_field "Creator", @project.user.full_name
-  = render_field "Supervisor", @project.supervisor.full_name
-  = render_field "Funded By", @project.agency
-  = render_field "Date Created", @project.created_date
+  = render_field "Project ID", @project.id, 2
+  = render_field "Project Name", @project.name, 2
+  = render_field "Description", @project.description, 2
+  = render_field "Creator", @project.user.full_name, 2
+  = render_field "Supervisor", @project.supervisor.full_name, 2
+  = render_field "Funded By", @project.agency, 2
+  = render_field "Date Created", @project.created_date, 2
 
 <br/>
 .experiment_list

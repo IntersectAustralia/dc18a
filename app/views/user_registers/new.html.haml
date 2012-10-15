@@ -3,5 +3,5 @@
   = render :partial => 'personal_details', :locals  => {:f => f}
   = render :partial => 'account_details', :locals  => {:f => f}
   .form-actions
-    = f.submit "Submit Request", :class => "btn btn-primary"
     = link_to 'Cancel', root_path, :class => "btn"
+    = f.submit "Submit Request", :class => "btn btn-primary"

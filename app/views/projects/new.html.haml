@@ -29,5 +29,5 @@
   = f.input :other_agency, :disabled => ((@project.funded_by_agency? and @project.agency == "Other") ? false : true)
   = f.input :supervisor_id, :collection => current_user.supervisors, :label_method => lambda{ |supervisor| "#{supervisor.full_name}"}
   .form-actions
-    = f.submit "Create Project", :class => "btn btn-primary"
     = link_to 'Cancel', cancel_projects_path, :class => "btn"
+    = f.submit "Create Project", :class => "btn btn-primary"
