@@ -62,6 +62,7 @@ Feature: Reject access requests
   @javascript
   Scenario: Rejected user should be able to apply again
     Given I am on the access requests page
+    And I resize the window to (1280,800)
     When I follow "Reject" for "userid4diego"
     And I fill in "Rejected reason" with "Unidentified User"
     And I press "Reject"

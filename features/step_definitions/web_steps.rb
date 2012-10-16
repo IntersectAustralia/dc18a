@@ -33,6 +33,13 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+And /^I resize the window to \((\d+),(\d+)\)$/ do |width, height|
+  if Capybara.current_driver == :selenium
+    window = Capybara.current_session.driver.browser.manage.window
+    window.resize_to(width, height)
+  end
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |_step, parent|
   with_scope(parent) { step _step }
