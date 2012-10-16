@@ -1,4 +1,4 @@
-%h2 User Sign Up
+- title "User Sign Up"
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = render :partial => 'personal_details', :locals  => {:f => f}
   = render :partial => 'account_details', :locals  => {:f => f}

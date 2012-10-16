@@ -1,4 +1,4 @@
-%h2 Experiment Feedback for #{@experiment.expt_name}
+- title "Experiment Feedback for #{@experiment.expt_name}"
 
 .container
   = render_field "Experiment Failed", @experiment_feedback.experiment_failed? ? "Yes" : "No"
