@@ -4,11 +4,11 @@
 
 jQuery ->
   display_rest_of_proj_details = (data) ->
-    $('span', '#display_project_id').text(data["project_id"])
-    $('span', '#display_description').text(data["description"])
-    $('span', '#display_date_created').text(data["date_created"])
-    $('span', '#display_funded_by').text(data["funded_by"])
-    $('span', '#display_supervisor').text(data["supervisor"])
+    $('div', '#display_project_id').text(data["project_id"])
+    $('div', '#display_description').text(data["description"])
+    $('div', '#display_date_created').text(data["date_created"])
+    $('div', '#display_funded_by').text(data["funded_by"])
+    $('div', '#display_supervisor').text(data["supervisor"])
 
   project_details_display = (project_id) ->
     if project_id
@@ -22,11 +22,11 @@ jQuery ->
         success: (data, text_status, error) ->
           display_rest_of_proj_details (data)
     else
-      $('span', '#display_project_id').text("")
-      $('span', '#display_description').text("")
-      $('span', '#display_date_created').text("")
-      $('span', '#display_funded_by').text("")
-      $('span', '#display_supervisor').text("")
+      $('div', '#display_project_id').text("")
+      $('div', '#display_description').text("")
+      $('div', '#display_date_created').text("")
+      $('div', '#display_funded_by').text("")
+      $('div', '#display_supervisor').text("")
 
   enable_submit_button = (project_id) ->
     if project_id
@@ -58,12 +58,12 @@ jQuery ->
     $('#experiment_specific_dye_ids').select2('enable')
 
   # Check if any project has already been selected
-  project_details_display($("#project_select").val())
 
-  project_id = $("#project_select").val()
-  enable_submit_button($("#project_select").val())
-  project_details_display($("#project_select").val())
-  $("#experiment_project_id").val($("#project_select").val())
+  if $("#project_select").size() > 0
+    project_id = $("#project_select").val()
+    enable_submit_button($("#project_select").val())
+    project_details_display($("#project_select").val())
+    $("#experiment_project_id").val($("#project_select").val())
 
 
   $('#project_select').change () ->

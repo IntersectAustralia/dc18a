@@ -4,7 +4,7 @@
       = render(:partial => 'devise/sessions/form', :locals => { :f => f })
     = link_to "Sign Up", new_user_registration_path, :class => "button"
   - else
-    = link_to "Create Project", new_project_path, :class => "button"
+    = link_to "Create Project", new_project_path, :class => "btn"
     = will_paginate(@projects)
     %table#projects.table.table-bordered.table-striped.table-condensed.pretty
       %tr

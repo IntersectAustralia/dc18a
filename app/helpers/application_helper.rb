@@ -35,18 +35,13 @@ module ApplicationHelper
 
   private
   def render_field_content(label, content, span = 3)
-    div_class = cycle("field_bg","field_nobg")
     div_id = label.tr(" ,/", "_").downcase
-    html = "<div class='#{div_class} inlineblock row' id='display_#{div_id}'>"
-    html << "<strong class='span#{span}'>"
-    html << (h label)
-    html << ":"
-    html << '</strong>'
-    html << "<span class='span#{12 - span}'>"
-    html << content
-    html << '</span>'
-    html << '</div>'
-    html.html_safe
+    capture_haml do
+      haml_tag :div, class: "row", id: "display_#{div_id}" do
+        haml_tag :strong, label + ":", class: "span#{span}"
+        haml_tag :div, content, class: "span#{12-span}"
+      end
+    end
   end
 
 

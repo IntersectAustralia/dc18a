@@ -15,8 +15,7 @@ Feature: Identify user by windows
     And I visit "/experiments/new?login_id=windowsuserid"
     Then I should be on the create experiment page
     And I should see "Welcome Sean Lin."
-    And I should see "Instrument:"
-    And I should see "Nikon Ti inverted epifluorescent microscope"
+    And I should see field "Instrument" with value "Nikon Ti inverted epifluorescent microscope"
 
   Scenario: Login with windows id which is not existed in system
     Given The request ip address is "172.16.4.78"

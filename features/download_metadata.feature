@@ -43,8 +43,9 @@ Feature: Download metadata
     And I am on the home page
     When I follow "View Details" for project "p1"
     And I follow "View Details"
+    And I should see "button will only be activated once the zip file has been downloaded"
     And I follow "Download Metadata"
-    And I should see button "Close Window"
+    And I should see button "Close"
 
   Scenario: Logging in normally shows close button for experiments
     Given I am logged in as "userid4raul"
@@ -54,5 +55,6 @@ Feature: Download metadata
     And I am on the home page
     When I follow "View Details" for project "p1"
     And I follow "View Details"
+    And I should not see "button will only be activated once the zip file has been downloaded"
     And I follow "Download Metadata"
-    And I should not see link "Close Window"
+    And I should not see link "Close"
