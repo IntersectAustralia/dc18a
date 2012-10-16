@@ -4,8 +4,8 @@
   <br>Once the experiment is completed move the folder with the containing CSV metadata and datasets to the Gourdski shared drive.
   - if session["in_lab"]
     <br><br>The "Close" button will only be activated once the zip file has been downloaded.
+%h3 Details
 .container
-  = render_field "Experiment Database ID", @experiment.id
   = render_field "Experiment ID", @experiment.expt_id
   = render_field "Experiment Name", @experiment.expt_name
   = render_field "Created Date", @experiment.created_date
@@ -16,20 +16,23 @@
   = render_field "Page No.", @experiment.page_no
   = render_field "Cell Type Or Tissue", @experiment.cell_type_or_tissue
   = render_field "Experiment Type", @experiment.expt_type
+<hr/>
+%h3 Apparatus
+.container
   = render_field "Slides", @experiment.slides? ? "Yes" : "No"
   = render_field "Dishes", @experiment.dishes? ? "Yes" : "No"
   = render_field "Multiwell Chambers", @experiment.multiwell_chambers? ? "Yes" : "No"
-  = render_field "Other", @experiment.other? ? "Yes" : "No"
-  = render_field "Other (Specify)", @experiment.other_text.present? ? @experiment.other_text : "N/A"
-  = render_field "Fluorescent proteins", @experiment.has_fluorescent_proteins? ? "Yes" : "No"
-  = render_field "Fluorescent Proteins (Specify)", @experiment.fluorescent_proteins.present? ? @experiment.fluorescent_proteins.pluck(:name).join(", ") : "N/A"
-  = render_field "Specific dyes", @experiment.has_specific_dyes? ? "Yes" : "No"
-  = render_field "Specific Dyes (Specify)", @experiment.specific_dyes.present? ? @experiment.specific_dyes.pluck(:name).join(", ") : "N/A"
-  = render_field "Immunofluorescence", @experiment.has_immunofluorescence? ? "Yes" : "No"
-  = render_field "Immunofluorescence Values (Specify)", @experiment.immunofluorescences.present? ? @experiment.immunofluorescences.pluck(:name).join(", ") : "N/A"
+  = render_field "Other", @experiment.other? ? @experiment.other_text : "No"
 
-= link_to 'View Project Details', project_path(@experiment.project), :id => "back_to_project_page"
-= link_to 'Download Metadata', download_experiment_path(@experiment), :class => "view", :id => "download_#{@experiment.id}"
+<hr/>
+.container
+  = render_field "Fluorescent Proteins", @experiment.has_fluorescent_proteins ? @experiment.fluorescent_proteins.pluck(:name).join(", ") : "N/A"
+  = render_field "Specific Dyes", @experiment.has_specific_dyes ? @experiment.specific_dyes.pluck(:name).join(", ") : "N/A"
+  = render_field "Immunofluorescence Values", @experiment.has_immunofluorescence? ? @experiment.immunofluorescences.pluck(:name).join(", ") : "N/A"
+<hr/>
+
+= link_to 'View Project Details', project_path(@experiment.project), class: "btn", id: "back_to_project_page"
+= link_to 'Download Metadata', download_experiment_path(@experiment), class: "view btn btn-info", id: "download_#{@experiment.id}"
 - if session["in_lab"]
   = button_to "Close", nil, id: "close", class: "btn", disabled: true
   :javascript
