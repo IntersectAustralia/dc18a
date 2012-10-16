@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :experiments
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
-  attr_accessible :user_id, :email, :password, :password_confirmation, :first_name, :last_name, :department, :supervisor_ids
+  attr_accessible :user_id, :email, :password, :password_confirmation, :first_name, :last_name, :department, :other_department, :supervisor_ids
 
   validates_presence_of :user_id
   validates_presence_of :first_name
@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_presence_of :status
   validates_presence_of :department
+  validates_presence_of :other_department, :if => Proc.new { |user| user.department == "Other (Specify)" }
   validates_presence_of :supervisor_ids, :unless => Proc.new {|user| user.administrator? || user.supervisor?}
 
   validates_length_of :user_id, :maximum => 32
@@ -23,6 +24,7 @@ class User < ActiveRecord::Base
   validates_length_of :last_name, :maximum => 32
   validates_length_of :email, :maximum => 255
   validates_length_of :department, :maximum => 255
+  validates_length_of :other_department, :maximum => 255
 
   validates_uniqueness_of :user_id
 

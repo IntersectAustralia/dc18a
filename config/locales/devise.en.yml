@@ -70,6 +70,7 @@ en:
         first_name: "Given Name"
         last_name: "Surname"
         department: "School/Institute"
+        other_department: "Specify Other School/Institute"
         password_confirmation: "Confirm Password"
         supervisor_ids: "Supervisors"
       project:

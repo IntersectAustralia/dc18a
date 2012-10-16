@@ -1,19 +1,15 @@
-= f.input :first_name
-= f.input :last_name
-= f.input :department, collection: INSTITUTIONS, include_blank: "Other (Specify)"
-= f.input :department, label: "Specify Other School/Institute",input_html: {id: "user_department_custom"}
-= f.association :supervisors, collection: User.can_supervise, label_method: lambda{ |supervisor| "#{supervisor.full_name}"}, required: true
-
 :javascript
-  function updateFields(){
-    if ($('#user_department').val()) {
-      $('#user_department_custom').val($('#user_department').val());
-      $('#user_department_custom').attr('disabled', 'true');
-    } else {
-      $('#user_department_custom').removeAttr('disabled');
-    }
+  function enableIfSelect(controller_id, controllee_id, checkValue) {
+    var controller = document.getElementById(controller_id);
+    var controllee = document.getElementById(controllee_id);
+
+    controllee.disabled = controller.options[controller.selectedIndex].value == checkValue ? false : true;
   }
 
-  updateFields();
+= f.input :first_name
+= f.input :last_name
+= f.input :department, collection: INSTITUTIONS, input_html: { :onchange => "enableIfSelect('user_department', 'user_other_department', 'Other \(Specify\)');" }
+= f.input :other_department, disabled: ((@user.department == "Other (Specify)") ? false : true)
+= f.association :supervisors, collection: User.can_supervise, label_method: lambda{ |supervisor| "#{supervisor.full_name}"}, required: true
 
-  $('#user_department').change(updateFields);
+
