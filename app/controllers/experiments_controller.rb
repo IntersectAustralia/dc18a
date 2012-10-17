@@ -4,7 +4,7 @@ require 'csv'
 class ExperimentsController < ApplicationController
   before_filter :authenticate_user!
 
-  load_resource except: :create
+  load_and_authorize_resource :except => [:create]
 
   def new
     # Custom authentication strategy need custom flash message

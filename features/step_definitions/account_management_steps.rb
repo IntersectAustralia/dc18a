@@ -27,10 +27,11 @@ Given /^I have supervisors$/ do |table|
 end
 
 Given /^I have researchers$/ do |table|
+  researcher_role = Role.find_by_name("Researcher")
   supervisor_role = Role.find_by_name("Supervisor")
   supervisor_1 = FactoryGirl.create(:user, :role => supervisor_role, :status => "A")
   table.hashes.each do |hash|
-    FactoryGirl.create(:user, hash.merge(:status => 'A', :supervisors => [supervisor_1]))
+    FactoryGirl.create(:user, hash.merge(:status => 'A', :role => researcher_role, :supervisors => [supervisor_1]))
   end
 end
 

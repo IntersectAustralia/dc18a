@@ -19,7 +19,7 @@
             %span.icon-bar
           %a.brand{:href => root_path }
           .nav-collapse
-            - if user_signed_in?
+            - if user_signed_in? && can?(:manage, Experiment)
               %ul.nav
                 %li= link_to "New Experiment", new_experiment_path
           = render 'layouts/user_menu'
