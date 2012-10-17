@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, ip = nil)
     # alias edit_role to update_role so that they don't have to be declared separately
     alias_action :edit_role, :to => :update_role
     alias_action :edit_approval, :to => :approve
@@ -24,6 +24,15 @@ class Ability
     if user.administrator?
       can :manage, User
       can :summary, Project
+    end
+
+    # User can create/edit experiments only in lab
+    ip_addresses = INSTRUMENTS.keys
+
+    if ip_addresses.include?(ip)
+      can :manage, Experiment
+    else
+      can :read, Experiment
     end
 
     # Define abilities for the passed in user here. For example:

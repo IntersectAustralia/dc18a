@@ -4,6 +4,7 @@ class CustomFailure < Devise::FailureApp
     if params[:not_in_lab]
       scope_path
     elsif params[:login_id]
+      session["#{scope}_return_to"] = root_path
       user = User.find_by_user_id(params[:login_id])
       if user.nil?
         new_user_registration_path + "?login_id=#{params[:login_id]}"

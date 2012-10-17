@@ -30,6 +30,18 @@ Feature: Identify user by windows
     And I should be on the login page
     Then I should see "Failed to Login"
 
+  Scenario: Signed-in user who is not in lab cannot create new experiment by hardcoding URL
+    Given The request ip address is "172.16.4.80"
+    And I am logged in as "windowsuserid"
+    And I visit "/experiments/new"
+    And I should be on the home page
+    Then I should see "You are not authorized to access this page."
+
+  Scenario: Signed-in user who is not in lab cannot see "New Experiment" link
+    Given The request ip address is "172.16.4.80"
+    And I am logged in as "windowsuserid"
+    Then I should not see link "New Experiment"
+
   Scenario: Login with an unapproved account
     Given I have access requests
       | user_id     | email                 | first_name | last_name |
