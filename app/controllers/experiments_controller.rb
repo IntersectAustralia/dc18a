@@ -34,7 +34,8 @@ class ExperimentsController < ApplicationController
     else
       flash[:alert] = "Please fill in all mandatory fields"
       setup_values
-      render action: "new"
+      @instrument = INSTRUMENTS[request.remote_ip]
+      render 'new'
     end
   end
 
