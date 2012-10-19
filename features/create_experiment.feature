@@ -29,6 +29,7 @@ Feature: Create experiment
       | ASRB   | true  |
       | WOMBAT | false |
     And I am logged in as "userid4raul"
+    And The request ip address is "172.16.4.78"
 
   @javascript
   Scenario: Experiment Validation
