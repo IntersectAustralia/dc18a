@@ -15,7 +15,7 @@ set :rvm_type, :user
 
 # Deploy using copy for now
 set :scm, 'git'
-set :repository, 'git@github.com:IntersectAustralia/dc18a.git'
+set :repository, 'https://github.com/IntersectAustralia/dc18a.git'
 set :deploy_via, :copy
 set :copy_exclude, [".git/*"]
 
@@ -90,6 +90,7 @@ end
 
 after 'deploy:finalize_update' do
   generate_database_yml
+  deploy.create_templates
 
   #solved in Capfile
   #run "cd #{release_path}; RAILS_ENV=#{stage} rake assets:precompile"
@@ -194,6 +195,24 @@ namespace :deploy do
     backup.db.trim
     migrate
     restart
+  end
+
+  desc 'Create extra config in central location'
+  task :create_templates do
+    require "yaml"
+
+    config = YAML::load_file('config/dc18a_config.yml')
+    file_path = "#{config[stage.to_s]['extra_config_file_root']}/dc18a_extra_config.yml"
+    output = capture("ls #{config[stage.to_s]['extra_config_file_root']}").strip
+
+    if output[/dc18a_extra_config\.yml/].nil?
+      run "#{try_sudo} chown -R #{user}.#{group} #{config[stage.to_s]['extra_config_file_root']}"
+      run("cp #{release_path}/deploy_templates/dc18a_extra_config.yml #{config[stage.to_s]['extra_config_file_root']}", :env => {'RAILS_ENV' => "#{stage}"})
+      print "\nNOTICE: Please update #{file_path} with the appropriate values and restart the server\n\n".colorize(:green)
+    else
+      print "\nALERT: Config file #{file_path} detected. Will not overwrite\n\n".colorize(:red)
+    end
+
   end
 
 end
