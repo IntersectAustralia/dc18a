@@ -14,6 +14,9 @@ module NavigationHelpers
       when /the inactive page/
         pages_inactive_path
 
+      when /the thank you page/
+        pages_thank_you_path
+
       # User paths
       when /the login page/
         new_user_session_path

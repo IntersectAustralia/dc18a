@@ -16,7 +16,7 @@ class ExperimentFeedbacksController < ApplicationController
 
     @experiment = current_user.experiments.last
     if !current_user.approved? or @experiment.nil?
-      render action: :no_experiments
+      redirect_to pages_thank_you_path
     else
       @experiment_feedback = @experiment.experiment_feedback || ExperimentFeedback.new
     end
@@ -54,11 +54,5 @@ class ExperimentFeedbacksController < ApplicationController
       render action: :new
     end
   end
-
-
-  def no_experiments
-
-  end
-
 
 end
