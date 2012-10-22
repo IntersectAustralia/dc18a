@@ -1,0 +1,20 @@
+defaults: &defaults
+  password_reset_email_sender: pwd-reset@intersect.org.au
+  account_request_user_status_email_sender: account-status@intersect.org.au
+  account_request_admin_notification_sender: account-request@intersect.org.au
+  instrument_failure_admin_notification_sender: instrument-failure@intersect.org.au
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+qa:
+  <<: *defaults
+
+staging:
+  <<: *defaults
