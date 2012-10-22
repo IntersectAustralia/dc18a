@@ -86,11 +86,11 @@ after 'deploy:update' do
   server_setup.config.apache
   deploy.restart
   deploy.additional_symlinks
+  deploy.create_templates
 end
 
 after 'deploy:finalize_update' do
   generate_database_yml
-  deploy.create_templates
 
   #solved in Capfile
   #run "cd #{release_path}; RAILS_ENV=#{stage} rake assets:precompile"
@@ -200,6 +200,7 @@ namespace :deploy do
   desc 'Create extra config in central location'
   task :create_templates do
     require "yaml"
+    require 'colorize'
 
     config = YAML::load_file('config/dc18a_config.yml')
     file_path = "#{config[stage.to_s]['extra_config_file_root']}/dc18a_extra_config.yml"
