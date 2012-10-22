@@ -33,6 +33,7 @@ Dc18a::Application.routes.draw do
   root :to => "pages#home"
 
   get "pages/home"
+  get "pages/thank_you"
   get "pages/inactive"
 
   resources :projects do
@@ -48,7 +49,7 @@ Dc18a::Application.routes.draw do
     get :download, :on => :member
   end
 
-  resources :experiment_feedbacks, :only => [:new, :create, :update, :show, :no_experiments]
+  resources :experiment_feedbacks, :only => [:new, :create, :update, :show]
 
 
   # The priority is based upon order of creation:

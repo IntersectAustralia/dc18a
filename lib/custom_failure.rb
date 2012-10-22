@@ -6,8 +6,10 @@ class CustomFailure < Devise::FailureApp
     elsif params[:login_id]
       session["#{scope}_return_to"] = root_path
       user = User.find_by_user_id(params[:login_id])
-      if user.nil?
+      if user.nil? and params[:controller].eql?("experiments")
         new_user_registration_path + "?login_id=#{params[:login_id]}"
+      elsif user.nil? and params[:controller].eql?("experiment_feedbacks")
+        pages_thank_you_path
       else
         pages_inactive_path
       end

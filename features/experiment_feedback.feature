@@ -22,11 +22,11 @@ Feature: Experiment Feedback
     And I have experiments
       | project   | expt_name | owner       | lab_book_no |
       | Project A | e1        | userid4raul | 123         |
-    And I am logged in as "userid4raul"
 
 
   Scenario: Collect feedback on Experiment
-    Given I am on the feedback page
+    Given I am logged in as "userid4raul"
+    And I am on the feedback page
     When I check "Experiment failed"
     And I check "Instrument failed"
     And I fill in "Instrument failed reason" with "Technical Difficulties"
@@ -47,7 +47,8 @@ Feature: Experiment Feedback
     And I should see "Reported by user: Raul Carrizo" in the email body
 
   Scenario: Edit feedback on Experiment
-    Given I am on the feedback page
+    Given I am logged in as "userid4raul"
+    And I am on the feedback page
     When I check "Experiment failed"
     And I check "Instrument failed"
     And I fill in "Instrument failed reason" with "Technical Difficulties"
@@ -61,3 +62,26 @@ Feature: Experiment Feedback
     And I should see field "Instrument Failed" with value "Yes"
     And I should see field "Instrument Failed Reason" with value "Technical Difficulties"
     And I should see field "Other Comments" with value "Please repeat experiment"
+
+  Scenario: Logout of Windows with registered user but no experiment
+    Given I visit "/experiment_feedbacks/new?login_id=userid4veronica"
+    And I should be on the thank you page
+    And I should see "Thank you for using the Microbial Imaging Facility"
+
+  Scenario: Logout of Windows with a deactivated account
+    Given I have researchers
+      | user_id     | email                 | first_name | last_name |
+      | userid4ryan | ryan@intersect.org.au | Ryan       | Braganza  |
+    And "userid4ryan" is deactivated
+    And  The request ip address is "172.16.4.78"
+    And I visit "/experiment_feedbacks/new?login_id=userid4ryan"
+    And I should be on the inactive page
+    And I should see "Your account is not active at the moment."
+
+  Scenario: Logout of Windows with an unregistered account
+    Given The request ip address is "172.16.4.78"
+    And I visit "/experiment_feedbacks/new?login_id=unregistered"
+    And I should be on the thank you page
+    Then I should see "You have not registered"
+    And I should see "Thank you for using the Microbial Imaging Facility"
+
