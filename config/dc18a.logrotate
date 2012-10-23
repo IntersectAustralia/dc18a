@@ -1,9 +1,21 @@
-/home/devel/dc18a/current/log/*.log {
+/home/dc18a/dc18a/shared/log/*.log {
+    rotate 520
+    weekly
+    copytruncate
     missingok
     notifempty
-    sharedscripts
-    delaycompress
-    postrotate
-        /sbin/service httpd reload > /dev/null 2>/dev/null || true
-    endscript
+    olddir /home/dc18a/dc18a/shared/log_archive
+    compress
+    dateext
+}
+
+/home/devel/dc18a/shared/log/*.log {
+    rotate 520
+    weekly
+    copytruncate
+    missingok
+    notifempty
+    olddir /home/devel/dc18a/shared/log_archive
+    compress
+    dateext
 }

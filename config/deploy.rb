@@ -62,6 +62,7 @@ namespace :server_setup do
   end
   namespace :logging do
     task :rotation, :roles => :app do
+      run "#{try_sudo} mkdir /var/log/httpd/archive"
       src = "#{release_path}/config/#{application}.logrotate"
       dest = "/etc/logrotate.d/#{application}"
       run "cmp -s #{src} #{dest} > /dev/null; [ $? -ne 0 ] && #{try_sudo} cp #{src} #{dest}; /bin/true"
