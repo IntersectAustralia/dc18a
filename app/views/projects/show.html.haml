@@ -2,7 +2,7 @@
 
 .container
   = render_field "Project ID", @project.id, 2
-  = render_field "Creator Name", @project.name, 2
+  = render_field "Project Name", @project.name, 2
   = render_field "Description", @project.description, 2
   = render_field "Creator", @project.user.full_name, 2
   = render_field "Supervisor", @project.supervisor.full_name, 2
