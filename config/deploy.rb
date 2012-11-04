@@ -48,7 +48,8 @@ namespace :server_setup do
     end
   end
   task :gem_install, :roles => :app do
-    run "gem install bundler passenger"
+    run "gem install bundler"
+    run "gem install passenger --version '3.0.18'"
   end
   task :passenger, :roles => :app do
     run "passenger-install-apache2-module -a"
