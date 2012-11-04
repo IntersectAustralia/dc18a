@@ -1,4 +1,4 @@
-def populate_data
+def populate_data_for_development
   load_password
 
   User.delete_all
@@ -8,6 +8,16 @@ def populate_data
   create_test_users
   create_test_projects
   create_test_experiments
+end
+
+def populate_data_for_production
+  load_password
+
+  User.delete_all
+  Project.delete_all
+  Experiment.delete_all
+
+  create_administrator(:user_id => "admin", :email => "admin@uts.edu.au", :first_name => "Admin", :last_name => "System", :department => "Administration")
 end
 
 def create_test_projects
