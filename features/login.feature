@@ -19,7 +19,7 @@ Feature: Logging In
   Scenario: Successful login
     Given I am on the login page
     When I fill in "Staff/Student ID" with "userid4seanlin"
-    And I fill in "Password" with "Pas$w0rd"
+    And I fill in "Password" with "Pass.123"
     And I press "Log in"
     Then I should see "Logged in successfully."
     And I should be on the home page
@@ -27,7 +27,7 @@ Feature: Logging In
   Scenario: Successful login from home page
     Given I am on the home page
     When I fill in "Staff/Student ID" with "userid4seanlin"
-    And I fill in "Password" with "Pas$w0rd"
+    And I fill in "Password" with "Pass.123"
     And I press "Log in"
     Then I should see "Logged in successfully."
     And I should be on the home page
@@ -40,7 +40,7 @@ Feature: Logging In
   Scenario: Should be redirected to requested page after logging in following a redirect from a secure page
     Given I am on the list users page
     When I fill in "Staff/Student ID" with "userid4seanlin"
-    And I fill in "Password" with "Pas$w0rd"
+    And I fill in "Password" with "Pass.123"
     And I press "Log in"
     Then I should see "Logged in successfully."
     And I should be on the list users page
@@ -55,9 +55,9 @@ Feature: Logging In
   Examples:
     | user_id                   | password         | explanation                |
     |                           |                  | nothing                    |
-    |                           | Pas$w0rd         | missing Staff/Student ID   |
+    |                           | Pass.123         | missing Staff/Student ID   |
     | userid4seanlin            |                  | missing password           |
-    | invaliduserid             | Pas$w0rd         | invalid Staff/Student ID   |
+    | invaliduserid             | Pass.123         | invalid Staff/Student ID   |
     | userid4seanlin            | wrong            | wrong password             |
 
   Scenario Outline: Logging in as a deactivated / pending approval / rejected as spam with correct password
@@ -71,9 +71,9 @@ Feature: Logging In
     Then I should see "Your account is not active."
   Examples:
     | Staff/Student ID                    | Password |
-    | userid4deact                        | Pas$w0rd |
-    | userid4spammer                      | Pas$w0rd |
-    | userid4pending                      | Pas$w0rd |
+    | userid4deact                        | Pass.123 |
+    | userid4spammer                      | Pass.123 |
+    | userid4pending                      | Pass.123 |
 
   Scenario Outline: Logging in as a deactivated / pending approval / rejected as spam / with incorrect password should not reveal if user exists
     Given I have a deactivated user "userid4deact"

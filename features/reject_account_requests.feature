@@ -73,8 +73,8 @@ Feature: Reject access requests
     And I fill in the following:
       | Staff/Student ID | userid4diego           |
       | Email            | diego@intersect.org.au |
-      | Password         | Pas$w0rd               |
-      | Confirm Password | Pas$w0rd               |
+#      | Password         | Pas$w0rd               |
+#      | Confirm Password | Pas$w0rd               |
       | Surname          | Fred                   |
       | Given Name       | Bloggs                 |
     And I select "Other (Specify)" from "School/Institute"

@@ -111,7 +111,7 @@ Feature: Approve access requests
     And I press "Approve"
     And I am on the home page
     And I follow "Logout"
-    Then I should be able to log in with "userid4diego" and "Pas$w0rd"
+    Then I should be able to log in with "userid4diego" and "Pass.123"
 
   Scenario: Approved user roles should be correctly saved
     Given I am on the access requests page

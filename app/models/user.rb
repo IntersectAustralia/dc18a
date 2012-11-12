@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # Include devise modules
-  devise :database_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
+  devise :ldap_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
 
   belongs_to :role
   has_and_belongs_to_many :supervisors, :class_name => "User", :association_foreign_key => "supervisor_id", :join_table => 'supervisors_users'

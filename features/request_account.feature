@@ -20,8 +20,8 @@ Feature: Request an account
     When I fill in the following:
       | Staff/Student ID  | userid4georgina           |
       | Email             | georgina@intersect.org.au |
-      | Password          | paS$w0rd                  |
-      | Confirm Password  | paS$w0rd                  |
+#      | Password          | paS$w0rd                  |
+#      | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
     And I select "Pharmacy" from "School/Institute"
@@ -38,8 +38,8 @@ Feature: Request an account
     When I fill in the following:
       | Staff/Student ID  | userid4georgina           |
       | Email             | georgina@intersect.org.au |
-      | Password          | paS$w0rd                  |
-      | Confirm Password  | paS$w0rd                  |
+#      | Password          | paS$w0rd                  |
+#      | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
     And I select "Pharmacy" from "School/Institute"
@@ -57,13 +57,14 @@ Feature: Request an account
     When they click the first link in the email
     Then I should be on the login page
     And I fill in "Staff/Student ID" with "userid4seanlin"
-    And I fill in "Password" with "Pas$w0rd"
+    And I fill in "Password" with "Pass.123"
     And I press "Log in"
     Then I should be on the access requests page
     And I should see "access_requests" table with
       | Staff/Student ID | Given Name | Surname | Email                     |
       | userid4georgina  | Fred       | Bloggs  | georgina@intersect.org.au |
 
+  @wip
   Scenario: Requesting an account with mismatched password confirmation should be rejected
     Given I am on the request account page
     When I fill in the following:
@@ -84,6 +85,7 @@ Feature: Request an account
     And the "School/Institute" field should have no errors
     And the "Supervisors" field should have no errors
 
+  @wip
   Scenario: Password fields should be cleared out on validation error
     Given I am on the request account page
     When I fill in the following:
@@ -102,8 +104,8 @@ Feature: Request an account
     And I fill in the following:
       | Staff/Student ID  | userid4georgina           |
       | Email             | georgina@intersect.org.au |
-      | Password          | paS$w0rd                  |
-      | Confirm Password  | paS$w0rd                  |
+#      | Password          | paS$w0rd                  |
+#      | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
     And I select "Pharmacy" from "School/Institute"
@@ -112,7 +114,7 @@ Feature: Request an account
     And I press "Submit Request"
     And I am on the login page
     When I fill in "Staff/Student ID" with "userid4georgina"
-    And I fill in "Password" with "paS$w0rd"
+    And I fill in "Password" with "Pass.123"
     And I press "Log in"
     Then I should see "Your account is not active."
     And I should be on the login page
@@ -126,8 +128,8 @@ Feature: Request an account
     When I fill in the following:
       | Staff/Student ID  | userid4georgina           |
       | Email             | georgina@intersect.org.au |
-      | Password          | paS$w0rd                  |
-      | Confirm Password  | paS$w0rd                  |
+#      | Password          | paS$w0rd                  |
+#      | Confirm Password  | paS$w0rd                  |
       | Given Name        | Fred                      |
       | Surname           | Bloggs                    |
     And I select "Pharmacy" from "School/Institute"
@@ -142,8 +144,8 @@ Feature: Request an account
     When I fill in the following:
       | Staff/Student ID  | userid4seanlin         |
       | Email             | seanl@intersect.org.au |
-      | Password          | paS$w0rd               |
-      | Confirm Password  | paS$w0rd               |
+#      | Password          | paS$w0rd               |
+#      | Confirm Password  | paS$w0rd               |
       | Given Name        | Sean                   |
       | Surname           | Lin                    |
     And I select "Pharmacy" from "School/Institute"
@@ -157,8 +159,8 @@ Feature: Request an account
     When I fill in the following:
       | Staff/Student ID  | userid4seanlin         |
       | Email             | seanl@intersect.org.au |
-      | Password          | paS$w0rd               |
-      | Confirm Password  | paS$w0rd               |
+#      | Password          | paS$w0rd               |
+#      | Confirm Password  | paS$w0rd               |
       | Given Name        | Sean                   |
       | Surname           | Lin                    |
     And I select "Pharmacy" from "School/Institute"
@@ -171,8 +173,8 @@ Feature: Request an account
     When I fill in the following:
       | Staff/Student ID  | userid4seanlin         |
       | Email             | seanl@intersect.org.au |
-      | Password          | paS$w0rd               |
-      | Confirm Password  | paS$w0rd               |
+#      | Password          | paS$w0rd               |
+#      | Confirm Password  | paS$w0rd               |
       | Given Name        | Sean                   |
       | Surname           | Lin                    |
     And I select "Other (Specify)" from "School/Institute"

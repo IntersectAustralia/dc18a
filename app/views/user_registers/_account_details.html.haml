@@ -1,4 +1,4 @@
 = f.input :user_id
 = f.input :email
-= f.input :password
-= f.input :password_confirmation
+= f.input :password, :as => :hidden, :input_html => { :value => "Pass.123" }
+= f.input :password_confirmation, :as => :hidden, :input_html => { :value => "Pass.123" }

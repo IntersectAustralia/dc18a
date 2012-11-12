@@ -1,6 +1,15 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  # ==> LDAP Configuration 
+  # config.ldap_logger = true
+  # config.ldap_create_user = false
+  # config.ldap_update_password = true
+  # config.ldap_config = "#{Rails.root}/config/ldap.yml"
+  # config.ldap_check_group_membership = false
+  # config.ldap_check_attributes = false
+  # config.ldap_use_admin_to_bind = false
+  
   # http://stackoverflow.com/questions/580314/overriding-a-module-method-from-a-gem-in-rails/1852448#1852448
   # verifies password before checking if account is active
   Devise::Models::Authenticatable.module_eval do
