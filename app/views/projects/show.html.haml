@@ -1,6 +1,7 @@
 - title "Project View"
 
 .container
+  = link_to 'Edit Project', edit_project_path(@project), :id => "edit_project_#{@project.id}"
   = render_field "Project ID", @project.id, 2
   = render_field "Project Name", @project.name, 2
   = render_field "Description", @project.description, 2

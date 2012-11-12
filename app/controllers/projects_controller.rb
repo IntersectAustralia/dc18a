@@ -10,6 +10,28 @@ class ProjectsController < ApplicationController
     @experiments = @project.experiments.order(sort_column + " " + sort_direction).paginate(page: params[:page]) unless @project.nil?
   end
 
+  def edit
+    @project = Project.find_by_id(params[:id])
+  end
+
+  def update
+    @project = Project.find_by_id(params[:id])
+    @project.update_attributes(params[:project])
+
+    if @project.save
+      flash[:notice] = "Project updated."
+      redirect_to project_path(@project)
+    else
+      flash[:alert] = "Please fill in all mandatory fields."
+      render 'edit'
+    end
+  end
+
+  def cancel_update
+    flash[:alert] = "Project was not updated."
+    redirect_to root_path
+  end
+
   def new
     @project = Project.new
   end

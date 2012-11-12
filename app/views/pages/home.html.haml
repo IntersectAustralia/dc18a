@@ -21,5 +21,7 @@
           %td= project.user.full_name
           %td= localize project.created_at, :format => :short
           %td= project.supervisor.full_name
-          %td= link_to 'View Details', project, :class => "view", :id => "view_#{project.id}"
+          %td
+            = link_to 'Edit Project', edit_project_path(project), :id => "edit_project_#{project.id}"
+            = link_to 'View Details', project, :class => "view", :id => "view_#{project.id}"
     = will_paginate(@projects)
