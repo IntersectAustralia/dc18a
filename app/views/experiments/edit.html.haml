@@ -1,0 +1,130 @@
+- title "Edit Experiment"
+
+%h3 Project Details
+%p
+.somecontainer
+  = label_tag "project_select", "<abbr title='required'>*</abbr> Select a project".html_safe, {class:"string select control-label"}
+  = select_tag "project_select", options_from_collection_for_select(@projects, :id, :name, @experiment.project_id), :prompt => "----"
+  = link_to "Create New Project", new_project_path
+
+.project_display
+  = render_field "Project ID", nil, 2
+  = render_field "Description", nil, 2
+  = render_field "Date Created", nil, 2
+  = render_field "Funded By", nil, 2
+  = render_field "Supervisor", nil, 2
+
+<hr/>
+%h3 Experiment Details
+= render_field "Instrument", @instrument || "Unknown", 1
+
+%p
+= simple_form_for(@experiment) do |f|
+  = f.input :project_id, :as => :hidden, :input_html => { :value => @project_id }
+  = f.input :instrument, :as => :hidden, :input_html => { :value => @instrument }
+  = f.input :expt_name, :label => "Experiment Name"
+  = f.input :lab_book_no, label: "Lab Book No. (If you don't have one, please enter 'TBA')"
+  = f.input :page_no, :label => "Page No."
+  = f.input :cell_type_or_tissue, :label => "Cell Type or Tissue"
+  = f.input :expt_type, :label => "Experiment Type", :collection => ["Fixed", "Live"]
+  <hr/>
+  %h4 Apparatus
+  <br/>
+  = f.input :slides
+  = f.input :dishes
+  = f.input :multiwell_chambers, :label => "Multiwell Chambers"
+  = f.input :other
+  = f.input :other_text, :label => "Other (Specify)"
+  <hr/>
+  = f.input :has_fluorescent_proteins
+  = f.input :fluorescent_protein_ids, input_html:{value:""}
+  = f.input :has_specific_dyes
+  = f.input :specific_dye_ids, input_html:{value:""}
+  = f.input :has_immunofluorescence
+  = f.input :immunofluorescence_ids, input_html:{value:""}
+
+  .form-actions
+    = link_to 'Cancel', cancel_update_experiment_path, :class => "btn"
+    = f.submit "Update Experiment", :class => "btn btn-primary", :id => "experiment_submit"
+
+:javascript
+  core = #{@core_proteins};
+  proteins = #{@proteins};
+  dyes = #{@dyes};
+  immunos = #{@immunos};
+  core_immunos = #{@core_immunos};
+
+  $('#experiment_fluorescent_protein_ids').val(proteins);
+  $('#experiment_fluorescent_protein_ids').select2({
+    createSearchChoice:
+      function(term, data) {
+        if ($(data).filter(function() {
+          return this.name.localeCompare(term)===0;
+        }).length===0){
+          return {id:'<<<'+term+'>>>', name:term};
+        }
+      },
+    width: "400px",
+    multiple:true,
+    data: {results: core, text:'name'},
+    formatSelection: format,
+    formatResult: format,
+    initSelection:
+      function (element, callback) {
+        $('#experiment_fluorescent_protein_ids').val('');
+        callback(proteins);
+      }
+
+  });
+
+  $('#experiment_specific_dye_ids').val(dyes);
+  $('#experiment_specific_dye_ids').select2({
+    createSearchChoice:
+      function(term, data) {
+        if ($(data).filter(function() {
+          return this.name.localeCompare(term)===0;
+        }).length===0){
+          return {id:'<<<'+term+'>>>', name:term};
+        }
+      },
+    width: "400px",
+    multiple:true,
+    data: {results: [], text:'name'},
+    formatSelection: format,
+    formatResult: format,
+    formatNoMatches: function(term){return "Specify a dye"},
+    initSelection:
+      function (element, callback) {
+        $('#experiment_specific_dye_ids').val('');
+        callback(dyes);
+      }
+
+  });
+
+  $('#experiment_immunofluorescence_ids').val(immunos);
+  $('#experiment_immunofluorescence_ids').select2({
+    createSearchChoice:
+      function(term, data) {
+        if ($(data).filter(function() {
+          return this.name.localeCompare(term)===0;
+        }).length===0){
+          return {id:'<<<'+term+'>>>', name:term};
+        }
+      },
+    width: "400px",
+    multiple:true,
+    data: {results: core_immunos, text:'name'},
+    formatSelection: format,
+    formatResult: format,
+    formatNoMatches: function(term){return "Specify an immunofluorescence value"},
+    initSelection:
+      function (element, callback) {
+        $('#experiment_immunofluorescence_ids').val('');
+        callback(immunos);
+      }
+
+  });
+
+  function format(item) { return item.name; };
+
+

@@ -38,16 +38,17 @@ Dc18a::Application.routes.draw do
 
   resources :projects do
     get :cancel, :on => :collection
-    get :cancel_update, :on => :collection
     get :summary, :on => :collection
     member do
       get :project_data
+      get :cancel_update
     end
   end
 
   resources :experiments do
     get :cancel, :on => :collection
     get :download, :on => :member
+    get :cancel_update, :on => :member
   end
 
   resources :experiment_feedbacks, :only => [:new, :create, :update, :show]

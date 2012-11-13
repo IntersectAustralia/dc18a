@@ -20,6 +20,34 @@ class ExperimentsController < ApplicationController
     @instrument = INSTRUMENTS[request.remote_ip]
   end
 
+  def edit
+    @experiment = Experiment.find_by_id(params[:id])
+    setup_values
+    @instrument = INSTRUMENTS[request.remote_ip]
+  end
+
+  def update
+    protein_ids = params[:experiment].delete("fluorescent_protein_ids")
+    dye_ids = params[:experiment].delete("specific_dye_ids")
+    immuno_ids = params[:experiment].delete("immunofluorescence_ids")
+
+    @experiment = Experiment.find_by_id(params[:id])
+    @experiment.fluorescent_protein_ids = FluorescentProtein.ids_from_tokens(protein_ids)
+    @experiment.specific_dye_ids = SpecificDye.ids_from_tokens(dye_ids)
+    @experiment.immunofluorescence_ids = Immunofluorescence.ids_from_tokens(immuno_ids)
+    @experiment.update_attributes(params[:experiment])
+
+    if @experiment.save
+      flash[:notice] = "Experiment updated"
+      redirect_to @experiment
+    else
+      flash[:alert] = "Please fill in all mandatory fields"
+      setup_values
+      @instrument = INSTRUMENTS[request.remote_ip]
+      render 'edit'
+    end
+  end
+
   def create
     protein_ids = params[:experiment].delete("fluorescent_protein_ids")
     dye_ids = params[:experiment].delete("specific_dye_ids")
@@ -50,6 +78,11 @@ class ExperimentsController < ApplicationController
 
   def cancel
     redirect_to root_path
+  end
+
+  def cancel_update
+    flash[:alert] = "Experiment was not updated"
+    redirect_to @experiment
   end
 
   def download

@@ -105,7 +105,7 @@ describe User do
     end
   end
 
-  describe "Update password" do
+  describe "Update password" , :broken => true do
     it "should fail if current password is incorrect" do
       user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "asdf", :password => "Pass.456", :password_confirmation => "Pass.456"})

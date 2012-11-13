@@ -34,7 +34,7 @@ Feature: Download metadata
     Then I should get a download "YYYYMMDD_P<p_id>_E<e_id>_<instrument>_<last_name>_<first_name>.zip" for "e1"
 
   @javascript
-  Scenario: Logging in with windows id shows close button for experiments
+  Scenario: Logging in lab shows close button for experiments
     Given The request ip address is "172.16.4.78"
     And I visit "/experiments/new?login_id=userid4raul"
     And I have experiments
@@ -47,8 +47,9 @@ Feature: Download metadata
     And I follow "Download Metadata"
     And I should see button "Close"
 
-  Scenario: Logging in normally shows close button for experiments
-    Given I am logged in as "userid4raul"
+  Scenario: Logging outside lab does not show close button for experiments
+    Given The request ip address is "172.16.4.80"
+    And I am logged in as "userid4raul"
     And I have experiments
       | project | expt_name | owner       | lab_book_no |
       | p1      | e1        | userid4raul | 123         |

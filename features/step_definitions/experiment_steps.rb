@@ -29,3 +29,11 @@ end
 And /^there should be (\d+) specific dyes$/ do |number|
   SpecificDye.count.should eq(number.to_i)
 end
+
+And /^The experiment "([^"]*)" is not finished$/ do |expt_name|
+  Experiment.find_by_expt_name(expt_name).end_time = nil
+end
+
+And /^The experiment "([^"]*)" is finished$/ do |expt_name|
+  Experiment.find_by_expt_name(expt_name).assign_end_time
+end
