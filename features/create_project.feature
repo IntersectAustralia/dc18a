@@ -17,6 +17,9 @@ Feature: Create project
       | userid4raul               | raul@intersect.org.au     | Raul       | Carrizo          |
     And "userid4raul" has supervisor "userid4seanlin"
     And "userid4admin" has supervisor "userid4admin"
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4raul"
 
   @javascript

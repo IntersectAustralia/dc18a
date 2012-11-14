@@ -9,6 +9,9 @@ Feature: Administer users
       | userid4seanlin            | seanl@intersect.org.au    | Sean       | Lin       |
       | userid4raul               | raul@intersect.org.au     | Raul       | Carrizo   |
     And I have the usual roles and permissions
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4seanlin"
     And "userid4seanlin" has role "Administrator"
 

@@ -7,6 +7,9 @@ Feature: Change my password
   Background:
     Given I have a user "userid4seanlin"
     And I am logged in as "userid4seanlin"
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: Change password
     Given I am on the home page

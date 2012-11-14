@@ -64,6 +64,9 @@ module NavigationHelpers
       when /the view experiment page for "(.*)"$/
         experiment_path(Experiment.where(:expt_name => $1).first)
 
+      when /the edit footer text page$/
+        edit_editor_path(Editor.find_by_name("footer").id)
+
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #

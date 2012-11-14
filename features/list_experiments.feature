@@ -28,6 +28,9 @@ Feature: List experiments
       | Project A | e1         | userid4raul  | 123         |
       | Project A | e2         | userid4seanl | 456         |
       | Project B | e3         | userid4raul  | 789         |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: List experiments on View Project page
     Given I am logged in as "userid4raul"

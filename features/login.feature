@@ -15,6 +15,9 @@ Feature: Logging In
       | User   | access_requests | Administrator  |
     And I have a user "userid4seanlin"
     And "userid4seanlin" has role "Administrator"
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: Successful login
     Given I am on the login page

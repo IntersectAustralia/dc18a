@@ -19,6 +19,9 @@ Feature: Approve access requests
       | user_id                | email                  | first_name | last_name        |
       | userid4ryan            | ryan@intersect.org.au  | Ryan       | Braganza         |
       | userid4diego           | diego@intersect.org.au | Diego      | Alonso de Marcos |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4seanlin"
 
   Scenario: View a list of access requests

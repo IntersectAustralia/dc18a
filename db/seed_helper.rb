@@ -29,3 +29,7 @@ def create_immunofluorescence_values
   Immunofluorescence.create!(name: "Goat anti Mouse IgM AF488", core: true)
 end
 
+def cerate_footer_initial_text
+  Editor.create!(name: "footer", text: "Initial footer text")
+end
+

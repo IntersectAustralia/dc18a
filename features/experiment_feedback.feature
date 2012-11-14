@@ -22,7 +22,9 @@ Feature: Experiment Feedback
     And I have experiments
       | project   | expt_name | owner       | lab_book_no |
       | Project A | e1        | userid4raul | 123         |
-
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: Collect feedback on Experiment
     Given I am logged in as "userid4raul"

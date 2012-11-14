@@ -1,0 +1,13 @@
+#footer.info
+  #{simple_format h Editor.find_by_name("footer").text}
+  #devinfo
+    #{debug(params) if Rails.env.development?}
+  .footerwrapper
+    %a.logo{:href => "http://www.intersect.org.au/attribution-policy", :target => "_about"}
+    - if Rails.env.development?
+      #dev
+        %p DC18A Environment: Development
+    - else
+      %p
+        Developed by Intersect Australia Ltd.  Version:
+        = render 'shared/tag'

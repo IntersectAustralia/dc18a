@@ -6,4 +6,5 @@
         %li= link_to "User List", users_path
         %li= link_to "Access Requests", access_requests_users_path
         %li= link_to "Reporting", reports_users_path
+        %li= link_to "Edit Footer Text", edit_editor_path(Editor.find_by_name("footer").id)
 

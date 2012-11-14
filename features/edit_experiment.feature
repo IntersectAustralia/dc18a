@@ -18,6 +18,9 @@ Feature: Edit experiment
       | owner       | project   | expt_name    | lab_book_no | page_no |
       | userid4raul | Project A | Experiment A | 65          | 66      |
     #And The experiment "Experiment A" is not finished
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4raul"
 
   Scenario: Edit experiment in the lab, out of session

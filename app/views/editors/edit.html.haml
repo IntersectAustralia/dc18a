@@ -1,0 +1,8 @@
+- title "Edit Footer Text"
+
+= simple_form_for(@editor) do |f|
+  = f.input :text, :as => :text
+  .form-actions
+    = link_to 'Cancel', cancel_editor_path, :class => "btn"
+    = f.submit "Update", :class => "btn btn-primary"
+

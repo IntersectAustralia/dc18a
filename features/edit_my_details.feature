@@ -5,6 +5,9 @@ Feature: Edit my details
   
   Background:
     Given I have a user "userid4seanlin"
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4seanlin"
 
   Scenario: Edit my information

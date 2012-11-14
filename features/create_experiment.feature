@@ -28,6 +28,9 @@ Feature: Create experiment
       | GDA    | true  |
       | ASRB   | true  |
       | WOMBAT | false |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4raul"
     And The request ip address is "172.16.4.78"
 

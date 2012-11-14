@@ -9,6 +9,9 @@ Feature: Identify user by windows
     And I have researchers
       | user_id       | email                  | first_name | last_name |
       | windowsuserid | seanl@intersect.org.au | Sean       | Lin       |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: Login with windows id which is existed in system
     Given The request ip address is "172.16.4.78"

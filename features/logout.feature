@@ -5,10 +5,13 @@ Feature: Logging Out
   
   Background:
     Given I have a user "userid4seanlin"
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am on the login page
     And I am logged in as "userid4seanlin"
     And I should see "Logged in successfully."
-  
+
   Scenario: Successful logout
     Given I am on the home page
     When I follow "Logout"

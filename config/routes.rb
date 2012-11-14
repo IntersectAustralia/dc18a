@@ -1,4 +1,5 @@
 Dc18a::Application.routes.draw do
+
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
   devise_scope :user do
     get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
@@ -53,6 +54,9 @@ Dc18a::Application.routes.draw do
 
   resources :experiment_feedbacks, :only => [:new, :create, :update, :show]
 
+  resources :editors do
+    get :cancel, :on => :member
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

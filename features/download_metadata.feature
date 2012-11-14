@@ -18,6 +18,9 @@ Feature: Download metadata
     And "userid4raul" has experiments
       | name | project | instrument |
       | e1   | p1      | Nikon T1   |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: experiments should have download link
     Given I am logged in as "userid4raul"

@@ -12,6 +12,9 @@ Feature: Edit projects
     And "userid4seanl" has projects
       | name |
       | p1           |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4seanl"
 
   Scenario: Edit project from list view

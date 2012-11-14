@@ -14,6 +14,9 @@ Feature: Request an account
       | user_id            | email                        | first_name | last_name |
       | userid4supervisor1 | supervisor1@intersect.org.au | Supervisor | 1         |
       | userid4supervisor2 | supervisor2@intersect.org.au | Supervisor | 2         |
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
 
   Scenario: Request account
     Given I am on the request account page

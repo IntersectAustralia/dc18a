@@ -5,6 +5,9 @@ Feature: List projects
   Background:
     Given I have no users
     Given I have the usual roles and permissions
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I have administrators
       | user_id                   | email                           | first_name | last_name |
       | userid4seanlin            | seanl@intersect.org.au          | Sean       | Lin       |

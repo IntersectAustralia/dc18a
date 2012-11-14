@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015014944) do
+ActiveRecord::Schema.define(:version => 20121113215745) do
+
+  create_table "editors", :force => true do |t|
+    t.string   "name"
+    t.string   "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "editors", ["name"], :name => "index_editors_on_name", :unique => true
 
   create_table "experiment_feedbacks", :force => true do |t|
     t.datetime "created_at",               :null => false

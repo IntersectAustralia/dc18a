@@ -10,6 +10,9 @@ Feature: Administrator features
       | user_id                   | email                     | first_name | last_name |
       | userid4seanlin            | seanl@intersect.org.au    | Sean       | Lin       |
     And "userid4seanlin" has supervisor "userid4seanlin"
+    And I have editors
+      | name   | text                |
+      | footer | Initial footer text |
     And I am logged in as "userid4seanlin"
 
   @javascript

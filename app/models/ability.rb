@@ -22,7 +22,7 @@ class Ability
     return unless user.role
 
     if user.administrator?
-      can :manage, User
+      can :manage, [User, Editor]
       can :summary, Project
     end
 
