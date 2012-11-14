@@ -67,6 +67,12 @@ module NavigationHelpers
       when /the edit footer text page$/
         edit_editor_path(Editor.find_by_name("footer").id)
 
+      when /^the edit project page for "(.*)"$/
+        edit_project_path(Project.find_by_name($1))
+
+      when /^the edit experiment page for "(.*)"$/
+        edit_experiment_path(Experiment.find_by_expt_name($1))
+
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #

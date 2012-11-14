@@ -22,15 +22,19 @@ class Ability
     return unless user.role
 
     if user.administrator?
-      can :manage, [User, Editor]
-      can :summary, Project
+      can :manage, [Project, Editor, User]
+    end
+
+    # User can manage projects they own or they are supervisor of
+    can :manage, Project do |project|
+      user.projects.include?(project)
     end
 
     # User can create/edit experiments only in lab
     ip_addresses = INSTRUMENTS.keys
 
     if ip_addresses.include?(ip)
-      can :manage, Experiment
+      can :manage, Experiment, :end_time => nil, :user_id => user.id
     else
       can :read, Experiment
     end
