@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113215745) do
+ActiveRecord::Schema.define(:version => 20121115025744) do
 
   create_table "editors", :force => true do |t|
     t.string   "name"
-    t.string   "text"
+    t.text     "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -4,7 +4,7 @@ require 'csv'
 class ExperimentsController < ApplicationController
   before_filter :authenticate_user!
 
-  load_and_authorize_resource :except => [:create]
+  load_and_authorize_resource :except => [:create, :show]
 
   def new
     # Custom authentication strategy need custom flash message
@@ -18,6 +18,10 @@ class ExperimentsController < ApplicationController
     @experiment = current_user.experiments.new
     setup_values
     @instrument = INSTRUMENTS[request.remote_ip]
+  end
+
+  def show
+    @experiment = Experiment.find_by_id(params[:id])
   end
 
   def edit

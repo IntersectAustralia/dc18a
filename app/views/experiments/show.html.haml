@@ -5,8 +5,9 @@
   - if user_signed_in? && can?(:manage, Experiment)
     <br><br>The "Close" button will only be activated once the zip file has been downloaded.
 %h3 Details
-- if user_signed_in? && can?(:manage, Experiment) && @experiment.end_time.nil?
-  = link_to "Edit Experiment", edit_experiment_path(@experiment), :id => "edit_experiment_#{@experiment.id}"
+- if user_signed_in? && can?(:manage, Experiment)
+  - if @experiment.end_time.nil?
+    = link_to "Edit Experiment", edit_experiment_path(@experiment), :id => "edit_experiment_#{@experiment.id}"
 .container
   = render_field "Experiment ID", @experiment.expt_id
   = render_field "Experiment Name", @experiment.expt_name
