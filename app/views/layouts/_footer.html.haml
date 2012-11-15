@@ -1,5 +1,4 @@
-#footer.info
-  #{simple_format h Editor.find_by_name("footer").text}
+#footer
   #devinfo
     #{debug(params) if Rails.env.development?}
   .footerwrapper
@@ -9,5 +8,4 @@
         %p DC18A Environment: Development
     - else
       %p
-        Developed by Intersect Australia Ltd.  Version:
-        = render 'shared/tag'
+        Developed by Intersect Australia Ltd.

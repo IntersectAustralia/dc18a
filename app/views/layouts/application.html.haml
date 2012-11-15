@@ -34,4 +34,6 @@
             %a.close{"data-dismiss" => "alert"} ×
             = msg
       = yield
+      .info
+        #{simple_format h Editor.find_by_name("footer").text}
       = render 'layouts/footer'

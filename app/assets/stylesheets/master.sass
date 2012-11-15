@@ -1,0 +1,263 @@
+@charset "UTF-8"
+
+/*/ VARIABLES /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*/
+
+// VARIABLES - COLOURS
+///*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+$dark0: black
+$dark1: #333333
+$dark2: #333333
+$dark3: #666666
+$dark4: #999999
+
+$light0: white
+$light1: #f8f8f8
+$light2: #f5f5f5
+$light3: #f1f1f1
+
+$blue1: #4d90fe
+$blue2: #4787ed
+$blue3: #357ae8
+$blue4: #3079ed
+$blue5: #2f5bb7
+$blue6: #e5f6fd
+
+$red1: #ff5742
+$red2: #dd4c39
+$red3: #db3d2b
+$red4: #dd4c39
+$red5: #b0281a
+
+// MIXINS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+
+// MIXINS - MARGIN + PADDING + WIDTH + HEIGHT + POSITION + TOP + BOTTOM + LEFT + RIGHT + FLOAT
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=m-p-w-h-p-t-b-l-r-f($margin: "", $padding: "", $width: "", $height: "", $position: "", $top: "", $bottom: "", $left: "", $right: "", $float: "")
+  @if $margin != ""
+    margin: $margin
+  @if $padding != ""
+    padding: $padding
+  @if $width != ""
+    width: $width
+  @if $height != ""
+    height: $height
+  @if $position != ""
+    position: $position
+  @if $top != ""
+    top: $top
+  @if $bottom != ""
+    bottom: $bottom
+  @if $left != ""
+    left: $left
+  @if $right != ""
+    right: $right
+  @if $float != ""
+    float: $float
+
+// MIXINS - WIDTH - NORMAL + MIN + MAX
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=width($width: "", $minwidth: "", $maxwidth: "")
+  @if $width != ""
+    width: $width
+  @if $minwidth != ""
+    min-width: $minwidth
+  @if $maxwidth != ""
+    max-width: $maxwidth
+
+// MIXINS - BORDER CONTROLL
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=borderradius($corner: "")
+  border-radius: $corner
+  -moz-border-radius: $corner
+  -webkit-border-radius: $corner
+
+=border($borderwidth: "", $borderstyle: "", $bordercolor: "", $allborderwidth: "", $borderradius: "", $topborderwidth: "", $topborderstyle: "", $topbordercolor: "", $bottomborderwidth: "", $bottomborderstyle: "", $bottombordercolor: "", $leftborderwidth: "", $leftborderstyle: "", $leftbordercolor: "", $rightborderwidth: "", $rightborderstyle: "", $rightbordercolor: "")
+  border: $borderwidth $borderstyle $bordercolor
+  border-width: $allborderwidth
+  +borderradius($borderradius)
+  border-top: $topborderwidth $topborderstyle $topbordercolor
+  border-bottom: $bottomborderwidth $bottomborderstyle $bottombordercolor
+  border-left: $leftborderwidth $leftborderstyle $leftbordercolor
+  border-right: $rightborderwidth $rightborderstyle $rightbordercolor
+
+// MIXINS - OPACITY
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=opacity($opacity: "", $filteropacity: "")
+  filter: alpha(opacity = $filteropacity)
+  -khtml-opacity: $opacity
+  -moz-opacity: $opacity
+  opacity: $opacity
+
+=opacity-25
+  +opacity(0.25, 25)
+=opacity-50
+  +opacity(0.50, 50)
+=opacity-75
+  +opacity(0.75, 75)
+=opacity-100
+  +opacity(1, 100)
+
+// MIXINS - CROSS-BROWSER INLINEBLOCK
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=inlineblock
+  display: -moz-inline-stack
+  display: inline-block
+  zoom: 1
+  *display: inline
+  vertical-align: top
+
+// MIXINS - CROSS-BROWSER INLINEBLOCK
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=truncate
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+// MIXINS - BOX SHADOW
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=boxshadow($offsetx: "", $offsety: "", $blur: "")
+  box-shadow: $offsetx $offsety $blur rgba(0, 0, 0, 0.1)
+  -moz-box-shadow: $offsetx $offsety $blur rgba(0, 0, 0, 0.1)
+  -webkit-box-shadow: $offsetx $offsety $blur rgba(0, 0, 0, 0.1)
+
+=boxshadow-2-inset
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1)
+  -moz-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1)
+  -webkit-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1)
+
+=boxshadow-2
+  +boxshadow(0px, 1px, 2px)
+
+// MIXINS - FONT CONTROLL
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=font($style: "", $weight: "", $size: "", $leading: "", $color: "", $decoration: "", $align: "")
+  @if $style != ""
+    font-style: $style
+  @if $weight != ""
+    font-weight: $weight
+  @if $size != ""
+    font-size: $size
+  @if $leading != ""
+    line-height: $leading
+  @if $color != ""
+    color: $color
+  @if $decoration != ""
+    text-decoration: $decoration
+  @if $align != ""
+    text-align: $align
+  font-family: Helvetica, Arial, sans-serif
+
+=textshadow-2
+  text-shadow: #EEE 0px 2px 0px
+
+
+// MIXINS - GRADIENTS
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+=gradient($color1: "", $color2: "")
+  background-color: $color1
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1)
+  background-image: -webkit-gradient(linear, left top, left bottom, from($color1), to($light2))
+  background-image: -webkit-linear-gradient(top, $color1, $color2)
+  background-image: -moz-linear-gradient(top, $color1, $color2)
+  background-image: -ms-linear-gradient(top, $color1, $color2)
+  background-image: -o-linear-gradient(top, $color1, $color2)
+  background-image: linear-gradient(top, $color1, $color2)
+
+=gradient-light-1
+  +gradient($light1, $light2)
+=gradient-light-2
+  +gradient($light1, $light3)
+
+=gradient-blue-1
+  +gradient($blue1, $blue2)
+=gradient-blue-2
+  +gradient($blue1, $blue3)
+
+=gradient-red-1
+  +gradient($red1, $red2)
+=gradient-red-2
+  +gradient($red1, $red3)
+
+// MIXINS - CLEARFIX
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Include this Mixin on things that will contain floats. These rules will cause the space to be filled.
+=clearfix
+  zoom: 1
+  &:before
+    content: "\0020"
+    display: block
+    height: 0
+    overflow: hidden
+  &:after
+    content: "\0020"
+    display: block
+    height: 0
+    overflow: hidden
+    clear: both
+
+// FOOTER ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+#footer
+  +m-p-w-h-p-t-b-l-r-f(0 auto, "", "", "", relative)
+  +font("", normal, 0.813em, "", $dark3, none, center)
+
+  .footerwrapper
+    +m-p-w-h-p-t-b-l-r-f("", 10px 0 0 0, "", 26px, "", 0, 0, "", 0)
+    min-width: 600px
+    background: #F5F5F5
+    +border(1px, solid, #dfdfdf)
+    p
+      +inlineblock
+
+  .logo
+    +m-p-w-h-p-t-b-l-r-f(3px 6px 0 0, "", 14px, 14px)
+    +inlineblock
+    background: url(../images/intersect_logo.png) center
+    
+  #dev
+    cursor: pointer
+    +inlineblock
+
+// FOOTER - DEV INFO
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+#footer 
+  #devinfo
+    +m-p-w-h-p-t-b-l-r-f("", 0 0 13px 0, 100%, "", absolute, "", 25px)
+    display: none
+    background: transparent url(../images/header-active-dark.png) center bottom no-repeat
+    +border(1px, solid, #666, 1px 0 0 0)
+
+    .debug_dump
+      +m-p-w-h-p-t-b-l-r-f("", 20px)
+      color: #FFF
+      background: #333
+      +boxshadow-2
+      box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5)
+      -moz-box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5)
+      -webkit-box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5)
+
