@@ -1,4 +1,4 @@
-- title "Edit Project #{@project.name}"
+- title "Edit Project"
 
 :javascript
   function chainSelect(controller_id, controllee1_id, controllee2_id) {
@@ -28,7 +28,7 @@
   = f.input :funded_by_agency, :collection => [['Yes', 1], ['No', 0]], :input_html => { :onchange => "chainSelect('project_funded_by_agency', 'project_agency', 'project_other_agency');" }, :selected => (@project.funded_by_agency? ? 1 : 0)
   = f.input :agency, :collection => ["Australian Research Council", "National Health and Medical Research Council", "Diabetes Australia", "The Gates Foundation", "Other"], :disabled => (@project.funded_by_agency? ? false : true), :input_html => { :onchange => "enableIfSelect('project_agency', 'project_other_agency', 'Other');" }
   = f.input :other_agency, :disabled => ((@project.funded_by_agency? and @project.agency == "Other") ? false : true)
-  = f.input :supervisor_id, :collection => current_user.supervisors, :label_method => lambda{ |supervisor| "#{supervisor.full_name}"}
+  = f.input :supervisor_id, :collection => @project.user.supervisors, :label_method => lambda{ |supervisor| "#{supervisor.full_name}"}
   .form-actions
     = link_to 'Cancel', cancel_update_project_path, :class => "btn"
     = f.submit "Update Project", :class => "btn btn-primary"

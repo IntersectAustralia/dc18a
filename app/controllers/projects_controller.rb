@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   before_filter :authenticate_user!
 
-  load_resource
+  load_and_authorize_resource :except => [:new, :create]
 
   def show
     @project = Project.find_by_id(params[:id])
