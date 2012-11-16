@@ -34,9 +34,15 @@ class Ability
     ip_addresses = INSTRUMENTS.keys
 
     if ip_addresses.include?(ip)
-      can :manage, Experiment, :end_time => nil, :user_id => user.id
+      can [:new, :cancel], Experiment
+      can [:edit, :update, :cancel_update], Experiment, :end_time => nil, :user_id => user.id
+      can [:show, :download], Experiment do |experiment|
+        user.projects.include?(experiment.project)
+      end
     else
-      can :read, Experiment
+      can [:show, :download], Experiment do |experiment|
+        user.projects.include?(experiment.project)
+      end
     end
 
     # Define abilities for the passed in user here. For example:

@@ -2,10 +2,10 @@
 %p.info
   Please download the ZIP file and extract it. After extracting the ZIP file please save your experiments datasets to that folder.
   <br>Once the experiment is completed please move the folder with the containing CSV metadata and datasets to the Gourdski shared drive.
-  - if user_signed_in? && can?(:manage, Experiment)
+  - if user_signed_in? && can?(:download, Experiment) && session[:in_lab]
     <br><br>The "Close" button will only be activated once the zip file has been downloaded.
 %h3 Details
-- if user_signed_in? && can?(:manage, Experiment)
+- if user_signed_in? && can?(:edit, Experiment)
   - if @experiment.end_time.nil?
     = link_to "Edit Experiment", edit_experiment_path(@experiment), :id => "edit_experiment_#{@experiment.id}"
 .container
@@ -36,7 +36,7 @@
 
 = link_to 'View Project Details', project_path(@experiment.project), class: "btn", id: "back_to_project_page"
 = link_to 'Download Metadata', download_experiment_path(@experiment), class: "view btn btn-info", id: "download_#{@experiment.id}"
-- if user_signed_in? && can?(:manage, Experiment)
+- if user_signed_in? && can?(:download, Experiment)
   = button_to "Close", nil, id: "close", class: "btn", disabled: true
   :javascript
     $('.view').click(function(){

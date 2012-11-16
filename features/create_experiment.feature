@@ -95,3 +95,10 @@ Feature: Create experiment
     And the experiment "Experiment 1" should have 2 specific dyes
     And there should be 2 specific dyes
     And I should see "Experiment created"
+
+  Scenario: Cancel create experiment
+    Given I am on the home page
+    When I follow "New Experiment"
+    And I follow "Cancel"
+    Then I should be on the home page
+    And I should see "Experiment was not created"
