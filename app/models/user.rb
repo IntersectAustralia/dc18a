@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
     v.validates :password, :password_format => true
   end
 
+  validate :project_has_supervisor, :on => :update
+
   before_validation :initialize_status
 
   scope :pending_approval, where(:status => 'U').order(:user_id)
@@ -185,6 +187,14 @@ class User < ActiveRecord::Base
       Project.supervised_by(self)
     else
       self.original_projects
+    end
+  end
+
+  def project_has_supervisor
+    self.projects.each do |p|
+      if !self.supervisors.include?(p.supervisor)
+        errors.add(:supervisors, "#{p.supervisor.full_name} cannot be removed from supervisor list")
+      end
     end
   end
 

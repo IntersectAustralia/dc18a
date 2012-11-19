@@ -118,7 +118,7 @@ Feature: Administer users
 
   Scenario: Should not be able to edit role of rejected user by direct URL entry
     Given I have a rejected as spam user "userid4spammer"
-    And I go to the edit role page for userid4spammer
+    And I go to the edit role page for "userid4spammer"
     Then I should be on the list users page
     And I should see "Role can not be set. This user has previously been rejected as a spammer."
 

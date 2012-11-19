@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def deactivate
-    if !@user.check_number_of_superusers(params[:id], current_user.id) 
+    if !@user.check_number_of_superusers(params[:id], current_user.id)
       redirect_to(@user, :alert => "You cannot deactivate this account as it is the only account with Administrator privileges.")
     else
       @user.deactivate
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   def reject_as_spam
-    @user.reject_access_request
+    @user.reject_access_request("Spam")
     redirect_to(access_requests_users_path, :notice => "The access request for #{@user.user_id} was rejected and this staff/student id will be permanently blocked.")
   end
 
@@ -65,7 +65,13 @@ class UsersController < ApplicationController
     elsif @user.rejected?
       redirect_to(users_path, :alert => "Role can not be set. This user has previously been rejected as a spammer.")
     end
-    @roles = Role.by_name
+
+    if @user.researcher?
+      @roles = Role.by_name
+    else
+      @roles = Role.where("name != 'Researcher'")
+    end
+
   end
 
   def edit_approval
@@ -96,14 +102,31 @@ class UsersController < ApplicationController
       redirect_to(edit_approval_user_path(@user), :alert => "Please select a role for the user.")
     end
   end
+
+  def edit_detail
+    @user = User.find(params[:id])
+  end
+
+  def update_detail
+    @user = User.find(params[:id])
+
+    if @user.update_attributes(params[:user])
+      redirect_to(users_path, :notice => "User details has been updated")
+    else
+      flash[:alert] = "User details was not updated"
+      render 'edit_detail'
+    end
+
+  end
+
 end
 
 private
 
-def sort_column
-  User.column_names.include?(params[:sort]) ? params[:sort] : "user_id"
-end
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "user_id"
+  end
 
-def sort_direction
-  %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end

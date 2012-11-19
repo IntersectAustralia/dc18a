@@ -2,9 +2,9 @@ Dc18a::Application.routes.draw do
 
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
   devise_scope :user do
-    get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
-    get "/users/edit_password", :to => "user_registers#edit_password" #allow users to edit their own password
-    put "/users/update_password", :to => "user_registers#update_password" #allow users to edit their own password
+    #get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
+    #get "/users/edit_password", :to => "user_registers#edit_password" #allow users to edit their own password
+    #put "/users/update_password", :to => "user_registers#update_password" #allow users to edit their own password
   end
 
   resources :users, :only => [:show] do
@@ -24,6 +24,8 @@ Dc18a::Application.routes.draw do
       put :activate
       get :edit_role
       put :update_role
+      get :edit_detail
+      put :update_detail
       get :edit_approval
       put :approve
 

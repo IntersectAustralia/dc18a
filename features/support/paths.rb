@@ -39,8 +39,11 @@ module NavigationHelpers
       when /^the user details page for (.*)$/
         user_path(User.where(:user_id => $1).first)
 
-      when /^the edit role page for (.*)$/
-        edit_role_user_path(User.where(:user_id => $1).first)
+      when /^the edit role page for "(.*)"$/
+        edit_role_user_path(User.find_by_user_id($1))
+
+      when /^the edit user details page for "(.*)"$/
+        edit_detail_user_path(User.find_by_user_id($1))
 
       when /^the reset password page$/
         edit_user_password_path

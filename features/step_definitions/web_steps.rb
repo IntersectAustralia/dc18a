@@ -95,6 +95,10 @@ When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
+When /^(?:|I )unselect "([^"]*)" from "([^"]*)"$/ do |value, field|
+  unselect(value, :from => field)
+end
+
 When /^(?:|I )check "([^"]*)"$/ do |field|
   check(field)
 end
@@ -275,7 +279,25 @@ end
 
 Then /^"([^"]*)" should be selected for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
   with_scope(selector) do
-    field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
+    field_labeled(field).should have_xpath(".//option[@selected = 'selected'][text() = '#{value}']")
+  end
+end
+
+Then /^"([^"]*)" should not be selected for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
+  with_scope(selector) do
+    field_labeled(field).should_not have_xpath(".//option[@selected = 'selected'][text() = '#{value}']")
+  end
+end
+
+Then /^I should see "([^"]*)" option for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
+  with_scope(selector) do
+    field_labeled(field).should have_xpath(".//option[text() = '#{value}']")
+  end
+end
+
+Then /^I should not see "([^"]*)" option for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
+  with_scope(selector) do
+    field_labeled(field).should_not have_xpath(".//option[text() = '#{value}']")
   end
 end
 
@@ -283,3 +305,8 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
+Then /^I should not see "([^"]*)" field(?: within "([^\"]*)")?$/ do |field, selector|
+  with_scope(selector) do
+    page.should_not have_field(field)
+  end
+end

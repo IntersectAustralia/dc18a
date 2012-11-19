@@ -1,0 +1,16 @@
+:javascript
+  function enableIfSelect(controller_id, controllee_id, checkValue) {
+    var controller = document.getElementById(controller_id);
+    var controllee = document.getElementById(controllee_id);
+
+    controllee.disabled = controller.options[controller.selectedIndex].value == checkValue ? false : true;
+  }
+
+= f.input :first_name
+= f.input :last_name
+= f.input :department, collection: INSTITUTIONS, input_html: { :onchange => "enableIfSelect('user_department', 'user_other_department', 'Other \(Specify\)');" }
+= f.input :other_department, disabled: ((@user.department == "Other (Specify)") ? false : true)
+- if current_user.administrator?
+  = f.association :supervisors, collection: User.can_supervise, label_method: lambda{ |supervisor| "#{supervisor.full_name}"}, required: true
+
+

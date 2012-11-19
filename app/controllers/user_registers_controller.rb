@@ -74,4 +74,5 @@ class UserRegistersController < Devise::RegistrationsController
     end
   end
 
+
 end

@@ -100,6 +100,11 @@ When /^I follow "Edit role" for "([^"]*)"$/ do |user_id|
   click_link("edit_role_#{user.id}")
 end
 
+When /^I follow "Edit Details" for "([^"]*)"$/ do |user_id|
+  user = User.where(:user_id => user_id).first
+  click_link("edit_detail_#{user.id}")
+end
+
 Given /^"([^"]*)" is deactivated$/ do |user_id|
   user = User.where(:user_id => user_id).first
   user.deactivate
@@ -113,5 +118,5 @@ end
 
 Given /^"([^"]*)" is rejected as spam$/ do |user_id|
   user = User.where(:user_id => user_id).first
-  user.reject_access_request
+  user.reject_access_request("Spam")
 end
