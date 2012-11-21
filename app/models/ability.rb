@@ -30,6 +30,12 @@ class Ability
       user.projects.include?(project)
     end
 
+    if user.administrator?
+      can :summary, Project
+    else
+      cannot :summary, Project
+    end
+
     # User can create/edit experiments only in lab
     ip_addresses = INSTRUMENTS.keys
 

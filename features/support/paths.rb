@@ -76,6 +76,9 @@ module NavigationHelpers
       when /^the edit experiment page for "(.*)"$/
         edit_experiment_path(Experiment.find_by_expt_name($1))
 
+      when /^the download summary report page$/
+        summary_projects_path
+      
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #

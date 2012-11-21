@@ -73,6 +73,11 @@ Feature: Manage supervisors
     When I am on the edit user details page for "userid4raul"
     Then I should see "You are not authorized to access this page"
 
+  Scenario: Supervisor cannot download summary report
+    Given I am logged in as "userid4diego"
+    When I am on the download summary report page
+    Then I should see "You are not authorized to access this page"
+
   Scenario: Researcher cannot edit supervisors list
     Given I am logged in as "userid4raul"
     When I am on the edit my details page
@@ -81,6 +86,11 @@ Feature: Manage supervisors
   Scenario: Researcher cannot edit other user's detail
     Given I am logged in as "userid4raul"
     When I am on the edit user details page for "userid4diego"
+    Then I should see "You are not authorized to access this page"
+
+  Scenario: Researcher cannot download summary report
+    Given I am logged in as "userid4raul"
+    When I am on the download summary report page
     Then I should see "You are not authorized to access this page"
 
   Scenario: Supervisor or Administrator role can not be changed to researcher role
