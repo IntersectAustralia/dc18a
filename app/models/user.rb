@@ -191,11 +191,18 @@ class User < ActiveRecord::Base
   end
 
   def project_has_supervisor
-    self.projects.each do |p|
+    supervisors_can_not_be_removed = Set.new
+
+    self.original_projects.each do |p|
       if !self.supervisors.include?(p.supervisor)
-        errors.add(:supervisors, "#{p.supervisor.full_name} cannot be removed from supervisor list")
+        supervisors_can_not_be_removed.add(p.supervisor)
       end
     end
+
+    supervisors_can_not_be_removed.each do |s|
+      errors.add(:supervisors, "#{s.full_name} cannot be removed from supervisor list as they are a supervisor for one or more of the users projects.")
+    end
+
   end
 
   private
