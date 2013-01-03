@@ -20,7 +20,7 @@
           %a.brand{:href => root_path }
           .nav-collapse
             %ul.nav
-              %li= link_to "User Manual", "/DC18A-Microbial Imaging Facility - User Manual.pdf"
+              %li= link_to "User Manual", "/DC18A-Microbial Imaging Facility - User Manual.pdf", :target => "_blank"
               - if user_signed_in? && can?(:new, Experiment)
                 %li= link_to "New Experiment", new_experiment_path
           = render 'layouts/user_menu'
