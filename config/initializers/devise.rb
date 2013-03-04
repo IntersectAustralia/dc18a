@@ -8,7 +8,7 @@ Devise.setup do |config|
   # config.ldap_config = "#{Rails.root}/config/ldap.yml"
   # config.ldap_check_group_membership = false
   # config.ldap_check_attributes = false
-  # config.ldap_use_admin_to_bind = false
+  config.ldap_use_admin_to_bind = true
   
   # http://stackoverflow.com/questions/580314/overriding-a-module-method-from-a-gem-in-rails/1852448#1852448
   # verifies password before checking if account is active
