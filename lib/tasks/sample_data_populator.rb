@@ -17,7 +17,7 @@ def populate_data_for_production
   Project.delete_all
   Experiment.delete_all
 
-  create_administrator(:user_id => "admin", :email => "admin@uts.edu.au", :first_name => "Admin", :last_name => "System", :department => "Administration")
+  create_administrator(:user_id => "001100", :email => "admin@uts.edu.au", :first_name => "Admin", :last_name => "System", :department => "Administration")
 end
 
 def create_test_projects
