@@ -40,8 +40,8 @@
   = f.input :fluorescent_protein_ids, input_html:{value:""}
   = f.input :has_specific_dyes
   = f.input :specific_dye_ids, input_html:{value:""}
-  = f.input :has_immunofluorescence
-  = f.input :immunofluorescence_ids, input_html:{value:""}
+  = f.input :has_immunofluorescence, label:"Secondary Antibodies values"
+  = f.input :immunofluorescence_ids, input_html:{value:""}, label:"Secondary Antibodies values (Specify)"
 
   .form-actions
     = link_to 'Cancel', cancel_experiments_path, :class => "btn"
@@ -116,7 +116,7 @@
     data: {results: core_immunos, text:'name'},
     formatSelection: format,
     formatResult: format,
-    formatNoMatches: function(term){return "Specify an immunofluorescence value"},
+    formatNoMatches: function(term){return "Specify an Secondary Antibodies value"},
     initSelection:
       function (element, callback) {
         $('#experiment_immunofluorescence_ids').val('');

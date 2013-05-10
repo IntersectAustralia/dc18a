@@ -40,8 +40,8 @@
   = f.input :fluorescent_protein_ids, input_html:{value:""}
   = f.input :has_specific_dyes
   = f.input :specific_dye_ids, input_html:{value:""}
-  = f.input :has_immunofluorescence
-  = f.input :immunofluorescence_ids, input_html:{value:""}
+  = f.input :has_immunofluorescence, label:"Secondary Antibodies values"
+  = f.input :immunofluorescence_ids, input_html:{value:""}, label:"Secondary Antibodies values (Specify)"
 
   .form-actions
     = link_to 'Cancel', cancel_update_experiment_path, :class => "btn"

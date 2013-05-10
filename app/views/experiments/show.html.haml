@@ -15,8 +15,8 @@
   = render_field "Instrument Name", @experiment.instrument
   = render_field "Belongs to Project", @experiment.project.name
   = render_field "Owner", @experiment.user.full_name
-  = render_field "Lab Book No.", @experiment.lab_book_no
-  = render_field "Page No.", @experiment.page_no
+  = render_field "Lab Book No.", !@experiment.lab_book_no.empty? ? @experiment.lab_book_no : "N/A"
+  = render_field "Page No.", !@experiment.page_no.empty? ? @experiment.page_no : "N/A"
   = render_field "Cell Type Or Tissue", @experiment.cell_type_or_tissue
   = render_field "Experiment Type", @experiment.expt_type
 <hr/>
@@ -31,7 +31,7 @@
 .container
   = render_field "Fluorescent Proteins", @experiment.has_fluorescent_proteins ? @experiment.fluorescent_proteins.pluck(:name).join(", ") : "N/A"
   = render_field "Specific Dyes", @experiment.has_specific_dyes ? @experiment.specific_dyes.pluck(:name).join(", ") : "N/A"
-  = render_field "Immunofluorescence Values", @experiment.has_immunofluorescence? ? @experiment.immunofluorescences.pluck(:name).join(", ") : "N/A"
+  = render_field "Secondary Antibodies Values", @experiment.has_immunofluorescence? ? @experiment.immunofluorescences.pluck(:name).join(", ") : "N/A"
 <hr/>
 
 = link_to 'View Project Details', project_path(@experiment.project), class: "btn", id: "back_to_project_page"
