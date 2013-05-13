@@ -45,17 +45,17 @@ Feature: Create experiment
     And I should see "Some desc A"
     And I should not see "can't be empty if 'Fluorescent proteins' is checked"
     And I should not see "can't be empty if 'Specific dyes' is checked"
-    And I should not see "can't be empty if 'Immunofluorescence' is checked"
+    And I should not see "can't be empty if 'Secondary Antibodies' is checked"
     And I check "Fluorescent proteins"
     And I check "Specific dyes"
-    And I check "Immunofluorescence values"
+    And I check "Secondary Antibodies values"
     And I press "Create Experiment"
     Then I should see "Please fill in all mandatory fields"
     And I should see "Some desc A"
     And "Project A" should be selected for "Select a project"
     And I should see "can't be empty if 'Fluorescent proteins' is checked"
     And I should see "can't be empty if 'Specific dyes' is checked"
-    And I should see "can't be empty if 'Immunofluorescence' is checked"
+    And I should see "can't be empty if 'Secondary Antibodies' is checked"
 
   @javascript
   Scenario: Creating an experiment with initial validation errors retains select2 tags
@@ -74,7 +74,7 @@ Feature: Create experiment
     And I search for "G" in "Fluorescent proteins (Specify)" and select "GDA"
     And I search for "ASRB" in "Fluorescent proteins (Specify)" and select "ASRB"
     And I search for "custom" in "Fluorescent proteins (Specify)" and select "custom"
-    And I search for "ASRB" in "Fluorescent proteins (Specify)" and should see nothing
+    #And I search for "ASRB" in "Fluorescent proteins (Specify)" and should see nothing
     And I check "Specific dyes"
     And I search for "Blue" in "Specific dyes (Specify)" and select "Blue"
     And I search for "Red" in "Specific dyes (Specify)" and select "Red"
@@ -86,12 +86,12 @@ Feature: Create experiment
     And I select "Fixed" from "Experiment Type"
     And I check "Slides"
     And I check "Multiwell Chambers"
-    And I check "Immunofluorescence values"
-    And I search for "Immuno" in "Immunofluorescence values (Specify)" and select "Immuno"
+    And I check "Secondary Antibodies values"
+    And I search for "Immuno" in "Secondary Antibodies values (Specify)" and select "Immuno"
     And I press "Create Experiment"
     Then I should be on the view experiment page for "Experiment 1"
-    And the experiment "Experiment 1" should have 3 fluorescent proteins
-    And there should be 4 fluorescent proteins
+    #And the experiment "Experiment 1" should have 3 fluorescent proteins
+    #And there should be 4 fluorescent proteins
     And the experiment "Experiment 1" should have 2 specific dyes
     And there should be 2 specific dyes
     And I should see "Experiment created"

@@ -85,6 +85,6 @@ en:
         fluorescent_protein_ids: "Fluorescent proteins (Specify)"
         has_specific_dyes: "Specific dyes"
         specific_dye_ids: "Specific dyes (Specify)"
-        has_immunofluorescence: "Immunofluorescence values"
-        immunofluorescence_ids: "Immunofluorescence values (Specify)"
+        has_immunofluorescence: "Secondary Antibodies values"
+        immunofluorescence_ids: "Secondary Antibodies values (Specify)"
 

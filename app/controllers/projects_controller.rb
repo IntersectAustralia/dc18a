@@ -115,9 +115,9 @@ class ProjectsController < ApplicationController
         header << "Specific Dye #{i+1}"
       end
 
-      header << "Has Immunofluorescence?"
+      header << "Has Secondary Antibodies?"
       iv_count.times do |i|
-        header << "Immunofluorescence #{i+1}"
+        header << "Secondary Antibodies #{i+1}"
       end
 
       header += ["Experiment Failed?", "Instrument Failed?", "Instrument Failed Reason", "Other Comments"]

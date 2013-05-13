@@ -140,9 +140,9 @@ class ExperimentsController < ApplicationController
       experiment.specific_dyes.count.times do |i|
         header << "Specific Dye #{i+1}"
       end if experiment.has_specific_dyes?
-      header << "Has Immunofluorescence?"
+      header << "Has Secondary Antibodies?"
       experiment.immunofluorescences.count.times do |i|
-        header << "Immunofluorescence #{i+1}"
+        header << "Secondary Antibodies #{i+1}"
       end if experiment.has_immunofluorescence?
 
       values = [project.id,
