@@ -18,8 +18,6 @@ class Experiment < ActiveRecord::Base
   validates_length_of :cell_type_or_tissue, :maximum => 255
   validates_length_of :other_text, :maximum => 255
   validates_presence_of :expt_name
-  #validates_presence_of :lab_book_no
-  #validates_presence_of :page_no
   validates_presence_of :cell_type_or_tissue
   validates_presence_of :expt_type
   validates_presence_of :other_text, :if => :other?, :message => '"Other (Specify)" cannot be empty if "Other" is checked'
