@@ -58,7 +58,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'bootstrap-sass'
 gem 'simple_form'
-gem 'select2-rails'
+gem 'select2-rails', '3.1.1' # Version 3.3.1 changes have some strange behaviour when presetting data.
 gem 'devise'
 gem 'email_spec', :group => :test
 gem 'cancan'
