@@ -41,7 +41,7 @@ group :development, :test do
 
   # cucumber gems
   gem 'cucumber'
-  gem 'capybara'
+  gem 'capybara', '1.1.2' # we are not prepare for capybara 2.0 yet
   gem 'database_cleaner'
   #gem 'spork'
   gem 'launchy'    # So you can do Then show me the page

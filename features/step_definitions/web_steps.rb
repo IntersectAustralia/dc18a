@@ -63,10 +63,7 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
-  # Capybara 2.0 find method raise an error if more than one element is found, so
-  # in order to maintain compatibility with previous versions, I will emulate the
-  # option used for versions 1.x.
-  click_link(link, {:match => :prefer_exact})
+  click_link(link)
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
@@ -216,10 +213,7 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
 end
 
 Then /^the "([^"]*)" field should have no errors$/ do |field|
-  # Capybara 2.0 find method raise an error if more than one element is found, so
-  # in order to maintain compatibility with previous versions, I will emulate the
-  # option used for versions 1.x.
-  element = find_field(field, {:match => :prefer_exact})
+  element = find_field(field)
 
   form_for_input = element.find(:xpath, 'ancestor::form[1]')
   using_simple_form = form_for_input[:class].include?('simple_form')
