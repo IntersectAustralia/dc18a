@@ -14,3 +14,11 @@
 /log/*.log
 /tmp
 /.idea
+
+# Ignore coverage report directory
+coverage/
+
+# Ignore "C:\\nppdf32Log\\debuglog.txt" which is a bug on Ubuntu
+# When cucumber invoke firefox and open a pdf file
+# See https://bugs.launchpad.net/ubuntu/+source/acroread/+bug/986841
+C:\\nppdf32Log\\debuglog.txt

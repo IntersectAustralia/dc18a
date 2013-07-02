@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -50,6 +50,8 @@ end
 group :test do
   gem 'cucumber-rails', require: false
   gem 'shoulda'
+  gem "simplecov", ">=0.3.8", :require => false
+  gem 'simplecov-rcov'
 end
 
 gem 'pg'
