@@ -24,6 +24,20 @@ set(:group) { "#{defined?(group) ? group : user}" }
 set(:user_home) { "/home/#{user}" }
 set(:deploy_to) { "#{user_home}/#{application}" }
 
+set :branch do
+  require 'colorize'
+  default_tag = 'HEAD'
+
+  puts "Availible tags:".colorize(:yellow)
+  puts `git tag`
+
+  tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the tag first) or HEAD?: [#{default_tag}] ".colorize(:yellow)
+  tag = default_tag if tag.empty?
+  tag = nil if tag.eql?("HEAD")
+
+  tag
+end
+
 default_run_options[:pty] = true
 
 namespace :server_setup do
