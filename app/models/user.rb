@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   scope :approved, where(:status => 'A').order(:user_id)
   scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:user_id)
   scope :approved_superusers, joins(:role).merge(User.approved).merge(Role.superuser_roles)
-  scope :can_supervise, joins(:role).merge(Role.supervisor_roles)
+  scope :can_supervise, joins(:role).merge(Role.supervisor_roles).merge(User.approved)
 
   # Override Devise active for authentication method so that users must be approved before being allowed to log in
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-admin-to-activate-account-before-sign_in
