@@ -22,4 +22,5 @@ coverage/
 # When cucumber invoke firefox and open a pdf file
 # See https://bugs.launchpad.net/ubuntu/+source/acroread/+bug/986841
 C:\\nppdf32Log\\debuglog.txt
-ldap.xml
+config/ldap.yml
+config/initializers/selenium_firefox.rb
