@@ -186,3 +186,13 @@ Feature: Request an account
     And I press "Submit Request"
     Then the "Specify Other School/Institute" field should have the error "can't be blank"
     And the "School/Institute" field should have no errors
+
+  Scenario: Deactivated supervisor shouldn't be displayed in the supervisor list
+    Given I have supervisors
+      | user_id     | email                 |
+      | userid4fred | fred@intersect.org.au |
+    And "userid4fred" is deactivated
+    And I am on the request account page
+    Then I should see "Supervisor 1" option for "Supervisors"
+    And I should see "Supervisor 2" option for "Supervisors"
+    And I should not see "userid4fred" option for "Supervisors"
