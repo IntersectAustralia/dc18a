@@ -100,6 +100,7 @@ end
 after 'deploy:update' do
   server_setup.logging.rotation
   server_setup.config.apache
+  deploy.new_secret
   deploy.restart
   deploy.additional_symlinks
   deploy.create_templates
@@ -232,6 +233,9 @@ namespace :deploy do
 
   end
 
+  task :new_secret, :roles => :app do
+    run("cd #{current_path} && rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
+  end
 end
 
 namespace :backup do
