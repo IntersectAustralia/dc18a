@@ -257,7 +257,7 @@ DEPENDENCIES
   rvm-capistrano
   sass-rails (~> 3.2.3)
   select2-rails (= 3.1.1)
-  selenium-webdriver
+  selenium-webdriver (= 2.35.1)
   shoulda
   simple_form
   simplecov (>= 0.3.8)
