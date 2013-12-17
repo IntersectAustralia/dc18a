@@ -6,4 +6,7 @@ class SimpleCov::Formatter::MergedFormatter
   end
 end
 SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  # any custom configs like groups and filters can be here at a central place
+  add_filter "/vendor/"
+end
